@@ -269,19 +269,19 @@
                                                                     }
                                                                     else if (@message.Message.Contains("doc"))
                                                                     {
-                                                                        <img src="/lib/images/svg/word.svg" alt="">
+                                                                        <img src="/lib/images/svg/doc.svg" alt="">
                                                                     }
                                                                     else if (@message.Message.Contains("xls"))
                                                                     {
-                                                                        <img src="/lib/images/svg/excel.svg" alt="">
+                                                                        <img src="/lib/images/svg/xls.svg" alt="">
                                                                     }
                                                                     else if (@message.Message.Contains("ppt"))
                                                                     {
-                                                                        <img src="/lib/images/svg/powerpoint.svg" alt="">
+                                                                        <img src="/lib/images/svg/ppt.svg" alt="">
                                                                     }
                                                                     else if (@message.Message.Contains(".mp4") || @message.Message.Contains(".wmv") || @message.Message.Contains(".webm") || @message.Message.Contains(".avi"))
                                                                     {
-                                                                        <img src="/lib/images/svg/video.svg" alt="">
+                                                                        <img src="/lib/images/svg/mp4.svg" alt="">
                                                                     }
                                                                     else
                                                                     {
@@ -430,19 +430,19 @@
                                                                     }
                                                                     else if (@message.Message.Contains("doc"))
                                                                     {
-                                                                        <img src="/lib/images/svg/word.svg" alt="">
+                                                                        <img src="/lib/images/svg/doc.svg" alt="">
                                                                     }
                                                                     else if (@message.Message.Contains("xls"))
                                                                     {
-                                                                        <img src="/lib/images/svg/excel.svg" alt="">
+                                                                        <img src="/lib/images/svg/xls.svg" alt="">
                                                                     }
                                                                     else if (@message.Message.Contains("ppt"))
                                                                     {
-                                                                        <img src="/lib/images/svg/powerpoint.svg" alt="">
+                                                                        <img src="/lib/images/svg/ppt.svg" alt="">
                                                                     }
                                                                     else if (@message.Message.Contains(".mp4") || @message.Message.Contains(".wmv") || @message.Message.Contains(".webm") || @message.Message.Contains(".avi"))
                                                                     {
-                                                                        <img src="/lib/images/svg/video.svg" alt="">
+                                                                        <img src="/lib/images/svg/mp4.svg" alt="">
                                                                     }
                                                                     else
                                                                     {
@@ -530,7 +530,7 @@
                             </div>
 
                             <div class="composer__middle">
-                                <div class="row images">
+                                <div class="row col-10 images">
 
                                 </div>
                                 <textarea class="form-control" rows="1" onkeydown="UserTyping()" id="txtMessageId" placeholder="Type a message..."></textarea>
@@ -1071,45 +1071,53 @@
             }
 
             function uploadImage() {
-                var button = $('.addImages .pic')
-                var buttonDoc = $('.addDoc .pic')
-                
-                var uploader = $('<input type="file" id="myFile" accept="image/* />');
-                var uploaderDoc = $('<input type="file" id="myFile" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />');
-                var images = $('.images')
+                var button = $('.addImages .pic');
+                var uploader = $('<input type="file" id="myFile" accept="image/*" />');
+
+                var images = $('.images');
 
                 button.on('click', function () {
                     uploader.click()
                 })
+
+                uploader.on('change', function () {
+                    var reader = new FileReader()
+                    reader.onload = function (event) {
+                        images.prepend('<div class="col-2 img" id="imgPreview"> <img class="photo" src="' + event.target.result + '" height="150px" width="110px" style="border-radius: 9%;padding-top: 7%;padding-bottom: 7%;" rel="' + event.target.result + '"><div style="position: absolute;top: 0;right: 0;background-color: #dc3545;border-radius: 22%;"><i class="mdi mdi-close" style="color:white;"></i></div></div>');
+                        //images.prepend('<div class="col-2 img" id="imgPreview"> <img class="photo" src="' + event.target.result + '" height="100px" rel="' + event.target.result + '"><span><i class="mdi mdi-trash-can-outline"></i></span></div></div>');
+                    }
+                    reader.readAsDataURL(uploader[0].files[0])
+                })
+                images.on('click', '.img', function () {
+                    $(this).remove()
+                })
+
+                var buttonDoc = $('.addDoc .pic')
+                var uploaderDoc = $('<input type="file" id="myFile" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,video/x-ms-wmv,video/x-msvideo,video/mp4,video/webm" />');
+                var imagesDoc = $('.images')
 
                 buttonDoc.on('click', function () {
                     uploaderDoc.click()
                 })
 
                 uploaderDoc.on('change', function () {
-                    debugger
+                    console.log('event is');
+                    console.log(event.target);
+                    console.log(event.target.value);
+                    console.log(event.target.files);
+                    var docName = (event.target.value).split('.');
                     var reader = new FileReader()
                     reader.onload = function (event) {
-                        images.prepend('<div class="col-2 img" id="imgPreview"> <img class="photo" src="' + event.target.result + '" width="100px" height="100px" rel="' + event.target.result + '"><span><i class="mdi mdi-trash-can-outline"></i></span></div></div>')
+                        console.log(docName[1]);
+                        var docImgUrl = docName[1];
+                        imagesDoc.prepend('<div class="col-2 img" id="imgPreview"> <img class="photo" src="/lib/images/svg/' + docImgUrl + '.svg" width="100%" height="100%" style="padding-bottom: 7%;" rel="' + event.target.result + '"><div style="position: absolute;top: 0;right: 0;background-color: #dc3545;;border-radius: 22%;"><i class="mdi mdi-close" style="color:white;"></i></div></div>')
                     }
                     reader.readAsDataURL(uploaderDoc[0].files[0])
                 })
 
-                uploader.on('change', function () {
-                    debugger
-                    var reader = new FileReader()
-                    reader.onload = function (event) {
-                        images.prepend('<div class="col-2 img" id="imgPreview"> <img class="photo" src="' + event.target.result + '" width="100px" height="100px" rel="' + event.target.result + '"><span><i class="mdi mdi-trash-can-outline"></i></span></div></div>')
-                    }
-                    reader.readAsDataURL(uploader[0].files[0])
-                })
-
-                
-
-                images.on('click', '.img', function () {
+                imagesDoc.on('click', '.img', function () {
                     $(this).remove()
                 })
-
             }
 
             function submit() {
@@ -1358,7 +1366,6 @@
             docData.File = imageArr;
             docData.UserId = userID;
             docData.ChatUserID = chatUserID;
-            debugger
             //var imageHtml=null;
             for (var i = 0; i < images.length; i++) {
                 //imageHtml.append({ url: $(images[i]).attr('rel') });

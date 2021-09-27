@@ -146,11 +146,8 @@ namespace DotNetCoreMVCDemos.Controllers
         public IActionResult DownloadDocument(string filename)
         {
             Byte[] FileBuffer = null;
-            //string lsWebRootFolder = _environment.WebRootPath.Replace("\\", "//");
-
             var folderPath = Path.Combine(_environment.WebRootPath, "Documents");
             string FilePath = Path.Combine(folderPath, filename);
-            //fsFilePath = lsWebRootFolder + fsFilePath;
             string lsExtension = Path.GetExtension(FilePath);
             var lsFileName = Path.GetFileName(FilePath);
             using (System.Net.WebClient wc = new System.Net.WebClient())
