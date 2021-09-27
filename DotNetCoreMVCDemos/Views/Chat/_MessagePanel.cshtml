@@ -1,0 +1,487 @@
+﻿@model DotNetCoreMVCDemos.Models.ChatConversation
+@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
+<link rel="stylesheet" href="~/lib/bootstrap.min.css">
+<link rel="stylesheet" href="~/lib/css/app.css">
+<link rel="stylesheet" href="~/lib/css/theme/default.css">
+
+@{var UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");}
+
+
+<div class="container">
+    <div id="htmlMessageId" class="chatstyle-01">
+        @foreach (var message in Model.Messages)
+        {
+            if (message.UserID == UserId)
+            {
+                if (string.IsNullOrEmpty(@message.DocUrl) && !(@message.Message.Contains("pdf") || @message.Message.Contains("doc") || @message.Message.Contains("xls") || @message.Message.Contains("ppt")|| @message.Message.Contains(".mp4") || @message.Message.Contains(".wmv") || @message.Message.Contains(".webm") || @message.Message.Contains(".avi")))
+                {
+                    <div class="ca-send">
+                        <div class="ca-send__msg-group">
+                            <div class="ca-send__msgwrapper">
+                                <div class="ca-msg-actions">
+                                    <div class="iconbox-dropdown dropdown">
+                                        <div class="iconbox btn-hovered-light" id="dropdownMenuButtons1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                                        </div>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButtons1">
+
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-share-outline"></i></span>
+                                                <span>Forward</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-content-copy"></i></span>
+                                                <span>Copy</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-star-outline"></i></span>
+                                                <span>Add Star</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-trash-can-outline"></i></span>
+                                                <span>Delete</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ca-send__msg">@message.Message</div>
+                            </div>
+                            <div class="metadata">
+                                <span class="time">@message.MessageTime</span>
+                                @if (@message.IsRead == 0)
+                                {
+                                    <span class="tick">
+                                        <img src="~/lib/images/tick/tick-delivered.svg" alt="">
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="tick">
+                                        <img src="~/lib/images/tick/tick-read.svg" alt="">
+                                    </span>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="user-avatar user-avatar-sm user-avatar-rounded online">
+                            <img src="~/lib/images/user/250/02.jpg" alt="">
+                        </div>
+                    </div>
+                }
+                else if (@message.Message.Contains(".jpeg") || @message.Message.Contains(".jpg") || @message.Message.Contains(".png") || @message.Message.Contains(".gif"))
+                {
+                    <div class="ca-send">
+                        <div class="ca-send__msg-group">
+                            <div class="ca-send__msgwrapper">
+                                <div class="ca-msg-actions">
+                                    <div class="iconbox-dropdown dropdown">
+                                        <div class="iconbox btn-hovered-light" id="dropdownMenuButtonsms1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                                        </div>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsms1">
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span>
+                                                    <i class="mdi mdi-download-outline"></i>
+                                                </span>
+                                                <span>Download</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-share-outline"></i></span>
+                                                <span>Forward</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-content-copy"></i></span>
+                                                <span>Copy</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-star-outline"></i></span>
+                                                <span>Add Star</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-trash-can-outline"></i></span>
+                                                <span>Delete</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ca-send__msg">
+                                    <div class="ca-send__msg-media-group">
+                                        <div class="ca-send__msg-media">
+                                            <img src="@message.DocUrl" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="metadata">
+                                <span class="time">@message.MessageTime</span>
+                                @if (@message.IsRead == 0)
+                                {
+                                    <span class="tick">
+                                        <img src="~/lib/images/tick/tick-delivered.svg" alt="">
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="tick">
+                                        <img src="~/lib/images/tick/tick-read.svg" alt="">
+                                    </span>
+                                }
+                            </div>
+                        </div><div class="user-avatar user-avatar-sm user-avatar-rounded online">
+                            <img src="/lib/images/user/250/02.jpg" alt="">
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="ca-send">
+                        <div class="ca-send__msg-group">
+                            <div class="ca-send__msgwrapper">
+                                <div class="ca-msg-actions">
+                                    <div class="iconbox-dropdown dropdown">
+                                        <div class="iconbox btn-hovered-light" id="dropdownMenuButtons7" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                                        </div>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButtons7">
+
+                                            <a class="dropdown-item" href="@Url.Action("DownloadDocument","Chat",new { filename=@message.Message})">
+                                                <span><i class="mdi mdi-download-outline"></i></span>
+                                                <span>Download</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-share-outline"></i></span>
+                                                <span>Forward</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-content-copy"></i></span>
+                                                <span>Copy</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-star-outline"></i></span>
+                                                <span>Add Star</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-trash-can-outline"></i></span>
+                                                <span>Delete</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="ca-send__msg">
+                                    <div class="ca__file">
+                                        <div class="ca__fileicon">
+                                            @if (@message.Message.Contains("pdf"))
+                                            {
+                                                <img src="/lib/images/svg/pdf.svg" alt="">
+                                            }
+                                            else if (@message.Message.Contains("doc"))
+                                            {
+                                                <img src="/lib/images/svg/word.svg" alt="">
+                                            }
+                                            else if (@message.Message.Contains("xls"))
+                                            {
+                                                <img src="/lib/images/svg/excel.svg" alt="">
+                                            }
+                                            else if (@message.Message.Contains("ppt"))
+                                            {
+                                                <img src="/lib/images/svg/powerpoint.svg" alt="">
+                                            }
+                                            else if (@message.Message.Contains(".mp4") || @message.Message.Contains(".wmv") || @message.Message.Contains(".webm") || @message.Message.Contains(".avi"))
+                                            {
+                                                <img src="/lib/images/svg/video.svg" alt="">
+                                            }
+                                            else
+                                            {
+                                                <img src="/lib/images/svg/happy.svg" alt="">
+                                            }
+                                        </div>
+                                        <div class="ca__filename">
+                                            <span class="ca__filename--title">@message.Message</span>
+                                            @*<span class="ca__filename--size">21Kb</span>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="metadata">
+                                <span class="time">@message.MessageTime</span>
+                                @if (@message.IsRead == 0)
+                                {
+                                    <span class="tick">
+                                        <img src="~/lib/images/tick/tick-delivered.svg" alt="">
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="tick">
+                                        <img src="~/lib/images/tick/tick-read.svg" alt="">
+                                    </span>
+                                }
+                            </div>
+                        </div>
+                        <div class="user-avatar user-avatar-sm user-avatar-rounded online">
+                            <img src="/lib/images/user/250/02.jpg" alt="">
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(@message.DocUrl) && !(@message.Message.Contains("pdf") || @message.Message.Contains("doc") || @message.Message.Contains("xls") || @message.Message.Contains("ppt")|| @message.Message.Contains(".mp4") || @message.Message.Contains(".wmv") || @message.Message.Contains(".webm") || @message.Message.Contains(".avi")))
+                {
+                    <div class="ca-received">
+                        <div class="user-avatar user-avatar-sm user-avatar-rounded online">
+                            <img src="~/lib/images/user/250/01.jpg" alt="">
+                        </div>
+                        <div class="ca-received__msg-group">
+                            <div class="ca-received__msgwrapper">
+                                <div class="ca-received__msg">@message.Message</div>
+                                <div class="ca-msg-actions">
+                                    <div class="iconbox-dropdown dropdown">
+                                        <div class="iconbox btn-hovered-light" id="dropdownMenuButtonsr1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                                        </div>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsr1">
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-share-outline"></i></span>
+                                                <span>Forward</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-content-copy"></i></span>
+                                                <span>Copy</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-star-outline"></i></span>
+                                                <span>Add Star</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-trash-can-outline"></i></span>
+                                                <span>Delete</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="metadata">
+                                <span class="time">@message.MessageTime</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else if (@message.Message.Contains(".jpeg") || @message.Message.Contains(".jpg") || @message.Message.Contains(".png") || @message.Message.Contains(".gif"))
+                {
+                    <div class="ca-received">
+                        <div class="user-avatar user-avatar-sm user-avatar-rounded online">
+                            <img src="/lib/images/user/250/01.jpg" alt="">
+                        </div>
+                        <div class="ca-received__msg-group">
+                            <div class="ca-received__msgwrapper">
+                                <div class="ca-received__msg">
+                                    <div class="ca-received__msg-media-group">
+                                        <div class="ca-received__msg-media">
+                                            <img src="@message.DocUrl" alt="">
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="ca-msg-actions">
+                                    <div class="iconbox-dropdown dropdown">
+                                        <div class="iconbox btn-hovered-light" id="dropdownMenuButtonsr6" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                                        </div>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsr6">
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-download-outline"></i></span>
+                                                <span>Download</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-share-outline"></i></span>
+                                                <span>Forward</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-content-copy"></i></span>
+                                                <span>Copy</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-star-outline"></i></span>
+                                                <span>Add Star</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-trash-can-outline"></i></span>
+                                                <span>Delete</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="metadata">
+                                <span class="time">@message.MessageTime</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="ca-received">
+                        <div class="user-avatar user-avatar-sm user-avatar-rounded online">
+                            <img src="/lib/images/user/250/01.jpg" alt="">
+                        </div>
+                        <div class="ca-received__msg-group">
+                            <div class="ca-received__msgwrapper">
+                                <div class="ca-received__msg">
+                                    <div class="ca__file">
+                                        <div class="ca__fileicon">
+                                            @if (@message.Message.Contains("pdf"))
+                                            {
+                                                <img src="/lib/images/svg/pdf.svg" alt="">
+                                            }
+                                            else if (@message.Message.Contains("doc"))
+                                            {
+                                                <img src="/lib/images/svg/word.svg" alt="">
+                                            }
+                                            else if (@message.Message.Contains("xls"))
+                                            {
+                                                <img src="/lib/images/svg/excel.svg" alt="">
+                                            }
+                                            else if (@message.Message.Contains("ppt"))
+                                            {
+                                                <img src="/lib/images/svg/powerpoint.svg" alt="">
+                                            }
+                                            else if (@message.Message.Contains(".mp4") || @message.Message.Contains(".wmv") || @message.Message.Contains(".webm") || @message.Message.Contains(".avi"))
+                                            {
+                                                <img src="/lib/images/svg/video.svg" alt="">
+                                            }
+                                            else
+                                            {
+                                                <img src="/lib/images/svg/happy.svg" alt="">
+                                            }
+                                        </div>
+                                        <div class="ca__filename">
+                                            <span class="ca__filename--title">@message.Message</span>
+                                            @*<span class="ca__filename--size">21Kb</span>*@
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="ca-msg-actions">
+                                    <div class="iconbox-dropdown dropdown">
+                                        <div class="iconbox btn-hovered-light" id="dropdownMenuButtonsr7" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                                        </div>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsr7" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                                            <a class="dropdown-item" href="@Url.Action("DownloadDocument","Chat",new { filename=@message.Message})">
+                                                <span><i class="mdi mdi-download-outline"></i></span>
+                                                <span>Download</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-share-outline"></i></span>
+                                                <span>Forward</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-content-copy"></i></span>
+                                                <span>Copy</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-star-outline"></i></span>
+                                                <span>Add Star</span>
+                                            </a>
+                                            <a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-trash-can-outline"></i></span>
+                                                <span>Delete</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="metadata">
+                                <span class="time">@message.MessageTime</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        }
+        <div class="ca-received" id="msgTypingId" style="display:none;">
+            <div class="user-avatar user-avatar-sm user-avatar-rounded online">
+                <img src="~/lib/images/user/250/01.jpg" alt="">
+            </div>
+            <div class="ca-received__msg-group">
+                <div class="ca-received__msgwrapper">
+                    <div class="ca-received__msg">
+                        <img src="~/lib/images/svg/typing-01.svg" alt="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+        $('.conversation-panel__body').animate({
+            scrollTop: $('.conversation-panel__body')[0].scrollHeight
+        }, 100);
+    });
+
+
+    $(document).ready(function () {
+
+        connection.on("UserTypeMessage", function (connectionId, userId) {
+            console.log('i am message:' + userId);
+            if (parseInt(userId) == parseInt($('#hdnChatUserId').val())) {
+                console.log('calling from message panel');
+                $("#msgTypingId").show().delay(3000).fadeOut();
+                $(document).ready(function () {
+                    $('.conversation-panel__body').animate({
+                        scrollTop: $('.conversation-panel__body')[0].scrollHeight
+                    }, 40);
+                });
+            }
+        });
+
+        connection.on("UserReadMessage", function (connectionId) {
+            console.log('message read successfully....');
+            getAllMessage();
+        });
+
+    });
+
+    var keypr = 0;
+    function UserTyping() {
+        var chatUserID = $('#hdnChatUserId').val();
+        var userID = $('#hdnUserId').val();
+        console.log('msg panel my user id is: ' + userID);
+        console.log('msg panel typing');
+        if (keypr++ % 5 == 0) {
+            connection.invoke("MessageTyping", chatUserID, userID).catch(function (err) {
+                return console.error(err.toString());
+            });
+        }
+    }
+
+
+
+    function UserNotTyping() {
+        console.log('not typing');
+        //$("#msgTypingId").show().delay(3000).fadeOut(500);
+    }
+</script>
+
+
+<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
+<script src="~/lib/bootstrap.bundle.min.js"></script>
+<script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
+<script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
+<script src="~/lib/js/app.js"></script>
+

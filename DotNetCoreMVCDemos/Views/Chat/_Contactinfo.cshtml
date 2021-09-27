@@ -1,0 +1,254 @@
+﻿@model DotNetCoreMVCDemos.Models.ContactInfo
+@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
+<link rel="stylesheet" href="~/lib/bootstrap.min.css">
+<link rel="stylesheet" href="~/lib/css/app.css">
+<link rel="stylesheet" href="~/lib/css/theme/default.css">
+@{
+    var UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
+}
+<div class="information-panel__head">
+    <h5>Contact info</h5>
+    <div class="information-panel__closer">
+        <i class="mdi mdi-close"></i>
+    </div>
+</div>
+
+<div class="information-panel__body">
+    <div class="userprofile-avatar">
+        <img class="img-fluid" src="~/lib/images/user/250/01.jpg" alt="">
+    </div>
+
+    <div class="userprofile-name">
+        <h4>@Model.ChatUserName</h4>
+        <span>Product Manager</span>
+        <div class="social-icon-box">
+            <div class="social-icon">
+                <i class="mdi mdi-facebook"></i>
+            </div>
+            <div class="social-icon">
+                <i class="mdi mdi-linkedin"></i>
+            </div>
+            <div class="social-icon">
+                <i class="mdi mdi-twitter"></i>
+            </div>
+            <div class="social-icon">
+                <i class="mdi mdi-youtube"></i>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <table class="table table-sm table-borderless user-table-info">
+        <tr>
+            <td><i class="mdi mdi-cellphone-android"></i></td>
+            <td>+@Model.MobileNumber</td>
+        </tr>
+        <tr>
+            <td><i class="mdi mdi-web"></i></td>
+            <td>www.jackangulo.com</td>
+        </tr>
+        <tr>
+            <td><i class="mdi mdi-map-marker"></i></td>
+            <td>2519  Burnside Court, HORICON, WI, 53032</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <div class="accordion accordion-ungrouped mb-3" id="accordionExample">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <div class="card-title" data-toggle="collapse" role="button" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <div class="acpanel__heading">
+                        <div class="acpanel__left">
+                            <span><i class="mdi mdi-camera-outline"></i></span>
+                            <span>Photos & Media</span>
+                        </div>
+                        <div class="acpanel__right">
+                            <span class="badge badge-info">26</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="card-body">
+                    <div class="owl-carousel">
+                        <div class="item">
+                            <img class="img-fluid" src="~/lib/images/media/01.jpg" alt="">
+                        </div>
+                        <div class="item">
+                            <img class="img-fluid" src="~/lib/images/media/02.jpg" alt="">
+                        </div>
+                        <div class="item">
+                            <img class="img-fluid" src="~/lib/images/media/03.jpg" alt="">
+                        </div>
+                        <div class="item">
+                            <img class="img-fluid" src="~/lib/images/media/04.jpg" alt="">
+                        </div>
+                        <div class="item">
+                            <img class="img-fluid" src="~/lib/images/media/05.jpg" alt="">
+                        </div>
+                        <div class="item">
+                            <img class="img-fluid" src="~/lib/images/media/06.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <div class="card-title collapsed d-flex justify-content-between align-items-center" role="button" data-toggle="collapse" data-target="#collapseTwo"
+                     aria-expanded="false" aria-controls="collapseTwo">
+                    <div class="acpanel__heading">
+                        <div class="acpanel__left">
+                            <span><i class="mdi mdi-file-document-outline"></i></span>
+                            <span>Documents</span>
+                        </div>
+                        <div class="acpanel__right">
+                            <span class="badge badge-info">16</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                    <ul class="list-unstyled documentlist-wrapper">
+                        <li>
+                            <div class="doclist">
+                                <div class="docicon">
+                                    <img src="~/lib/images/svg/pdf.svg" alt="">
+                                </div>
+                                <div class="doctitle">
+                                    <div class="docname">example-file.pdf</div>
+                                    <div class="docsize">217kb</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="doclist">
+                                <div class="docicon">
+                                    <img src="~/lib/images/svg/word.svg" alt="">
+                                </div>
+                                <div class="doctitle">
+                                    <div class="docname">example-file.docs</div>
+                                    <div class="docsize">217kb</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="doclist">
+                                <div class="docicon">
+                                    <img src="~/lib/images/svg/excel.svg" alt="">
+                                </div>
+                                <div class="doctitle">
+                                    <div class="docname">example-file.xlxs</div>
+                                    <div class="docsize">217kb</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="doclist">
+                                <div class="docicon">
+                                    <img src="~/lib/images/svg/powerpoint.svg" alt="">
+                                </div>
+                                <div class="doctitle">
+                                    <div class="docname">example-file.pptx</div>
+                                    <div class="docsize">217kb</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="doclistall">View All</div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" id="headingFour">
+                <div class="card-title collapsed  d-flex justify-content-between align-items-center" role="button" data-toggle="collapse" data-target="#collapseFour"
+                     aria-expanded="false" aria-controls="collapseFour">
+                    <div class="acpanel__heading">
+                        <div class="acpanel__left">
+                            <span><i class="mdi mdi-settings-outline"></i></span>
+                            <span>Settings</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                <div class="card-body">
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <div class="setting-list">
+                                <div class="setting-list-name">Media Auto Download</div>
+                                <div class="setting-list-switch">
+                                    <label class="material-switch">
+                                        <input type="checkbox">
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="setting-list">
+                                <div class="setting-list-name">Mute Conversation</div>
+                                <div class="setting-list-switch">
+                                    <label class="material-switch">
+                                        <input type="checkbox">
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="setting-list">
+                                <div class="setting-list-name">Notifications</div>
+                                <div class="setting-list-switch">
+                                    <label class="material-switch">
+                                        <input type="checkbox">
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="setting-list">
+                                <div class="setting-list-name">Block</div>
+                                <div class="setting-list-switch">
+                                    <label class="material-switch">
+                                        <input type="checkbox">
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
+<script src="~/lib/bootstrap.bundle.min.js"></script>
+<script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
+<script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
+<script src="~/lib/js/app.js"></script>
