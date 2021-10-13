@@ -562,7 +562,7 @@
                 </div>
                 @*Contact Info*@
                 <div class="information-panel personal-information-panel">
-                    @Html.RenderAction("GetContactInfo", "Chat", new { ChatUserId = @Model.ChatUserId, UserName = "" });
+                    @Html.RenderAction("GetContactInfo", "Chat", new { ChatUserId = @Model.ChatUserId, UserName = "", UserId= @UserId });
                 </div>
             </div>
         </div>

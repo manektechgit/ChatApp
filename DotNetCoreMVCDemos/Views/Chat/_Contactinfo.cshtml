@@ -23,7 +23,7 @@
 
 <div class="information-panel__body">
     <div class="userprofile-avatar">
-        <img class="img-fluid" src="~/lib/images/user/250/01.jpg" alt="">
+        <img class="img-fluid" src="~/lib/images/user/250/02.jpg" alt="">
     </div>
 
     <div class="userprofile-name">
@@ -53,8 +53,8 @@
             <td>+@Model.MobileNumber</td>
         </tr>
         <tr>
-            <td><i class="mdi mdi-web"></i></td>
-            <td>www.jackangulo.com</td>
+            <td><i class="mdi mdi-email"></i></td>
+            <td>@Model.Email</td>
         </tr>
         <tr>
             <td><i class="mdi mdi-map-marker"></i></td>
@@ -74,7 +74,7 @@
                             <span>Photos & Media</span>
                         </div>
                         <div class="acpanel__right">
-                            <span class="badge badge-info">26</span>
+                            <span class="badge badge-info">@Model.TotalMediaFile</span>
                         </div>
                     </div>
                 </div>
@@ -83,24 +83,23 @@
             <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                 <div class="card-body">
                     <div class="owl-carousel">
-                        <div class="item">
-                            <img class="img-fluid" src="~/lib/images/media/01.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-fluid" src="~/lib/images/media/02.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-fluid" src="~/lib/images/media/03.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-fluid" src="~/lib/images/media/04.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-fluid" src="~/lib/images/media/05.jpg" alt="">
-                        </div>
-                        <div class="item">
-                            <img class="img-fluid" src="~/lib/images/media/06.jpg" alt="">
-                        </div>
+
+                        @if (Model.Image != null && Model.Image.Count > 0)
+                        {
+                            @foreach (var img in Model.Image)
+                            {
+
+                                <div class="item">
+                                    <img class="img-fluid" src="@img.ImageURL" alt="">
+                                    <a class="docname" href="@Url.Action("DownloadDocument","Chat",new { filename=@img.ImageName})">
+                                        <span>@img.ImageName</span>
+                                    </a>
+                                </div>
+
+
+                            }
+                        }
+                        
                     </div>
                 </div>
             </div>
@@ -116,7 +115,7 @@
                             <span>Documents</span>
                         </div>
                         <div class="acpanel__right">
-                            <span class="badge badge-info">16</span>
+                            <span class="badge badge-info">@Model.TotalDocumentFile</span>
                         </div>
                     </div>
                 </div>
@@ -124,7 +123,45 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                 <div class="card-body">
                     <ul class="list-unstyled documentlist-wrapper">
-                        <li>
+
+                        @if (Model.Documents != null && Model.Documents.Count > 0)
+                        {
+                            @foreach (var doc in Model.Documents)
+                            {
+                                <li>
+                                    <div class="doclist">
+                                        <div class="docicon">
+                                            @if (@doc.Contains(".pdf"))
+                                            {
+                                                <img src="/lib/images/svg/pdf.svg" alt="">
+                                            }
+                                            @if (@doc.Contains(".doc"))
+                                            {
+                                                <img src="/lib/images/svg/doc.svg" alt="">
+                                            }
+                                            @if (@doc.Contains(".xls"))
+                                            {
+                                                <img src="/lib/images/svg/xls.svg" alt="">
+                                            }
+                                            @if (@doc.Contains(".ppt"))
+                                            {
+                                                <img src="/lib/images/svg/ppt.svg" alt="">
+                                            }
+
+                                        </div>
+                                        <div class="doctitle">
+
+                                            <a class="docname" href="@Url.Action("DownloadDocument","Chat",new { filename=@doc})">
+                                                <span><i class="mdi mdi-download-outline"></i></span>
+                                                <span>@doc</span>
+                                            </a>
+                                            <div class="docsize">217kb</div>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        }
+                        @*<li>
                             <div class="doclist">
                                 <div class="docicon">
                                     <img src="~/lib/images/svg/pdf.svg" alt="">
@@ -167,7 +204,7 @@
                                     <div class="docsize">217kb</div>
                                 </div>
                             </div>
-                        </li>
+                        </li>*@
                         <li>
                             <div class="doclistall">View All</div>
                         </li>

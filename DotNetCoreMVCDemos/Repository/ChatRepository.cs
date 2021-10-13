@@ -68,23 +68,56 @@ namespace DotNetCoreMVCDemos.Repository
             return messages;
         }
 
-        public ContactInfo GetContactInfo(string ChatUserId)
+        public ContactInfo GetContactInfo(string ChatUserId, string UserId)
         {
-            ContactInfo objUsers = new ContactInfo();
-            DataTable dtUser = new DataTable();
-            SqlParameter[] objParameter = new SqlParameter[1];
-            objParameter[0] = new SqlParameter("@ChatUserId", ChatUserId);
-            Common.SqlHelper.Fill(dtUser, "[GetContactInfo]", objParameter);
+            List<ImageDetails> image = new List<ImageDetails>();
+            List<string> documentList = new List<string>();
 
-            if (dtUser != null && dtUser.Rows.Count > 0)
+            ContactInfo objUsers = new ContactInfo();
+            DataSet dsuser = new DataSet();
+            SqlParameter[] objParameter = new SqlParameter[2];
+            objParameter[0] = new SqlParameter("@ChatUserId", ChatUserId);
+            objParameter[1] = new SqlParameter("@UserId", UserId);
+            Common.SqlHelper.FillDataset(dsuser, "[GetContactInfo]", objParameter);
+
+            if (dsuser != null && dsuser.Tables[1].Rows.Count > 0)
             {
-                foreach (DataRow row in dtUser.Rows)
+                objUsers.UserId = Convert.ToInt32(dsuser.Tables[1].Rows[0]["UserId"]);
+                objUsers.Email = Convert.ToString(dsuser.Tables[1].Rows[0]["Email"]);
+                objUsers.ChatUserName = Convert.ToString(dsuser.Tables[1].Rows[0]["UserName"]);
+                objUsers.MobileNumber = Convert.ToString(dsuser.Tables[1].Rows[0]["Mobile"]);
+                if(dsuser.Tables[0] != null && dsuser.Tables[0].Rows.Count > 0)
                 {
-                    objUsers.UserId = Convert.ToInt32(row["UserId"]);
-                    objUsers.Email = Convert.ToString(row["Email"]);
-                    objUsers.ChatUserName = Convert.ToString(row["UserName"]);
-                    objUsers.MobileNumber = Convert.ToString(row["Mobile"]);
+                    objUsers.TotalMediaFile = Convert.ToInt32(dsuser.Tables[0].Rows[0]["TotalMediaFile"]);
+                    objUsers.TotalDocumentFile = Convert.ToInt32(dsuser.Tables[0].Rows[0]["TotalDocumentFile"]);
+                    for (int i = 0; i < dsuser.Tables[0].Rows.Count; i++)
+                    {
+                        if (dsuser.Tables[0].Rows[i]["Message"].ToString().Contains(".jpeg") || dsuser.Tables[0].Rows[i]["Message"].ToString().Contains(".jpg")
+                            || dsuser.Tables[0].Rows[i]["Message"].ToString().Contains(".png") || dsuser.Tables[0].Rows[i]["Message"].ToString().Contains(".gif"))
+                        {
+                            var imagedetails = new ImageDetails
+                            {
+                                ImageName = dsuser.Tables[0].Rows[i]["Message"].ToString(),
+                                ImageURL = dsuser.Tables[0].Rows[i]["Message"].ToString(),
+                            };
+                            image.Add(imagedetails);
+                        }
+                        if (dsuser.Tables[0].Rows[i]["Message"].ToString().Contains(".pdf") || dsuser.Tables[0].Rows[i]["Message"].ToString().Contains(".doc")
+                            || dsuser.Tables[0].Rows[i]["Message"].ToString().Contains(".xls") || dsuser.Tables[0].Rows[i]["Message"].ToString().Contains(".ppt")
+                            || dsuser.Tables[0].Rows[i]["Message"].ToString().Contains(".mp4") || dsuser.Tables[0].Rows[i]["Message"].ToString().Contains(".wmv")
+                            || dsuser.Tables[0].Rows[i]["Message"].ToString().Contains(".webm") || dsuser.Tables[0].Rows[i]["Message"].ToString().Contains(".avi"))
+                        {
+                            documentList.Add(dsuser.Tables[0].Rows[i]["Message"].ToString());
+
+                        }
+
+                    }
                 }
+               
+
+               
+                objUsers.Image = image;
+                objUsers.Documents = documentList;
             }
             return objUsers;
         }
@@ -239,7 +272,7 @@ namespace DotNetCoreMVCDemos.Repository
                 return GrpConnectionId;
             }
         }
-        public List<MyAllContacts> GetMyContact(string GroupID,string UserId)
+        public List<MyAllContacts> GetMyContact(string GroupID, string UserId)
         {
             List<MyAllContacts> Contacts = new List<MyAllContacts>();
             DataTable dtChat = new DataTable();
@@ -256,7 +289,7 @@ namespace DotNetCoreMVCDemos.Repository
                     {
                         Name = Convert.ToString(row["Name"]),
                         ContactUserId = Convert.ToString(row["ContactUserId"]),
-                        IsExist = Convert.ToInt32(row["IsExist"])                        
+                        IsExist = Convert.ToInt32(row["IsExist"])
                     };
                     Contacts.Add(Contact);
                 }
@@ -269,7 +302,7 @@ namespace DotNetCoreMVCDemos.Repository
             int ResultCode = -1;
             SqlParameter[] objParameter = new SqlParameter[2];
             objParameter[0] = new SqlParameter("@GroupId", GroupID);
-            objParameter[1] = new SqlParameter("@UserId", ContactUserId);           
+            objParameter[1] = new SqlParameter("@UserId", ContactUserId);
 
             Common.SqlHelper.Fill(dtUser, "[AddMember]", objParameter);
             if (dtUser != null && dtUser.Rows.Count > 0)
@@ -286,22 +319,54 @@ namespace DotNetCoreMVCDemos.Repository
             }
         }
 
-        public ContactInfo GetGroupInfo(string GroupId)
+        public GroupContactInfo GetGroupInfo(string GroupId)
         {
-            ContactInfo objUsers = new ContactInfo();
-            DataTable dtUser = new DataTable();
+            GroupContactInfo objUsers = new GroupContactInfo();
+            DataSet dsUser = new DataSet();
             SqlParameter[] objParameter = new SqlParameter[1];
             objParameter[0] = new SqlParameter("@GroupId", GroupId);
-            Common.SqlHelper.Fill(dtUser, "[GetGroupInfo]", objParameter);
+            Common.SqlHelper.FillDataset(dsUser, "[GetGroupInfo]", objParameter);
+            List<ImageDetails> image = new List<ImageDetails>();
+            List<string> memberList = new List<string>();
+            List<string> documentList = new List<string>();
 
-            if (dtUser != null && dtUser.Rows.Count > 0)
+            if (dsUser != null && dsUser.Tables[0].Rows.Count > 0)
             {
-                foreach (DataRow row in dtUser.Rows)
+                objUsers.GroupName = Convert.ToString(dsUser.Tables[0].Rows[0]["GroupName"]);
+                objUsers.TotalMembers = Convert.ToInt32(dsUser.Tables[0].Rows[0]["TotalMembers"]);
+                objUsers.TotalMediaFile = Convert.ToInt32(dsUser.Tables[0].Rows[0]["TotalMediaFile"]);
+                objUsers.TotalDocumentFile = Convert.ToInt32(dsUser.Tables[0].Rows[0]["TotalDocumentFile"]);
+                for (int i = 0; i < dsUser.Tables[0].Rows.Count; i++)
                 {
-                    objUsers.UserId = Convert.ToInt32(row["UserId"]);
-                    objUsers.Email = Convert.ToString(row["Email"]);
-                    objUsers.ChatUserName = Convert.ToString(row["UserName"]);
-                    objUsers.MobileNumber = Convert.ToString(row["Mobile"]);
+                    if (dsUser.Tables[0].Rows[i]["GroupMessage"].ToString().Contains(".jpeg") || dsUser.Tables[0].Rows[i]["GroupMessage"].ToString().Contains(".jpg")
+                        || dsUser.Tables[0].Rows[i]["GroupMessage"].ToString().Contains(".png") || dsUser.Tables[0].Rows[i]["GroupMessage"].ToString().Contains(".gif"))
+                    {
+                        var imagedetails = new ImageDetails
+                        {
+                            ImageName = dsUser.Tables[0].Rows[i]["GroupMessage"].ToString(),
+                            ImageURL = dsUser.Tables[0].Rows[i]["GroupMessage"].ToString(),
+                        };
+                        image.Add(imagedetails);
+                    }
+                    if (dsUser.Tables[0].Rows[i]["GroupMessage"].ToString().Contains(".pdf") || dsUser.Tables[0].Rows[i]["GroupMessage"].ToString().Contains(".doc")
+                        || dsUser.Tables[0].Rows[i]["GroupMessage"].ToString().Contains(".xls") || dsUser.Tables[0].Rows[i]["GroupMessage"].ToString().Contains(".ppt")
+                        || dsUser.Tables[0].Rows[i]["GroupMessage"].ToString().Contains(".mp4") || dsUser.Tables[0].Rows[i]["GroupMessage"].ToString().Contains(".wmv")
+                        || dsUser.Tables[0].Rows[i]["GroupMessage"].ToString().Contains(".webm") || dsUser.Tables[0].Rows[i]["GroupMessage"].ToString().Contains(".avi"))
+                    {
+                        documentList.Add(dsUser.Tables[0].Rows[i]["GroupMessage"].ToString());
+
+                    }
+                }
+                objUsers.Image = image;
+                objUsers.Documents = documentList;
+
+                if (dsUser != null && dsUser.Tables[1].Rows.Count > 0)
+                {
+                    for (int j = 0; j < dsUser.Tables[1].Rows.Count; j++)
+                    {
+                        memberList.Add(dsUser.Tables[1].Rows[j]["MemberName"].ToString());
+                    }
+                    objUsers.Members = memberList;
                 }
             }
             return objUsers;

@@ -79,10 +79,14 @@ namespace DotNetCoreMVCDemos.Controllers
                 if (doc.Message.Contains(".jpeg") || doc.Message.Contains(".jpg") || doc.Message.Contains(".png") || doc.Message.Contains(".gif"))
                 {
                     var path = Path.Combine(_environment.WebRootPath, "Documents", doc.Message);
-                    var imageFileStream = System.IO.File.OpenRead(path);
-                    string extention = doc.Message.Split('.')[1];
-                    Byte[] bytes = System.IO.File.ReadAllBytes(path);
-                    doc.DocUrl = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes);
+                    if (System.IO.File.Exists(path))
+                    {
+                        var imageFileStream = System.IO.File.OpenRead(path);
+                        string extention = doc.Message.Split('.')[1];
+                        Byte[] bytes = System.IO.File.ReadAllBytes(path);
+                        doc.DocUrl = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes);
+                    }
+                   
                 }
             }
             if (!string.IsNullOrEmpty(Message))
@@ -154,39 +158,47 @@ namespace DotNetCoreMVCDemos.Controllers
             {
                 try
                 {
-                    FileBuffer = wc.DownloadData(FilePath);
+
+                    if (System.IO.File.Exists(FilePath))
+                    {
+                        FileBuffer = wc.DownloadData(FilePath); //live
+                       // FileBuffer = System.IO.File.ReadAllBytes(FilePath);
+                        if (lsExtension.Trim('.') == Convert.ToString("pdf"))
+                            return File(FileBuffer, "application/pdf;", lsFileName);
+                        else if (lsExtension.Trim('.') == Convert.ToString("png"))
+                            return File(FileBuffer, "image/png;", lsFileName);
+                        else if (lsExtension.Trim('.') == Convert.ToString("gif"))
+                            return File(FileBuffer, "image/gif;", lsFileName);
+                        else if (lsExtension.Trim('.') == Convert.ToString("jpg"))
+                            return File(FileBuffer, "image/jpg;", lsFileName);
+                        else if (lsExtension.Trim('.') == Convert.ToString("jpeg"))
+                            return File(FileBuffer, "image/jpeg;", lsFileName);
+                        else if (lsExtension.Trim('.') == Convert.ToString("ppt"))
+                            return File(FileBuffer, "application/ppt;", lsFileName);
+                        else if (lsExtension.Trim('.') == Convert.ToString("doc") || lsExtension.Trim('.') == Convert.ToString("docx"))
+                            return File(FileBuffer, "application/doc;", lsFileName);
+                        else if (lsExtension.Trim('.') == Convert.ToString("txt"))
+                            return File(FileBuffer, "application/txt;", lsFileName);
+                        else if (lsExtension.Trim('.') == Convert.ToString("csv"))
+                            return File(FileBuffer, "application/csv;", lsFileName);
+                        else if (lsExtension.Trim('.') == Convert.ToString("wmv"))
+                            return File(FileBuffer, "application/wmv;", lsFileName);
+                        else if (lsExtension.Trim('.') == Convert.ToString("avi"))
+                            return File(FileBuffer, "application/avi;", lsFileName);
+                        else if (lsExtension.Trim('.') == Convert.ToString("webm"))
+                            return File(FileBuffer, "application/webm;", lsFileName);
+                        else
+                            return null;
+                    }
+                    else return null;
                 }
                 catch
                 {
+                    return null;
                 }
             }
 
-            if (lsExtension.Trim('.') == Convert.ToString("pdf"))
-                return File(FileBuffer, "application/pdf;", lsFileName);
-            else if (lsExtension.Trim('.') == Convert.ToString("png"))
-                return File(FileBuffer, "image/png;", lsFileName);
-            else if (lsExtension.Trim('.') == Convert.ToString("gif"))
-                return File(FileBuffer, "image/gif;", lsFileName);
-            else if (lsExtension.Trim('.') == Convert.ToString("jpg"))
-                return File(FileBuffer, "image/jpg;", lsFileName);
-            else if (lsExtension.Trim('.') == Convert.ToString("jpeg"))
-                return File(FileBuffer, "image/jpeg;", lsFileName);
-            else if (lsExtension.Trim('.') == Convert.ToString("ppt"))
-                return File(FileBuffer, "application/ppt;", lsFileName);
-            else if (lsExtension.Trim('.') == Convert.ToString("doc") || lsExtension.Trim('.') == Convert.ToString("docx"))
-                return File(FileBuffer, "application/doc;", lsFileName);
-            else if (lsExtension.Trim('.') == Convert.ToString("txt"))
-                return File(FileBuffer, "application/txt;", lsFileName);
-            else if (lsExtension.Trim('.') == Convert.ToString("csv"))
-                return File(FileBuffer, "application/csv;", lsFileName);
-            else if (lsExtension.Trim('.') == Convert.ToString("wmv"))
-                return File(FileBuffer, "application/wmv;", lsFileName);
-            else if (lsExtension.Trim('.') == Convert.ToString("avi"))
-                return File(FileBuffer, "application/avi;", lsFileName);
-            else if (lsExtension.Trim('.') == Convert.ToString("webm"))
-                return File(FileBuffer, "application/webm;", lsFileName);
-            else
-                return null;
+            
         }
         public PartialViewResult MessagePanel(string UserId, string ChatUserId)
         {
@@ -199,11 +211,16 @@ namespace DotNetCoreMVCDemos.Controllers
             {
                 if (doc.Message.Contains(".jpeg") || doc.Message.Contains(".jpg") || doc.Message.Contains(".png") || doc.Message.Contains(".gif"))
                 {
+
                     var path = Path.Combine(_environment.WebRootPath, "Documents", doc.Message);
-                    var imageFileStream = System.IO.File.OpenRead(path);
-                    string extention = doc.Message.Split('.')[1];
-                    Byte[] bytes = System.IO.File.ReadAllBytes(path);
-                    doc.DocUrl = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes);
+                    if(System.IO.File.Exists(path))
+                    {
+                        var imageFileStream = System.IO.File.OpenRead(path);
+                        string extention = doc.Message.Split('.')[1];
+                        Byte[] bytes = System.IO.File.ReadAllBytes(path);
+                        doc.DocUrl = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes);
+                    }
+                    
                 }
             }
             return PartialView("_MessagePanel", chat);
@@ -222,12 +239,36 @@ namespace DotNetCoreMVCDemos.Controllers
             }
             return PartialView("_Logout");
         }
-        public PartialViewResult GetContactInfo(string ChatUserId)
+        public PartialViewResult GetContactInfo(string ChatUserId,string UserId)
         {
-            if (!string.IsNullOrEmpty(session.GetString("Email")) && !string.IsNullOrEmpty(ChatUserId))
+            UserId = string.IsNullOrEmpty(UserId) ? session.GetString("UserId") : UserId;
+            if (!string.IsNullOrEmpty(session.GetString("Email")) && !string.IsNullOrEmpty(ChatUserId) && !string.IsNullOrEmpty(UserId))
+
             {
                 ContactInfo contactInfo = new ContactInfo();
-                contactInfo = ChatRepo.GetContactInfo(ChatUserId);
+                contactInfo = ChatRepo.GetContactInfo(ChatUserId, UserId);
+                List<ImageDetails> objimag = new List<ImageDetails>();
+                if (contactInfo.Image != null)
+                {
+                    for (int i = 0; i < contactInfo.Image.Count; i++)
+                    {
+                        var path = Path.Combine(_environment.WebRootPath, "Documents", contactInfo.Image[i].ImageName.ToString());
+                        if (System.IO.File.Exists(path))
+                        {
+                            var imageFileStream = System.IO.File.OpenRead(path);
+                            string extention = contactInfo.Image[i].ImageName.ToString().Split('.')[1];
+                            Byte[] bytes = System.IO.File.ReadAllBytes(path);
+                            var Imagedetails = new ImageDetails
+                            {
+                                ImageName = contactInfo.Image[i].ImageName.ToString(),
+                                ImageURL = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes)
+                            };
+
+                            objimag.Add(Imagedetails);
+                        }
+                    }
+                }
+                contactInfo.Image = objimag;
                 return PartialView("_Contactinfo", contactInfo);
             }
             return PartialView("_Logout");
@@ -272,10 +313,14 @@ namespace DotNetCoreMVCDemos.Controllers
                 if (doc.Message.Contains(".jpeg") || doc.Message.Contains(".jpg") || doc.Message.Contains(".png") || doc.Message.Contains(".gif"))
                 {
                     var path = Path.Combine(_environment.WebRootPath, "Documents", doc.Message);
-                    var imageFileStream = System.IO.File.OpenRead(path);
-                    string extention = doc.Message.Split('.')[1];
-                    Byte[] bytes = System.IO.File.ReadAllBytes(path);
-                    doc.DocUrl = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes);
+                    if (System.IO.File.Exists(path))
+                    {
+                        var imageFileStream = System.IO.File.OpenRead(path);
+                        string extention = doc.Message.Split('.')[1];
+                        Byte[] bytes = System.IO.File.ReadAllBytes(path);
+                        doc.DocUrl = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes);
+                    }
+                        
                 }
             }
             if (!string.IsNullOrEmpty(Message))
@@ -296,10 +341,14 @@ namespace DotNetCoreMVCDemos.Controllers
                 if (doc.Message.Contains(".jpeg") || doc.Message.Contains(".jpg") || doc.Message.Contains(".png") || doc.Message.Contains(".gif"))
                 {
                     var path = Path.Combine(_environment.WebRootPath, "Documents", doc.Message);
-                    var imageFileStream = System.IO.File.OpenRead(path);
-                    string extention = doc.Message.Split('.')[1];
-                    Byte[] bytes = System.IO.File.ReadAllBytes(path);
-                    doc.DocUrl = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes);
+                    if (System.IO.File.Exists(path))
+                    {
+                        var imageFileStream = System.IO.File.OpenRead(path);
+                        string extention = doc.Message.Split('.')[1];
+                        Byte[] bytes = System.IO.File.ReadAllBytes(path);
+                        doc.DocUrl = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes);
+                    }
+                        
                 }
             }
             return PartialView("_GrpMessagePanel", chat);
@@ -384,9 +433,31 @@ namespace DotNetCoreMVCDemos.Controllers
         {
             if (!string.IsNullOrEmpty(session.GetString("Email")) && !string.IsNullOrEmpty(GroupId))
             {
-                ContactInfo contactInfo = new ContactInfo();
-                contactInfo = ChatRepo.GetGroupInfo(GroupId);
-                return PartialView("_Contactinfo", contactInfo);
+                GroupContactInfo groupChat = new GroupContactInfo();
+                groupChat = ChatRepo.GetGroupInfo(GroupId);
+                List<ImageDetails> objimag = new List<ImageDetails>();
+                if (groupChat.Image != null)
+                {
+                    for (int i = 0; i < groupChat.Image.Count; i++)
+                    {
+                        var path = Path.Combine(_environment.WebRootPath, "Documents", groupChat.Image[i].ImageName.ToString());
+                        if (System.IO.File.Exists(path))
+                        {
+                            var imageFileStream = System.IO.File.OpenRead(path);
+                            string extention = groupChat.Image[i].ImageName.ToString().Split('.')[1];
+                            Byte[] bytes = System.IO.File.ReadAllBytes(path);
+                            var Imagedetails = new ImageDetails
+                            {
+                                ImageName = groupChat.Image[i].ImageName.ToString(),
+                                ImageURL = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes)
+                            };
+
+                            objimag.Add(Imagedetails);
+                        }
+                    }
+                }
+                groupChat.Image = objimag;
+                return PartialView("_Groupinfo", groupChat);
             }
             return PartialView("_Logout");
         }
