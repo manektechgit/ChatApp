@@ -1,0 +1,65 @@
+﻿@model IEnumerable<DotNetCoreMVCDemos.Models.MyAllContacts>
+@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@{var UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");}
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title" id="addMemberModalLabel">Add Members</h6>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+
+            <div class="searchbar">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+                </div>
+            </div>
+            <div class="modal-contact-list">
+                <ul class="list-unstyled">
+                    @foreach (var contact in Model)
+                    {
+                        <li>
+                            <div class="contactlist">
+                                <div class="user-avatar user-avatar-rounded">
+                                    <img src="~/lib/images/user/500/06.jpg" alt="">
+                                </div>
+                                <div class="contactlist__details">
+                                    <div class="contactlist__details--name">@contact.Name</div>
+                                    <div class="calllist__details--info">
+                                        <span><i class="mdi mdi-tag-outline"></i></span>
+                                        <span>Friends</span>
+                                    </div>
+                                </div>
+
+                                <div class="contactlist__actions">
+                                    @if (contact.IsExist > 0)
+                                    {
+                                        <div class="iconbox btn-solid-success">
+                                            <i class="iconbox__icon mdi mdi-check"></i>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="iconbox btn-solid-info" onclick="AddMember('@contact.ContactUserId')" id="addMemberId_@contact.ContactUserId">
+                                            <i class="iconbox__icon mdi mdi-plus" id="checkMarkId_@contact.ContactUserId"></i>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
+<script src="~/lib/bootstrap.bundle.min.js"></script>
+<script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
+<script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
+<script src="~/lib/js/app.js"></script>*@

@@ -82,7 +82,7 @@ namespace DotNetCoreMVCDemos.Controllers
                     var imageFileStream = System.IO.File.OpenRead(path);
                     string extention = doc.Message.Split('.')[1];
                     Byte[] bytes = System.IO.File.ReadAllBytes(path);
-                    doc.DocUrl = "data:image/"+ extention + ";base64," + Convert.ToBase64String(bytes);
+                    doc.DocUrl = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes);
                 }
             }
             if (!string.IsNullOrEmpty(Message))
@@ -108,7 +108,7 @@ namespace DotNetCoreMVCDemos.Controllers
                     string extention = FileUrl.url.Split(';')[0].Split('/')[1];
                     if (extention.Contains("wordprocessingml.document"))
                     {
-                        extention="docx";
+                        extention = "docx";
                     }
                     else if (extention.Contains("msword"))
                     {
@@ -129,7 +129,7 @@ namespace DotNetCoreMVCDemos.Controllers
                     else if (extention.Contains("x-ms-wmv"))
                     {
                         extention = "wmv";
-                    }                    
+                    }
                     FileName = DateTime.Now.ToString("yyyymmddMMss") + "." + extention;
                     string FilePath = Path.Combine(folderPath, FileName);
                     Regex regex = new Regex(@"^[\w/\:.-]+;base64,");
@@ -233,57 +233,163 @@ namespace DotNetCoreMVCDemos.Controllers
             return PartialView("_Logout");
         }
 
-        public async Task<IActionResult> UploadDoc([FromForm] UploadDocumentModel UploadDoc)
+        public async Task<IActionResult> CreateGroup(GroupCreate GroupCreate)
         {
-            if (ModelState.IsValid)
+            int code = -1;
+            if (!ModelState.IsValid)
             {
-                //if (!Validate(UploadDoc.File))
-                //{
-                //    return BadRequest("Validation failed!");
-                //}
-
-                //var fileName = DateTime.Now.ToString("yyyymmddMMss") + "_" + Path.GetFileName(UploadDoc.File.FileName);
-                //var folderPath = Path.Combine(_environment.WebRootPath, "uploads");
-                //var filePath = Path.Combine(folderPath, fileName);
-                //if (!Directory.Exists(folderPath))
-                //    Directory.CreateDirectory(folderPath);
-
-                //using (var fileStream = new FileStream(filePath, FileMode.Create))
-                //{
-                //    await UploadDoc.File.CopyToAsync(fileStream);
-                //}
-
-                //var user = _context.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
-                //var room = _context.Rooms.Where(r => r.Id == UploadDoc.RoomId).FirstOrDefault();
-                //if (user == null || room == null)
-                //    return NotFound();
-
-                //string htmlImage = string.Format(
-                //    "<a href=\"/uploads/{0}\" target=\"_blank\">" +
-                //    "<img src=\"/uploads/{0}\" class=\"post-image\">" +
-                //    "</a>", fileName);
-
-                //var message = new Message()
-                //{
-                //    Content = Regex.Replace(htmlImage, @"(?i)<(?!img|a|/a|/img).*?>", string.Empty),
-                //    Timestamp = DateTime.Now,
-                //    FromUser = user,
-                //    ToRoom = room
-                //};
-
-                //await _context.Messages.AddAsync(message);
-                //await _context.SaveChangesAsync();
-
-                //// Send image-message to group
-                //var messageViewModel = _mapper.Map<Message, MessageViewModel>(message);
-                //await _hubContext.Clients.Group(room.Name).SendAsync("newMessage", messageViewModel);
-
-                return Ok();
+                return View(GroupCreate);
             }
-
-            return BadRequest();
+            code = await ChatRepo.CreateGroup(GroupCreate);
+            return RedirectToAction("ChatHome");
         }
 
+        public PartialViewResult GroupChat(string UserId, string GroupName)
+        {
+            UserId = string.IsNullOrEmpty(UserId) ? session.GetString("UserId") : UserId;
+            if (!string.IsNullOrEmpty(session.GetString("Email")) && !string.IsNullOrEmpty(UserId))
+            {
+                List<GroupChatModel> groupChat = new List<GroupChatModel>();
+                groupChat = ChatRepo.GetGroupChat(UserId, GroupName);
+                return PartialView("_GroupChat", groupChat);
+            }
+            return PartialView("_Logout");
+        }
+
+        public PartialViewResult GroupConversationPanel(string GroupId, string UserId, string GroupName, int TotalMembers, string Message)
+        {
+            GroupChatConversation chat = new GroupChatConversation();
+            chat.GroupId = GroupId;
+            chat.GroupName = GroupName;
+            chat.UserId = UserId;
+            chat.TotalMembers = TotalMembers;
+
+
+            chat.GroupMessages = ChatRepo.GetGroupMessages(GroupId, UserId, Message);
+
+            foreach (var doc in chat.GroupMessages)
+            {
+                if (doc.Message.Contains(".jpeg") || doc.Message.Contains(".jpg") || doc.Message.Contains(".png") || doc.Message.Contains(".gif"))
+                {
+                    var path = Path.Combine(_environment.WebRootPath, "Documents", doc.Message);
+                    var imageFileStream = System.IO.File.OpenRead(path);
+                    string extention = doc.Message.Split('.')[1];
+                    Byte[] bytes = System.IO.File.ReadAllBytes(path);
+                    doc.DocUrl = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes);
+                }
+            }
+            if (!string.IsNullOrEmpty(Message))
+            {
+                Task.Run(() => _chatHub.Clients.Group(GroupName).SendAsync("SendMessageToGrp", GroupName));
+            }
+            return PartialView("_GroupConversationPanel", chat);
+        }
+        public PartialViewResult GrpMessagePanel(string GroupId, string UserId)
+        {
+            GroupChatConversation chat = new GroupChatConversation();
+            chat.GroupId = GroupId;
+            chat.UserId = UserId;
+            chat.GroupMessages = ChatRepo.GetGroupMessages(GroupId, UserId, "");
+
+            foreach (var doc in chat.GroupMessages)
+            {
+                if (doc.Message.Contains(".jpeg") || doc.Message.Contains(".jpg") || doc.Message.Contains(".png") || doc.Message.Contains(".gif"))
+                {
+                    var path = Path.Combine(_environment.WebRootPath, "Documents", doc.Message);
+                    var imageFileStream = System.IO.File.OpenRead(path);
+                    string extention = doc.Message.Split('.')[1];
+                    Byte[] bytes = System.IO.File.ReadAllBytes(path);
+                    doc.DocUrl = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes);
+                }
+            }
+            return PartialView("_GrpMessagePanel", chat);
+        }
+
+        public PartialViewResult GetMyContact(string GroupID, string UserId)
+        {
+            UserId = string.IsNullOrEmpty(UserId) ? session.GetString("UserId") : UserId;
+            if (!string.IsNullOrEmpty(session.GetString("Email")) && !string.IsNullOrEmpty(UserId))
+            {
+                List<MyAllContacts> groupChat = new List<MyAllContacts>();
+                groupChat = ChatRepo.GetMyContact(GroupID, UserId);
+                return PartialView("_AddMembers", groupChat);
+            }
+            return PartialView("_Logout");
+        }
+        [HttpGet]
+        public JsonResult AddMember(string GroupID, string ContactUserId)
+        {
+            if (!string.IsNullOrEmpty(GroupID) && !string.IsNullOrEmpty(ContactUserId))
+            {
+                int result = -1;
+                result = ChatRepo.AddMember(GroupID, ContactUserId);
+                if (result == 0)
+                {
+                    return Json(new { code = result });
+                }
+            }
+            return null;
+        }
+
+        public IActionResult UploadGrpDocument([FromBody] UploadGrpDocumentModel docData)
+        {
+            if (docData.File.Count > 0)
+            {
+                var folderPath = Path.Combine(_environment.WebRootPath, "Documents");
+                string FileName = string.Empty;
+                GroupChatConversation chat = new GroupChatConversation();
+                chat.UserId = docData.UserId;
+                chat.GroupId = docData.GroupId;
+                foreach (var FileUrl in docData.File)
+                {
+                    string extention = FileUrl.url.Split(';')[0].Split('/')[1];
+                    if (extention.Contains("wordprocessingml.document"))
+                    {
+                        extention = "docx";
+                    }
+                    else if (extention.Contains("msword"))
+                    {
+                        extention = "doc";
+                    }
+                    else if (extention.Contains("vnd.ms-excel"))
+                    {
+                        extention = "xls";
+                    }
+                    else if (extention.Contains("vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+                    {
+                        extention = "xlsx";
+                    }
+                    else if (extention.Contains("vnd.ms-powerpoint"))
+                    {
+                        extention = "ppt";
+                    }
+                    else if (extention.Contains("x-ms-wmv"))
+                    {
+                        extention = "wmv";
+                    }
+                    FileName = DateTime.Now.ToString("yyyymmddMMss") + "." + extention;
+                    string FilePath = Path.Combine(folderPath, FileName);
+                    Regex regex = new Regex(@"^[\w/\:.-]+;base64,");
+                    System.IO.File.WriteAllBytes(FilePath, Convert.FromBase64String(regex.Replace(FileUrl.url, string.Empty)));
+                    chat.GroupMessages = ChatRepo.GetGroupMessages(docData.GroupId, docData.UserId,  FileName);
+                }
+
+                string ConnectionId = ChatRepo.GetSignalrConnection(docData.GroupId);
+                Task.Run(() => _chatHub.Clients.Group(docData.GroupName).SendAsync("SendMessageToGrp", docData.GroupName));
+                return PartialView("_GroupConversationPanel", chat);
+            }
+            return null;
+        }
+        public PartialViewResult GetGroupInfo(string GroupId)
+        {
+            if (!string.IsNullOrEmpty(session.GetString("Email")) && !string.IsNullOrEmpty(GroupId))
+            {
+                ContactInfo contactInfo = new ContactInfo();
+                contactInfo = ChatRepo.GetGroupInfo(GroupId);
+                return PartialView("_Contactinfo", contactInfo);
+            }
+            return PartialView("_Logout");
+        }
         private bool Validate(IFormFile file)
         {
             if (file.Length > FileSizeLimit)

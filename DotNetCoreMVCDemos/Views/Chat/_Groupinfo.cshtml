@@ -1,0 +1,408 @@
+﻿@model DotNetCoreMVCDemos.Models.ContactInfo
+@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
+<link rel="stylesheet" href="~/lib/bootstrap.min.css">
+<link rel="stylesheet" href="~/lib/css/app.css">
+<link rel="stylesheet" href="~/lib/css/theme/default.css">
+@{
+    var UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
+}
+<div class="information-panel__head">
+    <h5>Group info</h5>
+    <div class="information-panel__closer">
+        <i class="mdi mdi-close"></i>
+    </div>
+</div>
+
+<div class="information-panel__body ps">
+    <div class="userprofile-avatar">
+        <img class="img-fluid" src="~/lib/images/media/friends.jpg" alt="">
+    </div>
+
+    <div class="userprofile-name">
+        <h4>Friends Forever</h4>
+        <span>250 Members</span>
+    </div>
+
+    <hr>
+
+    <div class="accordion accordion-ungrouped mb-3" id="accordionGroupChat">
+        <div class="card">
+            <div class="card-header" id="headingOneGroup">
+                <div class="card-title collapsed justify-content-between align-items-center" data-toggle="collapse" role="button" data-target="#collapseOneGroup" aria-expanded="false" aria-controls="collapseOneGroup">
+                    <div class="acpanel__heading">
+                        <div class="acpanel__left">
+                            <span><i class="mdi mdi-camera-outline"></i></span>
+                            <span>Photos &amp; Media</span>
+                        </div>
+                        <div class="acpanel__right">
+                            <span class="badge badge-info">26</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="collapseOneGroup" class="collapse " aria-labelledby="headingOneGroup" data-parent="#accordionGroupChat">
+                <div class="card-body">
+                    <div class="owl-carousel owl-loaded owl-drag">
+
+
+
+
+
+
+                        <div class="owl-stage-outer">
+                            <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s;">
+                                <div class="owl-item">
+                                    <div class="item">
+                                        <img class="img-fluid" src="/lib/images/media/01.jpg" alt="">
+                                    </div>
+                                </div><div class="owl-item">
+                                    <div class="item">
+                                        <img class="img-fluid" src="/lib/images/media/02.jpg" alt="">
+                                    </div>
+                                </div><div class="owl-item">
+                                    <div class="item">
+                                        <img class="img-fluid" src="/lib/images/media/03.jpg" alt="">
+                                    </div>
+                                </div><div class="owl-item">
+                                    <div class="item">
+                                        <img class="img-fluid" src="/lib/images/media/04.jpg" alt="">
+                                    </div>
+                                </div><div class="owl-item">
+                                    <div class="item">
+                                        <img class="img-fluid" src="/lib/images/media/05.jpg" alt="">
+                                    </div>
+                                </div><div class="owl-item">
+                                    <div class="item">
+                                        <img class="img-fluid" src="/lib/images/media/06.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div><div class="owl-nav disabled"><button type="button" role="presentation" class="owl-prev"><span aria-label="Previous">‹</span></button><button type="button" role="presentation" class="owl-next"><span aria-label="Next">›</span></button></div><div class="owl-dots"><button role="button" class="owl-dot active"><span></span></button><button role="button" class="owl-dot"><span></span></button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" id="headingTwoGroup">
+                <div class="card-title collapsed d-flex justify-content-between align-items-center" role="button" data-toggle="collapse" data-target="#collapseTwoGroup" aria-expanded="false" aria-controls="collapseTwoGroup">
+                    <div class="acpanel__heading">
+                        <div class="acpanel__left">
+                            <span><i class="mdi mdi-file-document-outline"></i></span>
+                            <span>Documents</span>
+                        </div>
+                        <div class="acpanel__right">
+                            <span class="badge badge-info">16</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="collapseTwoGroup" class="collapse" aria-labelledby="headingTwoGroup" data-parent="#accordionGroupChat">
+                <div class="card-body">
+                    <ul class="list-unstyled documentlist-wrapper">
+                        <li>
+                            <div class="doclist">
+                                <div class="docicon">
+                                    <img src="/lib/images/svg/pdf.svg" alt="">
+                                </div>
+                                <div class="doctitle">
+                                    <div class="docname">example-file.pdf</div>
+                                    <div class="docsize">217kb</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="doclist">
+                                <div class="docicon">
+                                    <img src="/lib/images/svg/doc.svg" alt="">
+                                </div>
+                                <div class="doctitle">
+                                    <div class="docname">example-file.docs</div>
+                                    <div class="docsize">217kb</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="doclist">
+                                <div class="docicon">
+                                    <img src="/lib/images/svg/xls.svg" alt="">
+                                </div>
+                                <div class="doctitle">
+                                    <div class="docname">example-file.xlxs</div>
+                                    <div class="docsize">217kb</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="doclist">
+                                <div class="docicon">
+                                    <img src="/lib/images/svg/ppt.svg" alt="">
+                                </div>
+                                <div class="doctitle">
+                                    <div class="docname">example-file.pptx</div>
+                                    <div class="docsize">217kb</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li> <div class="doclistall">View All</div></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" id="headingThreeGroup">
+                <div class="card-title collapsed  d-flex justify-content-between align-items-center" role="button" data-toggle="collapse" data-target="#collapseThreeGroup" aria-expanded="false" aria-controls="collapseThreeGroup">
+                    <div class="acpanel__heading">
+                        <div class="acpanel__left">
+                            <span><i class="mdi mdi-settings-outline"></i></span>
+                            <span>Settings</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="collapseThreeGroup" class="collapse" aria-labelledby="headingThreeGroup" data-parent="#accordionGroupChat">
+                <div class="card-body">
+
+                    <ul class="list-unstyled">
+                        <li>
+                            <div class="setting-list">
+                                <div class="setting-list-name">Media Auto Download</div>
+                                <div class="setting-list-switch">
+                                    <label class="material-switch">
+                                        <input type="checkbox">
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="setting-list">
+                                <div class="setting-list-name">Mute Conversation</div>
+                                <div class="setting-list-switch">
+                                    <label class="material-switch">
+                                        <input type="checkbox">
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="setting-list">
+                                <div class="setting-list-name">Notifications</div>
+                                <div class="setting-list-switch">
+                                    <label class="material-switch">
+                                        <input type="checkbox">
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="setting-list">
+                                <div class="setting-list-name">Block</div>
+                                <div class="setting-list-switch">
+                                    <label class="material-switch">
+                                        <input type="checkbox">
+                                        <span></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header" id="headingFourGroup">
+                <div class="card-title  d-flex justify-content-between align-items-center" role="button" data-toggle="collapse" data-target="#collapseFourGroup" aria-expanded="true" aria-controls="collapseFourGroup">
+                    <div class="acpanel__heading">
+                        <div class="acpanel__left">
+                            <span><i class="mdi mdi-file-document-outline"></i></span>
+                            <span>Members List</span>
+                        </div>
+                        <div class="acpanel__right">
+                            <span class="badge badge-info">250</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="collapseFourGroup" class="collapse show" aria-labelledby="headingFourGroup" data-parent="#accordionGroupChat">
+                <div class="card-body">
+                    <ul class="list-unstyled documentlist-wrapper">
+                        <li>
+                            <div class="memberlist">
+                                <div class="membericon">
+                                    <img class="img-fluid" src="/lib/images/user/250/01.jpg" alt="">
+                                </div>
+                                <div class="membertitle">
+                                    <div class="membername">Jack P. Angulo</div>
+                                    <div class="membersubtext">California</div>
+                                </div>
+
+                                <div class="memberlist-action">
+                                    <div class="action-group">
+                                        <div class="iconbox btn-solid-primary">
+                                            <i class="iconbox__icon mdi mdi-message-text-outline"></i>
+                                        </div>
+                                        <div class="iconbox btn-solid-success">
+                                            <i class="iconbox__icon mdi mdi-phone"></i>
+                                        </div>
+                                        <div class="iconbox btn-solid-info">
+                                            <i class="iconbox__icon mdi mdi-video-outline"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="memberlist">
+                                <div class="membericon">
+                                    <img class="img-fluid" src="/lib/images/user/250/02.jpg" alt="">
+                                </div>
+                                <div class="membertitle">
+                                    <div class="membername">Jack P. Angulo</div>
+                                    <div class="membersubtext">Newyork</div>
+                                </div>
+                                <div class="memberlist-action">
+                                    <div class="action-group">
+                                        <div class="iconbox btn-solid-primary">
+                                            <i class="iconbox__icon mdi mdi-message-text-outline"></i>
+                                        </div>
+                                        <div class="iconbox btn-solid-success">
+                                            <i class="iconbox__icon mdi mdi-phone"></i>
+                                        </div>
+                                        <div class="iconbox btn-solid-info">
+                                            <i class="iconbox__icon mdi mdi-video-outline"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="memberlist">
+                                <div class="membericon">
+                                    <img class="img-fluid" src="/lib/images/user/250/03.jpg" alt="">
+                                </div>
+                                <div class="membertitle">
+                                    <div class="membername">Jack P. Angulo</div>
+                                    <div class="membersubtext">Japan</div>
+                                </div>
+                                <div class="memberlist-action">
+                                    <div class="action-group">
+                                        <div class="iconbox btn-solid-primary">
+                                            <i class="iconbox__icon mdi mdi-message-text-outline"></i>
+                                        </div>
+                                        <div class="iconbox btn-solid-success">
+                                            <i class="iconbox__icon mdi mdi-phone"></i>
+                                        </div>
+                                        <div class="iconbox btn-solid-info">
+                                            <i class="iconbox__icon mdi mdi-video-outline"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="memberlist">
+                                <div class="membericon">
+                                    <img class="img-fluid" src="/lib/images/user/250/04.jpg" alt="">
+                                </div>
+                                <div class="membertitle">
+                                    <div class="membername">Jack P. Angulo</div>
+                                    <div class="membersubtext">Newyork</div>
+                                </div>
+                                <div class="memberlist-action">
+                                    <div class="action-group">
+                                        <div class="iconbox btn-solid-primary">
+                                            <i class="iconbox__icon mdi mdi-message-text-outline"></i>
+                                        </div>
+                                        <div class="iconbox btn-solid-success">
+                                            <i class="iconbox__icon mdi mdi-phone"></i>
+                                        </div>
+                                        <div class="iconbox btn-solid-info">
+                                            <i class="iconbox__icon mdi mdi-video-outline"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="memberlist">
+                                <div class="membericon">
+                                    <img class="img-fluid" src="/lib/images/user/250/05.jpg" alt="">
+                                </div>
+                                <div class="membertitle">
+                                    <div class="membername">Jack P. Angulo</div>
+                                    <div class="membersubtext">California</div>
+                                </div>
+                                <div class="memberlist-action">
+                                    <div class="action-group">
+                                        <div class="iconbox btn-solid-primary">
+                                            <i class="iconbox__icon mdi mdi-message-text-outline"></i>
+                                        </div>
+                                        <div class="iconbox btn-solid-success">
+                                            <i class="iconbox__icon mdi mdi-phone"></i>
+                                        </div>
+                                        <div class="iconbox btn-solid-info">
+                                            <i class="iconbox__icon mdi mdi-video-outline"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="memberlist">
+                                <div class="membericon">
+                                    <img class="img-fluid" src="/lib/images/user/500/01.jpg" alt="">
+                                </div>
+                                <div class="membertitle">
+                                    <div class="membername">Jack P. Angulo</div>
+                                    <div class="membersubtext">California</div>
+                                </div>
+                                <div class="memberlist-action">
+                                    <div class="action-group">
+                                        <div class="iconbox btn-solid-primary">
+                                            <i class="iconbox__icon mdi mdi-message-text-outline"></i>
+                                        </div>
+                                        <div class="iconbox btn-solid-success">
+                                            <i class="iconbox__icon mdi mdi-phone"></i>
+                                        </div>
+                                        <div class="iconbox btn-solid-info">
+                                            <i class="iconbox__icon mdi mdi-video-outline"></i>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </li>
+
+                        <li> <div class="doclistall">Load More</div></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div></div>
+</div>
+
+
+
+<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
+<script src="~/lib/bootstrap.bundle.min.js"></script>
+<script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
+<script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
+<script src="~/lib/js/app.js"></script>

@@ -40,7 +40,7 @@ namespace DotNetCoreMVCDemos
             //}));
 
             services.AddSignalR();
-            services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
+            //services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
             services.AddControllersWithViews();
             services.Configure<CookiePolicyOptions>(options =>
                         {

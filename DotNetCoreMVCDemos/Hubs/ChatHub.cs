@@ -27,17 +27,17 @@ namespace DotNetCoreMVCDemos.Hubs
         //{            
         //    await Clients.All.SendAsync("ActiveInactiveUser");
         //}
-        public async Task SendAndGetMessage(string ChatUserId,string UserId,string Message)
+        public async Task SendAndGetMessage(string ChatUserId, string UserId, string Message)
         {
             string ConnectionId = ChatRepo.GetSignalrConnection(ChatUserId);
-            await Clients.Client(ConnectionId).SendAsync("SendMessageToUser", ConnectionId,ChatUserId, UserId, Message);
+            await Clients.Client(ConnectionId).SendAsync("SendMessageToUser", ConnectionId, ChatUserId, UserId, Message);
             //await Clients.Client(ConnectionId).SendAsync("SendMessageToUser", ConnectionId);
             //await Clients.All.SendAsync("SendMessageToUser");
         }
-        public async Task MessageTyping(string ChatUserId,string UserId)
+        public async Task MessageTyping(string ChatUserId, string UserId)
         {
-            string ConnectionId= ChatRepo.GetSignalrConnection(ChatUserId);
-            await Clients.Client(ConnectionId).SendAsync("UserTypeMessage",ConnectionId, UserId);
+            string ConnectionId = ChatRepo.GetSignalrConnection(ChatUserId);
+            await Clients.Client(ConnectionId).SendAsync("UserTypeMessage", ConnectionId, UserId);
             //await Clients.All.SendAsync("UserTypeMessage");
         }
         public async Task MessageRead(string ChatUserId)
@@ -46,13 +46,31 @@ namespace DotNetCoreMVCDemos.Hubs
             await Clients.Client(ConnectionId).SendAsync("UserReadMessage", ConnectionId);
             //await Clients.All.SendAsync("UserTypeMessage");
         }
-
-        public async Task SendMessage(string user, string message)
+        public async Task SendAndGetGrpMessage(string GroupId, string UserId, string GroupName)
         {
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
+            List<string> GrpConnectionId = new List<string>();
+            GrpConnectionId = ChatRepo.GetGrpSignalrConnection(GroupId, UserId);
+            foreach (string ConId in GrpConnectionId)
+            {
+                await Groups.AddToGroupAsync(ConId, GroupName);
+            }
+            await Clients.Group(GroupName).SendAsync("SendMessageToGrp", GroupName);
         }
-
-
+        public async Task SendToAddGroup(string UserId)
+        {
+            string ConnectionId = ChatRepo.GetSignalrConnection(UserId);
+            await Clients.Client(ConnectionId).SendAsync("AddIntoGroup", ConnectionId);
+        }
+        public async Task GrpMessageTyping(string GroupId, string UserId, string GroupName)
+        {
+            List<string> GrpConnectionId = new List<string>();
+            GrpConnectionId = ChatRepo.GetGrpSignalrConnection(GroupId, UserId);
+            foreach (string ConId in GrpConnectionId)
+            {
+                await Groups.AddToGroupAsync(ConId, GroupName);
+            }
+            await Clients.Group(GroupName).SendAsync("GrpTypeMessage", GroupName, UserId);
+        }
         public async Task SendPrivate(string receiverName, string message)
         {
             if (_ConnectionsMap.TryGetValue(receiverName, out string userId))
@@ -112,7 +130,7 @@ namespace DotNetCoreMVCDemos.Hubs
 
         public IEnumerable<PersonalChatModel> GetUsers(string roomName)
         {
-            return ChatRepo.GetPersonalChat(session.GetString("UserId"),"");
+            return ChatRepo.GetPersonalChat(session.GetString("UserId"), "");
         }
 
         public override async Task OnConnectedAsync()

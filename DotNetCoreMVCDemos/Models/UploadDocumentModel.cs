@@ -9,8 +9,6 @@ namespace DotNetCoreMVCDemos.Models
 {
     public class UploadDocumentModel
     {
-        //public IList<IFormFile> File { get; set; }
-        //public Array[] File { get; set; }
         public List<FileDetail> File { get; set; }
         public string UserId { get; set; }
         public string ChatUserID { get; set; }

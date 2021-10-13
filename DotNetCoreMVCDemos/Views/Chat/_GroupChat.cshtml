@@ -1,0 +1,74 @@
+﻿@model IEnumerable<DotNetCoreMVCDemos.Models.GroupChatModel>
+@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
+}
+<div class="tab-pane fade show active" id="groups-chat" role="tabpanel" aria-labelledby="groups-chat-tab">
+    <div class="sidebar-userlist">
+        <ul class="list-unstyled userSearchList">
+            @{int count = 0; }
+            @foreach (var chat in Model)
+            {
+                <li id="liGroupConverId_@count">
+                    <a data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace"
+                       data-ajax-update="#rdrConversationId" href="@Url.Action("GroupConversationPanel","Chat",new {GroupId=chat.GroupID, UserId = UserId, GroupName = chat.GroupName, TotalMembers = chat.TotalMembers })" id="ajaxConversationId_@count" style="display:none">
+                    </a>
+
+                    <div id="activeChatId_@count" class="conversation status-hidden">
+                        <div class="user-avatar user-avatar-rounded avatar-primary">
+                            <span><i class="mdi mdi-account-group"></i></span>
+                        </div>
+
+                        <div class="conversation__details">
+                            <div class="conversation__name">
+                                <div class="conversation__name--title">@chat.GroupName</div>
+                                <div class="conversation__time">@chat.LastMessageTime</div>
+                            </div>
+                            <div class="conversation__message">
+                                <div class="conversation__message-preview">
+                                    @*<span class="tick">
+                                            <img src="~/lib/images/tick/tick-delivered.svg" alt="">
+                                        </span>*@
+                                    @chat.LastMessage
+                                </div>
+                                @*<span><i class="mdi mdi-pin"></i></span>*@
+                                @if (@chat.MessageCount > 0)
+                                {
+                                    <span id="msgCountId_@count" class="badge badge-primary badge-rounded">@chat.MessageCount</span>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                count++;
+            }
+            <input type="hidden" id="hdnCount" value="@count" />
+        </ul>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        var count = $('#hdnCount').val();
+        for (let i = 0; i < count; i++) {
+            $('#liGroupConverId_' + i + '').click(function () {
+                $('#ajaxConversationId_' + i + '')[0].click()
+                if (parseInt($('#msgCountId_' + i + '').html()) > 0) {
+                    console.log('calling getAll in group chat');
+                    getGrpAll();
+                }
+                for (let j = 0; j < count; j++) {
+                    $('#activeChatId_' + j + '').removeClass("active");
+                }
+                $('#activeChatId_' + i + '').addClass("active");
+            });
+        }
+    });
+</script>

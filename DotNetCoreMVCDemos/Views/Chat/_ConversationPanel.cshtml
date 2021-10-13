@@ -172,12 +172,12 @@
                                                                     <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
                                                                 </div>
                                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsms1">
-                                                                    <a class="dropdown-item" href="javascript:;">
+                                                                    @*<a class="dropdown-item" href="javascript:;">
                                                                         <span>
                                                                             <i class="mdi mdi-download-outline"></i>
                                                                         </span>
                                                                         <span>Download</span>
-                                                                    </a>
+                                                                    </a>*@
                                                                     <a class="dropdown-item" href="javascript:;">
                                                                         <span><i class="mdi mdi-share-outline"></i></span>
                                                                         <span>Forward</span>
@@ -538,19 +538,9 @@
                                 <div class="composer__middle--microphone">
                                     <i class="mdi mdi-microphone"></i>
                                 </div>
-                                @*<form method="post" asp-action="UploadDoc" asp-controller="Chat" enctype="multipart/form-data" id="uploadDoc">
-                                        <div class="composer__middle--photo">
-                                            <label for="UploadedFile" class="custom-file-upload">
-                                                <i class="mdi mdi-camera"></i>
-                                            </label>
-                                            <input type="file" id="UploadedFile" name="File" accept=".jpg,.jpeg,.png">
-                                        </div>
-                                    </form>*@
-                                @*<form method="post" enctype="multipart/form-data">*@
                                 <div class="composer__middle--photo addImages">
                                     <i class="mdi mdi-camera pic"></i>
                                 </div>
-                                @*</form>*@
                                 <div class="composer__middle--attachment addDoc">
                                     <i class="mdi mdi-attachment pic"></i>
                                 </div>
@@ -1110,7 +1100,7 @@
                     reader.onload = function (event) {
                         console.log(docName[1]);
                         var docImgUrl = docName[1];
-                        imagesDoc.prepend('<div class="col-2 img" id="imgPreview"> <img class="photo" src="/lib/images/svg/' + docImgUrl + '.svg" width="100%" height="100%" style="padding-bottom: 7%;" rel="' + event.target.result + '"><div style="position: absolute;top: 0;right: 0;background-color: #dc3545;;border-radius: 22%;"><i class="mdi mdi-close" style="color:white;"></i></div></div>')
+                        imagesDoc.prepend('<div class="col-2 img" id="imgPreview"> <img class="photo" src="../lib/images/svg/' + docImgUrl + '.svg" width="100%" height="100%" style="padding-bottom: 7%;" rel="' + event.target.result + '"><div style="position: absolute;top: 0;right: 0;background-color: #dc3545;;border-radius: 22%;"><i class="mdi mdi-close" style="color:white;"></i></div></div>')
                     }
                     reader.readAsDataURL(uploaderDoc[0].files[0])
                 })
@@ -1264,7 +1254,7 @@
 
 
     $(document).ready(function () {
-        getAllMessage();
+        //getAllMessage();
         connection.on("SendMessageToUser", function (ConnectionId, ChatUserId, UserId, Message) {
             //    console.log('from conversation send message to user calling: ' + ConnectionId);
             //    console.log('from conversation send message to user calling userid : ' + ChatUserId);
@@ -1314,7 +1304,7 @@
 
         //var fileUpload = $("#myFile").get(0);
         //var files = fileUpload.files;
-        var fileData = new FormData();
+        //var fileData = new FormData();
         var docData = new Object();
         //for (var i = 0; i < files.length; i++) {
         //    fileData.append(files[i].name, files[i]);
@@ -1336,11 +1326,11 @@
         var m = today.getMinutes();
         var messageTime = today.getHours() + ":" + today.getMinutes();
 
-        var messageHtml = '<div class="ca-send"><div class="ca-send__msg-group"><div class="ca-send__msgwrapper"><div class="ca-msg-actions">                                                        <div class="iconbox-dropdown dropdown">                                                            <div class="iconbox btn-hovered-light" id="dropdownMenuButtons1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                                                                <i class="iconbox__icon mdi mdi-dots-horizontal"></i>                                                            </div>                                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButtons1">                                                                <a class="dropdown-item" href="javascript:;">                                                                    <span><i class="mdi mdi-share-outline"></i></span>                                                                    <span>Forward</span>                                                                </a>                                                                <a class="dropdown-item" href="javascript:;">                                                                    <span><i class="mdi mdi-content-copy"></i></span>                                                                    <span>Copy</span>                                                                </a>                                                                <a class="dropdown-item" href="javascript:;">                                                                    <span><i class="mdi mdi-star-outline"></i></span>                                                                    <span>Add Star</span>                                                                </a>                                                                <a class="dropdown-item" href="javascript:;">                                                                    <span><i class="mdi mdi-trash-can-outline"></i></span>                                                                    <span>Delete</span>                                                                </a>                                                            </div>                                                        </div>                                                    </div>                                                    <div class="ca-send__msg">' + message + '</div>                                                </div>                                                <div class="metadata">                                                    <span class="time">' + messageTime + '</span>                                                    <span class="tick">                                                        <img src="/lib/images/tick/tick-delivered.svg" alt="">                                                    </span>                                                </div>                                            </div>                                            <div class="user-avatar user-avatar-sm user-avatar-rounded online">                                                <img src="/lib/images/user/250/02.jpg" alt="">                                            </div>                                        </div>'
+        var messageHtml = '<div class="ca-send"><div class="ca-send__msg-group"><div class="ca-send__msgwrapper"><div class="ca-msg-actions">                                                        <div class="iconbox-dropdown dropdown">                                                            <div class="iconbox btn-hovered-light" id="dropdownMenuButtons1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                                                                <i class="iconbox__icon mdi mdi-dots-horizontal"></i>                                                            </div>                                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButtons1">                                                                <a class="dropdown-item" href="javascript:;">                                                                    <span><i class="mdi mdi-share-outline"></i></span>                                                                    <span>Forward</span>                                                                </a>                                                                <a class="dropdown-item" href="javascript:;">                                                                    <span><i class="mdi mdi-content-copy"></i></span>                                                                    <span>Copy</span>                                                                </a>                                                                <a class="dropdown-item" href="javascript:;">                                                                    <span><i class="mdi mdi-star-outline"></i></span>                                                                    <span>Add Star</span>                                                                </a>                                                                <a class="dropdown-item" href="javascript:;">                                                                    <span><i class="mdi mdi-trash-can-outline"></i></span>                                                                    <span>Delete</span>                                                                </a>                                                            </div>                                                        </div>                                                    </div>                                                    <div class="ca-send__msg">' + message + '</div>                                                </div>                                                <div class="metadata">                                                    <span class="time">' + messageTime + '</span>                                                    <span class="tick">                                                        <img src="/lib/images/tick/tick-delivered.svg" alt="">                                                    </span>                                                </div>                                            </div>                                            <div class="user-avatar user-avatar-sm user-avatar-rounded online">                                                <img src="../lib/images/user/250/02.jpg" alt="">                                            </div>                                        </div>'
         if (images.length == 0) {
             $.ajax({
-                //url: "http://50.21.182.225/aspdontnetcoredemo/Chat/ConversationPanel?UserId=" + userID + "&ChatUserId=" + chatUserID + "&ChatUserName=" + chatUserName + "&Lastseen=" + lastseen + "&Message=" + message+ "&imageArr=" + imageArr+"",
-                url: "/Chat/ConversationPanel?UserId=" + userID + "&ChatUserId=" + chatUserID + "&ChatUserName=" + chatUserName + "&Lastseen=" + lastseen + "&Message=" + message + "&imageArr=" + imageArr + "",
+                //url: "http://50.21.182.225/aspdontnetcoredemo/Chat/ConversationPanel?UserId=" + userID + "&ChatUserId=" + chatUserID + "&ChatUserName=" + chatUserName + "&Lastseen=" + lastseen + "&Message=" + message + "&imageArr=" + imageArr + "",
+                url: "../Chat/ConversationPanel?UserId=" + userID + "&ChatUserId=" + chatUserID + "&ChatUserName=" + chatUserName + "&Lastseen=" + lastseen + "&Message=" + message + "&imageArr=" + imageArr + "",
                 contentType: 'application/html; charset=utf-8',
                 type: "GET",
                 dataType: 'html',
@@ -1370,7 +1360,7 @@
             for (var i = 0; i < images.length; i++) {
                 //imageHtml.append({ url: $(images[i]).attr('rel') });
                 console.log(imageArr[i].url);
-                $("#htmlMessageId").append('<div class="ca-send"><div class="ca-send__msg-group"><div class="ca-send__msgwrapper"><div class="ca-msg-actions"><div class="iconbox-dropdown dropdown"><div class="iconbox btn-hovered-light" id="dropdownMenuButtonsms1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="iconbox__icon mdi mdi-dots-horizontal"></i></div><div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsms1"><a class="dropdown-item" href="javascript:;"><span><i class="mdi mdi-download-outline"></i></span><span>Download</span></a><a class="dropdown-item" href="javascript:;"><span><i class="mdi mdi-share-outline"></i></span><span>Forward</span></a><a class="dropdown-item" href="javascript:;"><span><i class="mdi mdi-content-copy"></i></span><span>Copy</span></a><a class="dropdown-item" href="javascript:;"><span><i class="mdi mdi-star-outline"></i></span><span>Add Star</span></a><a class="dropdown-item" href="javascript:;"><span><i class="mdi mdi-trash-can-outline"></i></span><span>Delete</span></a></div></div></div><div class="ca-send__msg"><div class="ca-send__msg-media-group"><div class="ca-send__msg-media"><img src="' + imageArr[i].url + '" alt=""></div></div></div></div><div class="metadata"><span class="time">' + messageTime + '</span><span class="tick"><img src="/lib/images/tick/tick-delivered.svg" alt=""></span></div></div><div class="user-avatar user-avatar-sm user-avatar-rounded online"><img src="/lib/images/user/250/02.jpg" alt=""></div></div>');
+                $("#htmlMessageId").append('<div class="ca-send"><div class="ca-send__msg-group"><div class="ca-send__msgwrapper"><div class="ca-msg-actions"><div class="iconbox-dropdown dropdown"><div class="iconbox btn-hovered-light" id="dropdownMenuButtonsms1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="iconbox__icon mdi mdi-dots-horizontal"></i></div><div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsms1"><a class="dropdown-item" href="javascript:;"><span><i class="mdi mdi-download-outline"></i></span><span>Download</span></a><a class="dropdown-item" href="javascript:;"><span><i class="mdi mdi-share-outline"></i></span><span>Forward</span></a><a class="dropdown-item" href="javascript:;"><span><i class="mdi mdi-content-copy"></i></span><span>Copy</span></a><a class="dropdown-item" href="javascript:;"><span><i class="mdi mdi-star-outline"></i></span><span>Add Star</span></a><a class="dropdown-item" href="javascript:;"><span><i class="mdi mdi-trash-can-outline"></i></span><span>Delete</span></a></div></div></div><div class="ca-send__msg"><div class="ca-send__msg-media-group"><div class="ca-send__msg-media"><img src="' + imageArr[i].url + '" alt=""></div></div></div></div><div class="metadata"><span class="time">' + messageTime + '</span><span class="tick"><img src="/lib/images/tick/tick-delivered.svg" alt=""></span></div></div><div class="user-avatar user-avatar-sm user-avatar-rounded online"><img src="../lib/images/user/250/02.jpg" alt=""></div></div>');
 
                 $(document).ready(function () {
                     $('.conversation-panel__body').animate({
@@ -1383,17 +1373,18 @@
             }
             console.log(JSON.stringify(docData));
             $.ajax({
-                url: "/Chat/UploadDocument",
+                //url: "http://50.21.182.225/aspdontnetcoredemo/Chat/UploadDocument",
+                url: "../Chat/UploadDocument",
                 type: "post",
                 data: JSON.stringify(docData),
                 contentType: 'application/json; charset=utf-8',
                 //processData: false,
                 //contentType: false,
                 //dataType: 'json',
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("XSRF-TOKEN",
-                        $('input:hidden[name="__RequestVerificationToken"]').val());
-                },
+                //beforeSend: function (xhr) {
+                //    xhr.setRequestHeader("XSRF-TOKEN",
+                //        $('input:hidden[name="__RequestVerificationToken"]').val());
+                //},
                 success: function (result) {
                     //$("#htmlMessageId").append(imageHtml);
                     $("#txtMessageId").val('');
@@ -1422,7 +1413,7 @@
         var chatUserName = $('#hdnChatUserName').val();
         var lastseen = $('#hdnLastseen').val();
         $.ajax({
-            url: "/Chat/MessagePanel?UserId=" + userID + "&ChatUserId=" + chatUserID + "",
+            url: "../Chat/MessagePanel?UserId=" + userID + "&ChatUserId=" + chatUserID + "",
             //url: "http://50.21.182.225/aspdontnetcoredemo/Chat/MessagePanel?UserId=" + userID + "&ChatUserId=" + chatUserID + "",
             contentType: 'application/html ; charset:utf-8',
             type: 'GET',

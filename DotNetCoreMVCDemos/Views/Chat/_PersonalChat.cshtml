@@ -14,7 +14,6 @@
 <link rel="stylesheet" href="~/lib/bootstrap.min.css">
 <link rel="stylesheet" href="~/lib/css/app.css">
 <link rel="stylesheet" href="~/lib/css/theme/default.css">
-@*<div class="tab-content" id="caChatsTabInsideContent">  *@
 <div class="tab-pane fade show active" id="personal-chat" role="tabpanel" aria-labelledby="personal-chat-tab">
     <div class="sidebar-userlist">
         <ul class="list-unstyled userSearchList">
@@ -69,132 +68,6 @@
         </ul>
     </div>
 </div>
-<div class="tab-pane fade" id="groups-chat" role="tabpanel" aria-labelledby="groups-chat-tab">
-    <div class="sidebar-userlist">
-        <ul class="list-unstyled userSearchList">
-            <li>
-                <div class="conversation status-hidden active">
-                    <div class="user-avatar user-avatar-rounded">
-                        <img src="~/lib/images/media/friends.jpg" alt="">
-                    </div>
-                    <div class="conversation__details">
-                        <div class="conversation__name">
-                            <div class="conversation__name--title">Friends Forever</div>
-                            <div class="conversation__time">00:21 PM</div>
-                        </div>
-                        <div class="conversation__message">
-                            <div class="conversation__message-preview">
-                                <span>
-                                    <a href="javascript:;">Eva :</a>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta consequuntur accusantium tempora. Ad officiis voluptate neque, deleniti porro necessitatibus aut!
-                                </span>
-                            </div>
-
-                            <span>
-                                <i class="mdi mdi-pin"></i>
-                            </span>
-
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="conversation status-hidden unread">
-                    <div class="user-avatar user-avatar-rounded avatar-primary">
-                        <span><i class="mdi mdi-account-group"></i></span>
-                    </div>
-
-                    <div class="conversation__details">
-                        <div class="conversation__name">
-                            <div class="conversation__name--title">The Public Square</div>
-                            <div class="conversation__time">02:47 PM</div>
-                        </div>
-                        <div class="conversation__message">
-                            <div class="conversation__message-preview">
-                                <span class="tick">
-                                    <img src="~/lib/images/tick/tick-delivered.svg" alt="">
-                                </span>An example of un-read message.
-                            </div>
-
-                            <span><i class="mdi mdi-pin"></i></span>
-                            <span class="badge badge-primary badge-rounded">2</span>
-
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="conversation status-hidden unread">
-                    <div class="user-avatar user-avatar-rounded">
-                        <img src="~/lib/images/media/family.jpg" alt="">
-                    </div>
-                    <div class="conversation__details">
-                        <div class="conversation__name">
-                            <div class="conversation__name--title">Best Family Ever</div>
-                            <div class="conversation__time">07:15 PM</div>
-                        </div>
-                        <div class="conversation__message">
-                            <div class="conversation__message-preview">
-                                <span class="tick">
-                                    <img src="~/lib/images/tick/tick-send.svg" alt="">
-                                </span>
-                                Hello! Are you free today?
-                            </div>
-
-                            <span><i class="mdi mdi-volume-mute"></i></span>
-                            <span class="badge badge-primary badge-rounded">12</span>
-
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="conversation status-hidden">
-                    <div class="user-avatar user-avatar-rounded">
-                        <img src="~/lib/images/svg/happy.svg" alt="">
-                    </div>
-                    <div class="conversation__details">
-                        <div class="conversation__name">
-                            <div class="conversation__name--title">Live life like there is no tomorrow</div>
-                            <div class="conversation__time">02:47 PM</div>
-                        </div>
-                        <div class="conversation__message">
-                            <div class="conversation__message-preview">
-                                <span class="tick">
-                                    <img src="~/lib/images/tick/tick-delivered.svg" alt="">
-                                </span>Hey! I received your email. Thank you :)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="conversation status-hidden">
-                    <div class="user-avatar user-avatar-rounded avatar-warning">
-                        <span><i class="mdi mdi-account-group"></i></span>
-                    </div>
-                    <div class="conversation__details">
-                        <div class="conversation__name">
-                            <div class="conversation__name--title">We are unique</div>
-                            <div class="conversation__time">yesterday</div>
-                        </div>
-                        <div class="conversation__message">
-                            <div class="conversation__message-preview">
-                                <span class="tick">
-                                    <img src="~/lib/images/tick/tick-send.svg" alt="">
-                                </span>
-                                Hello! Are you free today?
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
-        </ul>
-    </div>
-</div>
-@*</div>*@
-@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ajax-unobtrusive/3.2.6/jquery.unobtrusive-ajax.js" integrity="sha512-f04GBpoqEZhbyjlRTuXeg8FIHDb+xfCJ0LVdqiN1fEl5B3jz3Z0SPe9IxDumOVdTeeXmKMcMJhb26VuGf1Laqw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>*@
 <script>
 
     $(document).ready(function () {
@@ -218,17 +91,6 @@
             });
         }
     });
-
-    //function getAllMessages() {
-    //    var model = $('#caChatsTabInsideContent');
-    //    $.ajax({
-    //        url: '/Chat/PersonalChat',
-    //        contentType: 'application/html ; charset:utf-8',
-    //        type: 'GET',
-    //        dataType: 'html',
-    //        success: function (result) { model.empty().append(result); }
-    //    });
-    //}
 </script>
 
 <script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
