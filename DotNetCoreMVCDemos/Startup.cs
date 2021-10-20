@@ -1,4 +1,5 @@
 using DotNetCoreMVCDemos.Hubs;
+using DotNetCoreMVCDemos.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,7 +40,13 @@ namespace DotNetCoreMVCDemos
             //    //"https://project-demo-server.net/aspdontnetcoredemo");
             //}));
 
-            services.AddSignalR();
+            services.AddSignalR(o =>
+            {
+                o.EnableDetailedErrors = true;
+            });
+            services.AddSingleton<List<User>>();
+            services.AddSingleton<List<UserCall>>();
+            services.AddSingleton<List<CallOffer>>();
             //services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
             services.AddControllersWithViews();
             services.Configure<CookiePolicyOptions>(options =>
@@ -98,6 +105,7 @@ namespace DotNetCoreMVCDemos
 
                 //endpoints.MapHub<ChatHub>("/aspdontnetcoredemo/chathub");
                 endpoints.MapHub<ChatHub>("/chathub");
+                endpoints.MapHub<CallHub>("/callhub");
             });
         }
     }

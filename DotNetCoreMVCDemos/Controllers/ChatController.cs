@@ -21,11 +21,12 @@ namespace DotNetCoreMVCDemos.Controllers
         public readonly ChatRepository ChatRepo = new ChatRepository();
         public readonly ISession session;
         private readonly IHubContext<ChatHub> _chatHub;
+        private readonly IHubContext<CallHub> _callHub;
         private readonly int FileSizeLimit;
         private readonly string[] AllowedExtensions;
         private readonly IWebHostEnvironment _environment;
         //HubConnection connection;
-        public ChatController(IHttpContextAccessor httpContextAccessor, IHubContext<ChatHub> chatHub,
+        public ChatController(IHttpContextAccessor httpContextAccessor, IHubContext<ChatHub> chatHub, IHubContext<CallHub> callHub,
             IConfiguration configruation, IWebHostEnvironment environment)
         {
             session = httpContextAccessor.HttpContext.Session;
@@ -33,6 +34,7 @@ namespace DotNetCoreMVCDemos.Controllers
             FileSizeLimit = configruation.GetSection("FileUpload").GetValue<int>("FileSizeLimit");
             AllowedExtensions = configruation.GetSection("FileUpload").GetValue<string>("AllowedExtensions").Split(",");
             _environment = environment;
+            _callHub = callHub;
         }
         public ActionResult ChatDemo()
         {
@@ -461,7 +463,28 @@ namespace DotNetCoreMVCDemos.Controllers
             }
             return PartialView("_Logout");
         }
-        private bool Validate(IFormFile file)
+
+        public PartialViewResult CallList(string UserId, string UserName)
+        {
+            UserId = string.IsNullOrEmpty(UserId) ? session.GetString("UserId") : UserId;
+            if (!string.IsNullOrEmpty(session.GetString("Email")) && !string.IsNullOrEmpty(UserId))
+            {
+                List<PersonalChatModel> callList = new List<PersonalChatModel>();
+                callList = ChatRepo.GetPersonalChat(UserId, UserName);
+                return PartialView("_CallList", callList);
+            }
+            return PartialView("_Logout");
+        }
+        public PartialViewResult MakeCall(string UserId, string ChatUserId, string ChatUserName, string Lastseen, string Message)
+        {
+            string UserConnectionId = ChatRepo.GetSignalrConnection(UserId);
+            string ChatUserConnectionId = ChatRepo.GetSignalrConnection(ChatUserId);
+            List<PersonalChatModel> callList = new List<PersonalChatModel>();
+            callList = ChatRepo.GetPersonalChat(UserId, ChatUserName);
+            return PartialView("_CallList", callList);
+
+        }
+            private bool Validate(IFormFile file)
         {
             if (file.Length > FileSizeLimit)
                 return false;

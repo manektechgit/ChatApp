@@ -319,128 +319,129 @@
                                             </li>
                                         </ul>
                                         <div class="tab-content" id="caCallsTabInsideContent">
-                                            <div class="tab-pane fade show active" id="all-calls" role="tabpanel" aria-labelledby="all-calls-tab">
-                                                <div class="sidebar-userlist">
-                                                    <ul class="list-unstyled userSearchList">
-                                                        <li>
-                                                            <div class="calllist">
-                                                                <div class="user-avatar user-avatar-rounded online">
-                                                                    <img src="~/lib/images/user/250/01.jpg" alt="">
-                                                                </div>
-                                                                <div class="calllist__details">
-                                                                    <div class="calllist__details--name">Jack P. Angulo</div>
-                                                                    <div class="calllist__details--info">
-                                                                        <span><i class="mdi mdi-call-made"></i></span>
-                                                                        <span>Today at 10:02AM</span>
+                                            @Html.RenderAction("CallList", "Chat", new { UserId = UserId, UserName = "" });
+                                            @*<div class="tab-pane fade show active" id="all-calls" role="tabpanel" aria-labelledby="all-calls-tab">
+                                                    <div class="sidebar-userlist">
+                                                        <ul class="list-unstyled userSearchList">
+                                                            <li>
+                                                                <div class="calllist">
+                                                                    <div class="user-avatar user-avatar-rounded online">
+                                                                        <img src="~/lib/images/user/250/01.jpg" alt="">
                                                                     </div>
-                                                                </div>
+                                                                    <div class="calllist__details">
+                                                                        <div class="calllist__details--name">Jack P. Angulo</div>
+                                                                        <div class="calllist__details--info">
+                                                                            <span><i class="mdi mdi-call-made"></i></span>
+                                                                            <span>Today at 10:02AM</span>
+                                                                        </div>
+                                                                    </div>
 
-                                                                <div class="calllist__actions">
-                                                                    <div class="iconbox btn-hovered-light">
-                                                                        <i class="iconbox__icon mdi mdi-phone"></i>
+                                                                    <div class="calllist__actions">
+                                                                        <div class="iconbox btn-hovered-light">
+                                                                            <i class="iconbox__icon mdi mdi-phone"></i>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="calllist active">
-                                                                <div class="user-avatar user-avatar-rounded online">
-                                                                    <img src="~/lib/images/user/250/02.jpg" alt="">
-                                                                </div>
-                                                                <div class="calllist__details">
-                                                                    <div class="calllist__details--name">Earnest Clements</div>
-                                                                    <div class="calllist__details--info">
-                                                                        <span><i class="mdi mdi-call-received"></i></span>
-                                                                        <span>Today at 07:25AM</span>
+                                                            </li>
+                                                            <li>
+                                                                <div class="calllist active">
+                                                                    <div class="user-avatar user-avatar-rounded online">
+                                                                        <img src="~/lib/images/user/250/02.jpg" alt="">
+                                                                    </div>
+                                                                    <div class="calllist__details">
+                                                                        <div class="calllist__details--name">Earnest Clements</div>
+                                                                        <div class="calllist__details--info">
+                                                                            <span><i class="mdi mdi-call-received"></i></span>
+                                                                            <span>Today at 07:25AM</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="calllist__actions">
+                                                                        <div class="iconbox btn-hovered-light">
+                                                                            <i class="iconbox__icon mdi mdi-video-outline"></i>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="calllist__actions">
-                                                                    <div class="iconbox btn-hovered-light">
-                                                                        <i class="iconbox__icon mdi mdi-video-outline"></i>
+                                                            </li>
+                                                            <li>
+                                                                <div class="calllist">
+                                                                    <div class="user-avatar user-avatar-rounded online">
+                                                                        <img src="~/lib/images/user/250/03.jpg" alt="">
+                                                                    </div>
+                                                                    <div class="calllist__details">
+                                                                        <div class="calllist__details--name">Willie McLaughlin</div>
+                                                                        <div class="calllist__details--info text-danger">
+                                                                            <span><i class="mdi mdi-call-missed"></i></span>
+                                                                            <span>Today at 07:25AM</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="calllist__actions">
+                                                                        <div class="iconbox btn-hovered-light">
+                                                                            <i class="iconbox__icon mdi mdi-video-outline"></i>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="calllist">
-                                                                <div class="user-avatar user-avatar-rounded online">
-                                                                    <img src="~/lib/images/user/250/03.jpg" alt="">
-                                                                </div>
-                                                                <div class="calllist__details">
-                                                                    <div class="calllist__details--name">Willie McLaughlin</div>
-                                                                    <div class="calllist__details--info text-danger">
-                                                                        <span><i class="mdi mdi-call-missed"></i></span>
-                                                                        <span>Today at 07:25AM</span>
+                                                            </li>
+                                                            <li>
+                                                                <div class="calllist">
+                                                                    <div class="user-avatar user-avatar-rounded online">
+                                                                        <img src="~/lib/images/user/250/04.jpg" alt="">
+                                                                    </div>
+                                                                    <div class="calllist__details">
+                                                                        <div class="calllist__details--name">Andrew Showalter</div>
+                                                                        <div class="calllist__details--info text-danger">
+                                                                            <span><i class="mdi mdi-call-missed"></i></span>
+                                                                            <span>Today at 07:25AM</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="calllist__actions">
+                                                                        <div class="iconbox btn-hovered-light">
+                                                                            <i class="iconbox__icon mdi mdi-phone"></i>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="calllist__actions">
-                                                                    <div class="iconbox btn-hovered-light">
-                                                                        <i class="iconbox__icon mdi mdi-video-outline"></i>
+                                                            </li>
+                                                            <li>
+                                                                <div class="calllist">
+                                                                    <div class="user-avatar user-avatar-rounded online">
+                                                                        <img src="~/lib/images/user/250/05.jpg" alt="">
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="calllist">
-                                                                <div class="user-avatar user-avatar-rounded online">
-                                                                    <img src="~/lib/images/user/250/04.jpg" alt="">
-                                                                </div>
-                                                                <div class="calllist__details">
-                                                                    <div class="calllist__details--name">Andrew Showalter</div>
-                                                                    <div class="calllist__details--info text-danger">
-                                                                        <span><i class="mdi mdi-call-missed"></i></span>
-                                                                        <span>Today at 07:25AM</span>
+                                                                    <div class="calllist__details">
+                                                                        <div class="calllist__details--name">Jack P. Angulo</div>
+                                                                        <div class="calllist__details--info">
+                                                                            <span><i class="mdi mdi-call-made"></i></span>
+                                                                            <span>Today at 10:02AM</span>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="calllist__actions">
-                                                                    <div class="iconbox btn-hovered-light">
-                                                                        <i class="iconbox__icon mdi mdi-phone"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="calllist">
-                                                                <div class="user-avatar user-avatar-rounded online">
-                                                                    <img src="~/lib/images/user/250/05.jpg" alt="">
-                                                                </div>
-                                                                <div class="calllist__details">
-                                                                    <div class="calllist__details--name">Jack P. Angulo</div>
-                                                                    <div class="calllist__details--info">
-                                                                        <span><i class="mdi mdi-call-made"></i></span>
-                                                                        <span>Today at 10:02AM</span>
-                                                                    </div>
-                                                                </div>
 
-                                                                <div class="calllist__actions">
-                                                                    <div class="iconbox btn-hovered-light">
-                                                                        <i class="iconbox__icon mdi mdi-phone"></i>
+                                                                    <div class="calllist__actions">
+                                                                        <div class="iconbox btn-hovered-light">
+                                                                            <i class="iconbox__icon mdi mdi-phone"></i>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="calllist">
-                                                                <div class="user-avatar user-avatar-rounded online">
-                                                                    <img src="~/lib/images/user/500/09.jpg" alt="">
-                                                                </div>
-                                                                <div class="calllist__details">
-                                                                    <div class="calllist__details--name">Earnest Clements</div>
-                                                                    <div class="calllist__details--info">
-                                                                        <span><i class="mdi mdi-call-received"></i></span>
-                                                                        <span>Today at 07:25AM</span>
+                                                            </li>
+                                                            <li>
+                                                                <div class="calllist">
+                                                                    <div class="user-avatar user-avatar-rounded online">
+                                                                        <img src="~/lib/images/user/500/09.jpg" alt="">
+                                                                    </div>
+                                                                    <div class="calllist__details">
+                                                                        <div class="calllist__details--name">Earnest Clements</div>
+                                                                        <div class="calllist__details--info">
+                                                                            <span><i class="mdi mdi-call-received"></i></span>
+                                                                            <span>Today at 07:25AM</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="calllist__actions">
+                                                                        <div class="iconbox btn-hovered-light">
+                                                                            <i class="iconbox__icon mdi mdi-video-outline"></i>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="calllist__actions">
-                                                                    <div class="iconbox btn-hovered-light">
-                                                                        <i class="iconbox__icon mdi mdi-video-outline"></i>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>*@
                                             <div class="tab-pane fade" id="missed-calls" role="tabpanel" aria-labelledby="missed-calls-tab">
                                                 <div class="sidebar-userlist">
                                                     <ul class="list-unstyled userSearchList">
@@ -1580,11 +1581,12 @@
                                     <img src="~/lib/images/user/250/01.jpg" alt="">
                                 </div>
                                 <div class="userprofile-name">
-                                    <span>Calling...</span>
-                                    <h4>Jack P. Angulo</h4>
-                                    <span>Product Manager</span>
+                                    <span id="callstatus"></span>
+                                    <h4 id="callpesronname"></h4>
+                                    @*<span>Product Manager</span>*@
+                                    <audio class="audio partner" autoplay="" controls="" class=""></audio>
 
-                                    <div class="call-duration">00:36</div>
+                                    @*<div class="call-duration">00:36</div>*@
                                 </div>
 
                                 <div class="call-options">
@@ -1611,7 +1613,8 @@
                                 </div>
 
                                 <div class="call-actions">
-                                    <div class="call-hangup" data-dismiss="modal"><i class="mdi mdi-phone-hangup"></i></div>
+                                    <div class="call-hangup"><i class="mdi mdi-phone-hangup"></i></div>
+                                    <div class="call-pickup" id="callpickup"><i class="mdi mdi-phone-in-talk-outline" aria-hidden="true"></i></div>
                                 </div>
                             </div>
                         </div>
@@ -3536,6 +3539,19 @@
 
         <div class="backdrop-overlay hidden"></div>
     </div>
+    <div class="span9" style="display:none">
+        <div class="row-fluid">
+            @*<div class="span6">
+                    <h4>You</h4>
+                    <video class="video mine cool-background" autoplay="autoplay"></video>
+                </div>*@
+            <div class="span6">
+                <h4>Partner</h4>
+                @*<audio class="audio partner" autoplay="" controls=""></audio>*@
+                @*<video class="video partner cool-background" autoplay="autoplay"></video>*@
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -3682,6 +3698,24 @@
                 dataType: 'html',
                 success: function (result) { model.empty().append(result); }
             });
+        }
+        function MakePesronalcall(ChatUserId) {
+            var targetConnectionId = "";
+            var ChatUser = "";
+            $(".conversation__details").each(function (index, value) {
+                if ($(this).attr('data-username') == ChatUserId) {
+                    targetConnectionId = $(this).attr('data-cid');
+                    ChatUser = $(this).find("div[class='conversation__name--title']").text();
+                }
+            });
+            wsconn.invoke('callUser', { "connectionId": targetConnectionId });
+            if (targetConnectionId != "") {
+                $("#callpickup").hide();
+                $("#outGoingCall").modal("show");
+                $("#callpesronname").text(ChatUser);
+            }
+          
+         
         }
 
 //function getAllMessage() {

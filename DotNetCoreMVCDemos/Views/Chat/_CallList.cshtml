@@ -1,0 +1,93 @@
+﻿@model IEnumerable<DotNetCoreMVCDemos.Models.PersonalChatModel>
+@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
+}
+<link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
+<link rel="stylesheet" href="~/lib/bootstrap.min.css">
+<link rel="stylesheet" href="~/lib/css/app.css">
+<link rel="stylesheet" href="~/lib/css/theme/default.css">
+<div class="tab-pane fade show active" id="all-calls" role="tabpanel" aria-labelledby="all-calls-tab">
+    <div class="sidebar-userlist">
+        <ul class="list-unstyled userSearchList">
+            @{int count = 0; }
+            @foreach (var chat in Model)
+            {
+                <li id="liConversationId_@count">
+                    <a data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace"
+                       data-ajax-update="#rdrConversationId" href="@Url.Action("ConversationPanel","Chat",new {UserId=@UserId, ChatUserId = chat.UserId, ChatUserName = chat.UserName, Lastseen = chat.Lastseen })" id="ajaxConversationId_@count" style="display:none"></a>
+
+                    <div class="calllist">
+                        <div class="user-avatar user-avatar-rounded online">
+                            <img src="~/lib/images/user/250/01.jpg" alt="">
+                        </div>
+                        <div class="calllist__details">
+                            <div class="calllist__details--name" data-cid="" data-username=@chat.UserName>@chat.UserName</div>
+                            <div class="calllist__details--info">
+                                <span><i class="mdi mdi-call-made"></i></span>
+                                <span>Today at 10:02AM</span>
+                            </div>
+                        </div>
+
+                        <div class="calllist__actions">
+                            <div class="iconbox btn-hovered-light" onclick="Makecall();">
+                                <i class="iconbox__icon mdi mdi-phone"></i>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                count++;
+            }
+            <input type="hidden" id="hdnCount" value="@count" />
+
+        </ul>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        var count = $('#hdnCount').val();
+        for (let i = 0; i < count; i++) {
+            $('#liConversationId_' + i + '').click(function () {
+                $('#ajaxConversationId_' + i + '')[0].click()
+                //if (parseInt($('#msgCountId_' + i + '').html()) > 0) {
+                //    console.log('calling getAll in group chat');
+                //    getGrpAll();
+                //}
+                //for (let j = 0; j < count; j++) {
+                //    $('#activeChatId_' + j + '').removeClass("active");
+                //}
+                //$('#activeChatId_' + i + '').addClass("active");
+            });
+        }
+    });
+    function Makecall() {
+        var targetConnectionId = "";
+        wsconn.invoke('callUser', { "connectionId": targetConnectionId });
+        //  connection.on('callUser', { "connectionId": "PApeDQx-mSnJFWoC1JlGmw" });
+        // connection.on("SendMessageToUser", function (ConnectionId, ChatUserId, UserId, Message) {
+    }
+    //$.ajax({
+    //    url: "../Chat/MakeCall?UserId=" + userID + "&ChatUserId=" + chatUserID + "&ChatUserName=" + chatUserName + "",
+    //    data: { 'UserId': UserId, },
+    //    type: 'GET',
+    //    success: function (result) {
+    //        //do the necessary updations
+    //    },
+    //    error: function (result) {
+    //    }
+    //});
+</script>
+<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
+<script src="~/lib/bootstrap.bundle.min.js"></script>
+<script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
+<script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
+<script src="~/lib/js/app.js"></script>

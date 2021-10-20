@@ -16,9 +16,10 @@ namespace DotNetCoreMVCDemos.Hubs
         public readonly static List<UserLogin> _Connections = new List<UserLogin>();
         private readonly static Dictionary<string, string> _ConnectionsMap = new Dictionary<string, string>();
         public readonly ISession session;
-
-        public ChatHub(IHttpContextAccessor httpContextAccessor)
+      
+        public ChatHub( IHttpContextAccessor httpContextAccessor)
         {
+         
             session = httpContextAccessor.HttpContext.Session;
         }
 
@@ -135,6 +136,7 @@ namespace DotNetCoreMVCDemos.Hubs
 
         public override async Task OnConnectedAsync()
         {
+            
             ChatRepo.AddSignalrConnection(Context.ConnectionId, session.GetString("UserId"));
             await Clients.All.SendAsync("UserConnected", Context.ConnectionId, session.GetString("UserId"));
             await base.OnConnectedAsync();
@@ -158,10 +160,11 @@ namespace DotNetCoreMVCDemos.Hubs
 
         public override async Task OnDisconnectedAsync(Exception ex)
         {
+           
             await Clients.All.SendAsync("UserDisconnected", Context.ConnectionId, session.GetString("UserId"));
             await base.OnDisconnectedAsync(ex);
         }
-
+       
         //public override Task OnDisconnectedAsync(Exception exception)
         //{
         //    try
@@ -217,5 +220,5 @@ namespace DotNetCoreMVCDemos.Hubs
     //    //}
     //}
 
-
+   
 }
