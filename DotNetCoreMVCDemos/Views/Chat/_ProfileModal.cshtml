@@ -1,4 +1,4 @@
-﻿@model DotNetCoreMVCDemos.Models.ProfileInfo
+@model DotNetCoreMVCDemos.Models.ProfileInfo
 @inject IHttpContextAccessor HttpContextAccessor
 @using Microsoft.AspNetCore.Http;
 @{
@@ -27,18 +27,42 @@
                 </div>
             </div>
             <div class="modal-body p-0">
-                <div class="ca-profile-thumb" style="background-image: url(Content/images/media/07.jpg);">
+                <div class="ca-profile-thumb" style="background-image: url(Content/images/media/07.jpg); height:210px;">
                     <div class="ca-profile-info">
-                        <div class="ca-profile-pic"><img class="img-fluid" src="~/lib/images/user/500/01.jpg" alt=""></div>
+                        <div class="ca-profile-pic">
+                            @*<img class="img-fluid image" src="~/lib/images/user/500/05.jpg" alt="">*@
+                            <img class="img-fluid image" src="~/lib/images/user/500/@Html.DisplayFor(modelitem=>modelitem.ProfileImage)" alt="">
+                            @*<div class="middle"> Edit</div>*@
+
+                        </div>
                         <div class="ca-profile-title">
-                            <h2 class="ca-profile-name">@Model.UserName</h2>
+                            <h2 class="ca-profile-name">@Html.DisplayFor(modelitem => modelitem.UserName)</h2>
                         </div>
                     </div>
-                    <div class="ca-profile-actions">
+                    <div class="ca-profile-actions" style="padding-right: 10px; padding-top: 3px;">
                         <div class="iconbox-group">
                             <div class="iconbox btn-hovered-light">
-                                <i class="iconbox__icon mdi mdi-pencil-outline"></i>
+
+                                <img id="imgUserProfileEdit" class="img-fluid image" src="~/lib/images/icon/icons8-camera-20.png" alt="">
+                                @*<i class="iconbox__icon mdi mdi-pencil-outline" id="UserProfileEdit"></i>*@
+                                @*<input type="file" name="Files" id="FUserProfile" />*@
+
                             </div>
+                            <form method="post" enctype="multipart/form-data" asp-controller="Chat" asp-action="UpdateProfilePicture">
+                                @Html.HiddenFor(m => m.UserId)
+                                <div class="form-group">
+                                    <div class="col-md-10">                                        
+                                        <input type="file" name="files" multiple id="FUserProfile" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-10">
+                                        <input class="btn-Save-Cancel" type="submit" value="Upload" id="sbmtUserProfile"/>
+                                    </div>
+                                </div>
+                            </form>
+                            <i class="mdi mdi-close" id="icnCancelimgUpld"></i>
+                            
                         </div>
                     </div>
                     <div class="ca-overlay"></div>
@@ -73,7 +97,7 @@
                                     <div class="ps-list__left--icon"><i class="mdi mdi-cellphone-android"></i></div>
                                     <div class="ps-list__left--name">Mobile number</div>
                                 </div>
-                                <div class="ps-list__right">+@Model.MobileNumber</div>
+                                <div class="ps-list__right">+@Html.DisplayFor(modelitem => modelitem.MobileNumber)</div>
                             </div>
                         </li>
                         <li>
@@ -82,7 +106,7 @@
                                     <div class="ps-list__left--icon"><i class="mdi mdi-email-outline"></i></div>
                                     <div class="ps-list__left--name">Email</div>
                                 </div>
-                                <div class="ps-list__right">@Model.Email</div>
+                                <div class="ps-list__right">@Html.DisplayFor(modelitem => modelitem.Email)</div>
                             </div>
                         </li>
                         <li>
@@ -95,53 +119,144 @@
                             </div>
                         </li>
                     </ul>
-                    <div class="setting-sunheading pl-2 py-4">Social Network</div>
-                    <ul class="list-unstyled">
-                        <li>
-                            <div class="ps-list">
-                                <div class="ps-list__left">
-                                    <div class="ps-list__left--icon"><i class="mdi mdi-facebook"></i></div>
-                                    <div class="ps-list__left--name">Facebook</div>
-                                </div>
-                                <div class="ps-list__right">earnest.clements</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="ps-list">
-                                <div class="ps-list__left">
-                                    <div class="ps-list__left--icon"><i class="mdi mdi-instagram"></i></div>
-                                    <div class="ps-list__left--name">Instagram</div>
-                                </div>
-                                <div class="ps-list__right">earnest_clements</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="ps-list">
-                                <div class="ps-list__left">
-                                    <div class="ps-list__left--icon"><i class="mdi mdi-snapchat"></i></div>
-                                    <div class="ps-list__left--name">Snapchat</div>
-                                </div>
-                                <div class="ps-list__right">earnestclements212</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="ps-list">
-                                <div class="ps-list__left">
-                                    <div class="ps-list__left--icon"><i class="mdi mdi-twitter"></i></div>
-                                    <div class="ps-list__left--name">Twitter</div>
-                                </div>
-                                <div class="ps-list__right">iamearnest</div>
-                            </div>
-                        </li>
+                    @using (Html.BeginForm("ChatHome", "Chat", FormMethod.Post))
+                    {
+                        <div class="setting-sunheading pl-2 py-4">
+                            Social Network
 
-                    </ul>
+                            <div class="iconbox btn-hovered-light">
+                                <i class="iconbox__icon mdi mdi-pencil-outline" id="iconEdit"></i>
+                            </div>
+                            <input type="submit" class="btn-Save-Cancel" value="Save" id="btnSave" />
+                            <input type="button" class="btn-Save-Cancel" value="Cancel" id="btnCancel" />
+                        </div>
+                        @Html.HiddenFor(m => m.UserId)
+                        <ul class="list-unstyled">
+                            <li>
+                                <div class="ps-list">
+                                    <div class="ps-list__left">
+                                        <div class="ps-list__left--icon"><i class="mdi mdi-facebook"></i></div>
+                                        <div class="ps-list__left--name">Facebook</div>
+                                    </div>
+                                    <div class="ps-list__right">@Html.TextBoxFor(e => e.Facebook, new { @class = "form-control", id = "txtUserFB" })<span id="spnUserFB">@Html.DisplayFor(modelitem => modelitem.Facebook)</span> </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ps-list">
+                                    <div class="ps-list__left">
+                                        <div class="ps-list__left--icon"><i class="mdi mdi-instagram"></i></div>
+                                        <div class="ps-list__left--name">Instagram</div>
+                                    </div>
+                                    <div class="ps-list__right">@Html.TextBoxFor(e => e.Instagram, new { @class = "form-control", id = "txtUserIG" })<span id="spnUserIG">@Html.DisplayFor(modelitem => modelitem.Instagram)</span></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ps-list">
+                                    <div class="ps-list__left">
+                                        <div class="ps-list__left--icon"><i class="mdi mdi-snapchat"></i></div>
+                                        <div class="ps-list__left--name">Snapchat</div>
+                                    </div>
+                                    <div class="ps-list__right">@Html.TextBoxFor(e => e.Snapchat, new { @class = "form-control", id = "txtUserSC" })<span id="spnUserSC">@Html.DisplayFor(modelitem => modelitem.Snapchat)</span></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="ps-list">
+                                    <div class="ps-list__left">
+                                        <div class="ps-list__left--icon"><i class="mdi mdi-twitter"></i></div>
+                                        <div class="ps-list__left--name">Twitter</div>
+                                    </div>
+                                    <div class="ps-list__right">@Html.TextBoxFor(e => e.Twitter, new { @class = "form-control", id = "txtUserTWR" })<span id="spnUserTWR">@Html.DisplayFor(modelitem => modelitem.Twitter)</span></div>
+                                </div>
+                            </li>   
+
+                        </ul>
+                    }
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+    $(document).ready(function () {
+        $("#btnSave").hide();
+        $("#btnCancel").hide();
 
+        $("#txtUserFB").hide();
+        $("#txtUserIG").hide();
+        $("#txtUserSC").hide();
+        $("#txtUserTWR").hide();
+
+        $("#iconEdit").click(function() {
+            $("#btnSave").show();
+            $("#btnCancel").show();
+            $("#iconEdit").hide();
+
+            $("#spnUserFB").hide();
+            $("#spnUserIG").hide();
+            $("#spnUserSC").hide();
+            $("#spnUserTWR").hide();
+
+            $("#txtUserFB").show();
+            $("#txtUserIG").show();
+            $("#txtUserSC").show();
+            $("#txtUserTWR").show();
+        });
+
+        $("#btnCancel").click(function () {
+            $("#btnSave").hide();
+            $("#btnCancel").hide();            
+            $("#iconEdit").show();
+
+            $("#spnUserFB").show();
+            $("#spnUserIG").show();
+            $("#spnUserSC").show();
+            $("#spnUserTWR").show();
+
+            $("#txtUserFB").hide();
+            $("#txtUserIG").hide();
+            $("#txtUserSC").hide();
+            $("#txtUserTWR").hide();
+        });
+
+        $("#FUserProfile").hide();
+        $("#icnCancelimgUpld").hide();
+        $("#sbmtUserProfile").hide();
+        $("#imgUserProfileEdit").click(function () {
+            $("#imgUserProfileEdit").hide();
+            $("#FUserProfile").show();
+            $("#icnCancelimgUpld").show();
+            $("#sbmtUserProfile").show();
+        });
+
+        $("#icnCancelimgUpld").click(function () {
+            $("#imgUserProfileEdit").show();
+            $("#FUserProfile").hide();
+            $("#icnCancelimgUpld").hide();
+            $("#sbmtUserProfile").hide();
+        });
+    });
+</script>
+
+<style type="text/css">
+    .btn-Save-Cancel {
+        background: #007bff;
+        border-radius: 5px;
+        color: white;
+        padding: 3px 6px;
+        border: 0px;
+    }
+        .btn-Save-Cancel:hover {
+            background-color: #4cacff;
+        }
+
+    input {
+        border-top-style: hidden;
+        border-right-style: hidden;
+        border-left-style: hidden;
+        border-bottom-style: hidden;        
+      }
+</style>
 
 <script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
 <script src="~/lib/bootstrap.bundle.min.js"></script>
