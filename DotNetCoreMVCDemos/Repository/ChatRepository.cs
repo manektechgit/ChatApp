@@ -371,5 +371,58 @@ namespace DotNetCoreMVCDemos.Repository
             }
             return objUsers;
         }
+
+        public List<AllUsersModel> GetAllUsers(string UserId)
+        {
+            List<AllUsersModel> users = new List<AllUsersModel>();
+            DataTable dtChat = new DataTable();
+            SqlParameter[] objParameter = new SqlParameter[1];
+            objParameter[0] = new SqlParameter("@UserId", UserId);
+            Common.SqlHelper.Fill(dtChat, "[GetAllUsers]", objParameter);
+
+            if (dtChat != null && dtChat.Rows.Count > 0)
+            {
+                foreach (DataRow row in dtChat.Rows)
+                {
+                    AllUsersModel chat = new AllUsersModel
+                    {
+                        UserContactID = Convert.ToString(row["UserContactID"]),
+                        UserName = Convert.ToString(row["UserName"])                        
+                    };
+                    users.Add(chat);
+                }
+            }
+            return users;
+        }
+        public ContactDetails GetContactDetails(string UserId)
+        {
+            ContactDetails contact = new ContactDetails();
+            DataTable dtChat = new DataTable();
+            SqlParameter[] objParameter = new SqlParameter[1];
+            objParameter[0] = new SqlParameter("@UserId", UserId);
+            Common.SqlHelper.Fill(dtChat, "[GetContactDetails]", objParameter);
+
+            if (dtChat != null && dtChat.Rows.Count > 0)
+            {
+                foreach (DataRow row in dtChat.Rows)
+                {
+                    contact.ContactUserID = Convert.ToString(row["ContactUserID"]);
+                    contact.UserName = Convert.ToString(row["UserName"]);
+                    contact.Email = Convert.ToString(row["Email"]);
+                    contact.Mobile = Convert.ToString(row["Mobile"]);
+                }
+            }
+            return contact;
+        }
+
+        public void SendNewContactMessage(string UserId, string ChatUserId)
+        {
+            DataTable dtUser = new DataTable();
+            SqlParameter[] objParameter = new SqlParameter[2];
+            objParameter[0] = new SqlParameter("@UserId", UserId);
+            objParameter[1] = new SqlParameter("@ChatUserId", ChatUserId);
+
+            Common.SqlHelper.Fill(dtUser, "[SendNewContactMessage]", objParameter);            
+        }
     }
 }

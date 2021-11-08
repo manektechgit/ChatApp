@@ -1,0 +1,209 @@
+﻿@model DotNetCoreMVCDemos.Models.ContactDetails
+@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@*@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}*@
+
+@*<link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,600,700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
+    <link rel="stylesheet" href="~/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="~/lib/css/app.css">
+    <link rel="stylesheet" href="~/lib/css/theme/default.css">*@
+
+@{var UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
+}
+<link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
+<link rel="stylesheet" href="~/lib/bootstrap.min.css">
+<link rel="stylesheet" href="~/lib/css/app.css">
+<link rel="stylesheet" href="~/lib/css/theme/default.css">
+<div class="ca-content__contactstab ps ps--active-y" style="display: block;">
+    <div class="container">
+        <div class="conversation-panel__back-button back2contacts">
+            <i class="mdi mdi-arrow-left"></i>
+            <span>Back</span>
+        </div>
+        <div class="ca-profile-thumb" style="background-image: url(Content/images/media/07.jpg);">
+
+            <div class="ca-profile-info">
+                <div class="ca-profile-pic"><img class="img-fluid" src="~/lib/images/user/500/09.jpg" alt=""></div>
+            </div>
+            <div class="ca-profile-actions">
+                <div class="iconbox-group">
+                    <div class="iconbox btn-hovered-light">
+                        <i class="iconbox__icon mdi mdi-star-outline"></i>
+                    </div>
+                    <div class="iconbox btn-hovered-light">
+                        <i class="iconbox__icon mdi mdi-pencil-outline"></i>
+                    </div>
+                    <div class="iconbox btn-hovered-light">
+                        <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ca-overlay"></div>
+        </div>
+        <input type="hidden" id="hdnContactUserId" value="@Model.ContactUserID" />
+        <input type="hidden" id="hdnUserId" value="@UserId" />
+        <input type="hidden" id="hdnChatUsername" value="@Model.UserName" />        
+        <div class="profile-settings-list border mb-5">
+            <div class="ca-profile-title">
+                <h2 class="ca-profile-name">@Model.UserName</h2>
+                <div class="ca-profile-tag">
+                    <span>Co-Workers</span>
+                </div>
+                <div class="ca-contcat-profile__calling-buttons pt-2">
+
+                    <div class="iconbox iconbox-pill btn-outline-light" onclick="LoadConversationPanel()">
+                        <i class="iconbox__icon mdi mdi-message-text-outline"></i>
+                        <span>Message</span>
+                    </div>
+                    <div class="iconbox iconbox-pill btn-outline-light">
+                        <i class="iconbox__icon mdi mdi-phone"></i>
+                        <span>Voice Call</span>
+                    </div>
+                    <div class="iconbox iconbox-pill btn-outline-light">
+                        <i class="iconbox__icon mdi mdi-video-outline"></i>
+                        <span>Video Call</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="setting-sunheading  setting-sunheading-style01  my-3">Personal & Contact Information</div>
+            <ul class="list-unstyled">
+                <li>
+                    <div class="ps-list">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-account-heart-outline"></i></div>
+                            <div class="ps-list__left--name">Nick name</div>
+                        </div>
+                        <div class="ps-list__right">@Model.UserName</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ps-list">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-gender-male-female"></i></div>
+                            <div class="ps-list__left--name">Gender</div>
+                        </div>
+                        <div class="ps-list__right">Female</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ps-list">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-cake"></i></div>
+                            <div class="ps-list__left--name">Birth date</div>
+                        </div>
+                        <div class="ps-list__right">20/12/2016</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ps-list">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-cellphone-android"></i></div>
+                            <div class="ps-list__left--name">Mobile number</div>
+                        </div>
+                        <div class="ps-list__right">@Model.Mobile</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ps-list">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-email-outline"></i></div>
+                            <div class="ps-list__left--name">Email</div>
+                        </div>
+                        <div class="ps-list__right">@Model.Email</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ps-list border-bottom-0">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-at"></i></div>
+                            <div class="ps-list__left--name">Website</div>
+                        </div>
+                        <div class="ps-list__right">www.demo.com</div>
+                    </div>
+                </li>
+            </ul>
+
+
+            <div class="setting-sunheading setting-sunheading-style01 my-4">Social Network</div>
+
+
+            <ul class="list-unstyled">
+                <li>
+                    <div class="ps-list">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-facebook"></i></div>
+                            <div class="ps-list__left--name">Facebook</div>
+                        </div>
+                        <div class="ps-list__right">demo.clements</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ps-list">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-instagram"></i></div>
+                            <div class="ps-list__left--name">Instagram</div>
+                        </div>
+                        <div class="ps-list__right">demo</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ps-list">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-snapchat"></i></div>
+                            <div class="ps-list__left--name">Snapchat</div>
+                        </div>
+                        <div class="ps-list__right">demo</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ps-list border-bottom-0">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-twitter"></i></div>
+                            <div class="ps-list__left--name">Twitter</div>
+                        </div>
+                        <div class="ps-list__right">demo</div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+    });
+    function LoadConversationPanel() {
+        var chatUserID = $('#hdnContactUserId').val();
+        var userID = $('#hdnUserId').val();
+        var chatUserName = $('#hdnChatUsername').val();
+        var model = $('#rdrConversationId');
+        $.ajax({
+            //url: "http://50.21.182.225/aspdontnetcoredemo/Chat/ConversationPanel?UserId=" + userID + "&ChatUserId=" + chatUserID + "&ChatUserName=" + chatUserName + "&Lastseen=" + lastseen + "&Message=" + message + "&imageArr=" + imageArr + "",
+            url: "../Chat/ConversationPanel?UserId=" + userID + "&ChatUserId=" + chatUserID + "&ChatUserName=" + chatUserName +"",
+            contentType: 'application/html; charset=utf-8',
+            type: "GET",
+            dataType: 'html',
+            success: function (result) {
+                model.empty().append(result);
+                console.log(result);
+            }
+        });
+    }
+</script>
+
+<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
+<script src="~/lib/bootstrap.bundle.min.js"></script>
+<script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
+<script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
+<script src="~/lib/js/app.js"></script>
+

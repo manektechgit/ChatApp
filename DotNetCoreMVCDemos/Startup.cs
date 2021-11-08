@@ -104,8 +104,8 @@ namespace DotNetCoreMVCDemos
                     pattern: "{controller=Authentication}/{action=Login}/{id?}");
 
                 //endpoints.MapHub<ChatHub>("/aspdontnetcoredemo/chathub");
-                endpoints.MapHub<ChatHub>("/chathub");
                 endpoints.MapHub<CallHub>("/callhub");
+                endpoints.MapHub<ChatHub>("/chathub");
             });
         }
     }

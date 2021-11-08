@@ -1,0 +1,91 @@
+﻿@model IEnumerable<DotNetCoreMVCDemos.Models.AllUsersModel>
+@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    var UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
+}
+<link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
+<link rel="stylesheet" href="~/lib/bootstrap.min.css">
+<link rel="stylesheet" href="~/lib/css/app.css">
+<link rel="stylesheet" href="~/lib/css/theme/default.css">
+@*<div class="tab-pane fade position-relative" id="caContacts" role="tabpanel" aria-labelledby="caContactsTab">*@
+<div class="sidebar-contactlist">
+    <ul class="list-unstyled userSearchList">
+        <li>
+            <div class="contactlist-heading">
+                <span>All Contacts</span>
+            </div>
+        </li>
+        @{int count = 0; }
+        @foreach (var contact in Model)
+        {
+            <li id="liConversationId_@count" onclick="LoadContactsDetails('@contact.UserContactID')">
+                @*<a data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace"
+                    data-ajax-update="#rdrConversationId"
+                    href="@Url.Action("GetContactDetails","Chat",new {UserId=contact.UserContactID})"
+                    id="ajaxConversationId_@count" style="display:none"></a>*@
+
+                @*<div class="contactlist active">*@
+                <div class="contactlist conversation">
+                    <div class="user-avatar user-avatar-rounded">
+                        <img src="~/lib/images/user/250/01.jpg" alt="">
+                    </div>
+                    <div class="contactlist__details">
+                        <div class="contactlist__details--name">@contact.UserName</div>
+                        @*<div class="calllist__details--info">
+                                <span><i class="mdi mdi-tag-outline"></i></span>
+                                <span>Co-Workers</span>
+                            </div>*@
+                    </div>
+                </div>
+            </li>
+            count++;
+        }
+        <input type="hidden" id="hdnCount" value="@count" />
+    </ul>
+</div>
+@*</div>*@
+<script>
+
+    $(document).ready(function () {
+        var count = $('#hdnCount').val();
+        for (let i = 0; i < count; i++) {
+            $('#liConversationId_' + i + '').click(function () {
+                console.log('tst is :' + i);
+                $('#ajaxConversationId_' + i + '')[0].click()
+                //for (let j = 0; j < count; j++) {
+                //    $('#activeChatId_' + j + '').removeClass("active");
+                //}
+                //$('#activeChatId_' + i + '').addClass("active");
+            });
+        }
+    });
+
+    function LoadContactsDetails(contactUserId) {
+        var model = $('#rdrConversationId');
+        $.ajax({
+            url: "../Chat/GetContactDetails?UserId=" + contactUserId + "",
+            //url: "http://50.21.182.225/aspdontnetcoredemo/Chat/PersonalChat?UserId=" + userID + "&UserName=''",
+            contentType: 'application/html ; charset:utf-8',
+            type: 'GET',
+            dataType: 'html',
+            success: function (result) {
+                model.empty().append(result);
+                console.log(result);
+            }
+        });
+    }
+</script>
+
+<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
+<script src="~/lib/bootstrap.bundle.min.js"></script>
+<script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
+<script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
+<script src="~/lib/js/app.js"></script>

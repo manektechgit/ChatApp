@@ -270,6 +270,11 @@
                                         <span class="mdi mdi-account-box-outline"></span>
                                         <span>Contacts</span>
                                     </a>
+                                    @*<a class="nav-link" id="contact-chat-tab" data-toggle="pill" href="@Url.Action("GetAllUsers","Chat",new {UserId=@UserId })" role="tab" aria-controls="caContacts" aria-selected="false">
+                                            <span class="mdi mdi-account-box-outline"></span>
+                                            <span>Contacts</span>
+                                        </a>*@
+                                    <a data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#caContactTabInsideContent" href="@Url.Action("GetAllUsers","Chat",new {UserId=@UserId })" id="contact" style="display:none">Personal</a>
                                 </li>
                             </ul>
 
@@ -320,128 +325,6 @@
                                         </ul>
                                         <div class="tab-content" id="caCallsTabInsideContent">
                                             @Html.RenderAction("CallList", "Chat", new { UserId = UserId, UserName = "" });
-                                            @*<div class="tab-pane fade show active" id="all-calls" role="tabpanel" aria-labelledby="all-calls-tab">
-                                                    <div class="sidebar-userlist">
-                                                        <ul class="list-unstyled userSearchList">
-                                                            <li>
-                                                                <div class="calllist">
-                                                                    <div class="user-avatar user-avatar-rounded online">
-                                                                        <img src="~/lib/images/user/250/01.jpg" alt="">
-                                                                    </div>
-                                                                    <div class="calllist__details">
-                                                                        <div class="calllist__details--name">Jack P. Angulo</div>
-                                                                        <div class="calllist__details--info">
-                                                                            <span><i class="mdi mdi-call-made"></i></span>
-                                                                            <span>Today at 10:02AM</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="calllist__actions">
-                                                                        <div class="iconbox btn-hovered-light">
-                                                                            <i class="iconbox__icon mdi mdi-phone"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="calllist active">
-                                                                    <div class="user-avatar user-avatar-rounded online">
-                                                                        <img src="~/lib/images/user/250/02.jpg" alt="">
-                                                                    </div>
-                                                                    <div class="calllist__details">
-                                                                        <div class="calllist__details--name">Earnest Clements</div>
-                                                                        <div class="calllist__details--info">
-                                                                            <span><i class="mdi mdi-call-received"></i></span>
-                                                                            <span>Today at 07:25AM</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="calllist__actions">
-                                                                        <div class="iconbox btn-hovered-light">
-                                                                            <i class="iconbox__icon mdi mdi-video-outline"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="calllist">
-                                                                    <div class="user-avatar user-avatar-rounded online">
-                                                                        <img src="~/lib/images/user/250/03.jpg" alt="">
-                                                                    </div>
-                                                                    <div class="calllist__details">
-                                                                        <div class="calllist__details--name">Willie McLaughlin</div>
-                                                                        <div class="calllist__details--info text-danger">
-                                                                            <span><i class="mdi mdi-call-missed"></i></span>
-                                                                            <span>Today at 07:25AM</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="calllist__actions">
-                                                                        <div class="iconbox btn-hovered-light">
-                                                                            <i class="iconbox__icon mdi mdi-video-outline"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="calllist">
-                                                                    <div class="user-avatar user-avatar-rounded online">
-                                                                        <img src="~/lib/images/user/250/04.jpg" alt="">
-                                                                    </div>
-                                                                    <div class="calllist__details">
-                                                                        <div class="calllist__details--name">Andrew Showalter</div>
-                                                                        <div class="calllist__details--info text-danger">
-                                                                            <span><i class="mdi mdi-call-missed"></i></span>
-                                                                            <span>Today at 07:25AM</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="calllist__actions">
-                                                                        <div class="iconbox btn-hovered-light">
-                                                                            <i class="iconbox__icon mdi mdi-phone"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="calllist">
-                                                                    <div class="user-avatar user-avatar-rounded online">
-                                                                        <img src="~/lib/images/user/250/05.jpg" alt="">
-                                                                    </div>
-                                                                    <div class="calllist__details">
-                                                                        <div class="calllist__details--name">Jack P. Angulo</div>
-                                                                        <div class="calllist__details--info">
-                                                                            <span><i class="mdi mdi-call-made"></i></span>
-                                                                            <span>Today at 10:02AM</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="calllist__actions">
-                                                                        <div class="iconbox btn-hovered-light">
-                                                                            <i class="iconbox__icon mdi mdi-phone"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="calllist">
-                                                                    <div class="user-avatar user-avatar-rounded online">
-                                                                        <img src="~/lib/images/user/500/09.jpg" alt="">
-                                                                    </div>
-                                                                    <div class="calllist__details">
-                                                                        <div class="calllist__details--name">Earnest Clements</div>
-                                                                        <div class="calllist__details--info">
-                                                                            <span><i class="mdi mdi-call-received"></i></span>
-                                                                            <span>Today at 07:25AM</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="calllist__actions">
-                                                                        <div class="iconbox btn-hovered-light">
-                                                                            <i class="iconbox__icon mdi mdi-video-outline"></i>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>*@
                                             <div class="tab-pane fade" id="missed-calls" role="tabpanel" aria-labelledby="missed-calls-tab">
                                                 <div class="sidebar-userlist">
                                                     <ul class="list-unstyled userSearchList">
@@ -491,327 +374,8 @@
                                 </div>
 
                                 <div class="tab-pane fade position-relative" id="caContacts" role="tabpanel" aria-labelledby="caContactsTab">
-                                    <div class="sidebar-contactlist">
-                                        <ul class="list-unstyled userSearchList">
-                                            <li>
-                                                <div class="contactlist-heading">
-                                                    <span>Favourite</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist">
-                                                    <div class="user-avatar user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/01.jpg" alt="">
-                                                    </div>
-                                                    <div class="contactlist__details">
-                                                        <div class="contactlist__details--name">Jack P. Angulo</div>
-                                                        <div class="calllist__details--info">
-                                                            <span><i class="mdi mdi-tag-outline"></i></span>
-                                                            <span>Co-Workers</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist active">
-                                                    <div class="user-avatar user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/500/09.jpg" alt="">
-                                                    </div>
-                                                    <div class="contactlist__details">
-                                                        <div class="contactlist__details--name">Pearl Villarreal</div>
-                                                        <div class="calllist__details--info">
-                                                            <span><i class="mdi mdi-tag-outline"></i></span>
-                                                            <span>Family members</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist">
-                                                    <div class="user-avatar user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/500/04.jpg" alt="">
-                                                    </div>
-                                                    <div class="contactlist__details">
-                                                        <div class="contactlist__details--name">Marguerite E. Hutchings</div>
-                                                        <div class="calllist__details--info">
-                                                            <span><i class="mdi mdi-tag-outline"></i></span>
-                                                            <span>Friends</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist">
-                                                    <div class="user-avatar user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/500/06.jpg" alt="">
-                                                    </div>
-                                                    <div class="contactlist__details">
-                                                        <div class="contactlist__details--name">Chuck McCann</div>
-                                                        <div class="calllist__details--info">
-                                                            <span><i class="mdi mdi-tag-outline"></i></span>
-                                                            <span>Friends</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist-heading">
-                                                    <span>A</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist">
-                                                    <div class="user-avatar user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/04.jpg" alt="">
-                                                    </div>
-                                                    <div class="contactlist__details">
-                                                        <div class="contactlist__details--name">Andrew Showalter</div>
-                                                        <div class="calllist__details--info">
-                                                            <span><i class="mdi mdi-tag-outline"></i></span>
-                                                            <span>Co-Workers</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist">
-                                                    <div class="user-avatar user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/05.jpg" alt="">
-                                                    </div>
-                                                    <div class="contactlist__details">
-                                                        <div class="contactlist__details--name">Amanda Sinquefield</div>
-                                                        <div class="calllist__details--info">
-                                                            <span><i class="mdi mdi-tag-outline"></i></span>
-                                                            <span>Co-Workers</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist-heading">
-                                                    <span>B</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist">
-                                                    <div class="user-avatar user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/04.jpg" alt="">
-                                                    </div>
-                                                    <div class="contactlist__details">
-                                                        <div class="contactlist__details--name">Andrew Showalter</div>
-                                                        <div class="calllist__details--info">
-                                                            <span><i class="mdi mdi-tag-outline"></i></span>
-                                                            <span>Co-Workers</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist">
-                                                    <div class="user-avatar user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/05.jpg" alt="">
-                                                    </div>
-                                                    <div class="contactlist__details">
-                                                        <div class="contactlist__details--name">Amanda Sinquefield</div>
-                                                        <div class="calllist__details--info">
-                                                            <span><i class="mdi mdi-tag-outline"></i></span>
-                                                            <span>Co-Workers</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist-heading">
-                                                    <span>C</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist">
-                                                    <div class="user-avatar user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/04.jpg" alt="">
-                                                    </div>
-                                                    <div class="contactlist__details">
-                                                        <div class="contactlist__details--name">Andrew Showalter</div>
-                                                        <div class="calllist__details--info">
-                                                            <span><i class="mdi mdi-tag-outline"></i></span>
-                                                            <span>Co-Workers</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist">
-                                                    <div class="user-avatar user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/05.jpg" alt="">
-                                                    </div>
-                                                    <div class="contactlist__details">
-                                                        <div class="contactlist__details--name">Amanda Sinquefield</div>
-                                                        <div class="calllist__details--info">
-                                                            <span><i class="mdi mdi-tag-outline"></i></span>
-                                                            <span>Co-Workers</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist-heading">
-                                                    <span>E</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist">
-                                                    <div class="user-avatar user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/04.jpg" alt="">
-                                                    </div>
-                                                    <div class="contactlist__details">
-                                                        <div class="contactlist__details--name">Andrew Showalter</div>
-                                                        <div class="calllist__details--info">
-                                                            <span><i class="mdi mdi-tag-outline"></i></span>
-                                                            <span>Co-Workers</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist">
-                                                    <div class="user-avatar user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/05.jpg" alt="">
-                                                    </div>
-                                                    <div class="contactlist__details">
-                                                        <div class="contactlist__details--name">Amanda Sinquefield</div>
-                                                        <div class="calllist__details--info">
-                                                            <span><i class="mdi mdi-tag-outline"></i></span>
-                                                            <span>Co-Workers</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist-heading">
-                                                    <span>M</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist">
-                                                    <div class="user-avatar user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/04.jpg" alt="">
-                                                    </div>
-                                                    <div class="contactlist__details">
-                                                        <div class="contactlist__details--name">Andrew Showalter</div>
-                                                        <div class="calllist__details--info">
-                                                            <span><i class="mdi mdi-tag-outline"></i></span>
-                                                            <span>Co-Workers</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist">
-                                                    <div class="user-avatar user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/05.jpg" alt="">
-                                                    </div>
-                                                    <div class="contactlist__details">
-                                                        <div class="contactlist__details--name">Amanda Sinquefield</div>
-                                                        <div class="calllist__details--info">
-                                                            <span><i class="mdi mdi-tag-outline"></i></span>
-                                                            <span>Co-Workers</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist-heading">
-                                                    <span>S</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist">
-                                                    <div class="user-avatar user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/04.jpg" alt="">
-                                                    </div>
-                                                    <div class="contactlist__details">
-                                                        <div class="contactlist__details--name">Andrew Showalter</div>
-                                                        <div class="calllist__details--info">
-                                                            <span><i class="mdi mdi-tag-outline"></i></span>
-                                                            <span>Co-Workers</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist">
-                                                    <div class="user-avatar user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/05.jpg" alt="">
-                                                    </div>
-                                                    <div class="contactlist__details">
-                                                        <div class="contactlist__details--name">Amanda Sinquefield</div>
-                                                        <div class="calllist__details--info">
-                                                            <span><i class="mdi mdi-tag-outline"></i></span>
-                                                            <span>Co-Workers</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist-heading">
-                                                    <span>#</span>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist">
-                                                    <div class="user-avatar user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/04.jpg" alt="">
-                                                    </div>
-                                                    <div class="contactlist__details">
-                                                        <div class="contactlist__details--name">&#9829; My Love &#9829;</div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="contactlist">
-                                                    <div class="user-avatar user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/05.jpg" alt="">
-                                                    </div>
-                                                    <div class="contactlist__details">
-                                                        <div class="contactlist__details--name">&#126; Eva 	&#126;</div>
-                                                        <div class="calllist__details--info">
-                                                            <span><i class="mdi mdi-tag-outline"></i></span>
-                                                            <span>Co-Workers</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class="alphabet-series">
-                                        <span><i class="mdi mdi-star"></i></span>
-                                        <span>A</span>
-                                        <span>B</span>
-                                        <span>D</span>
-                                        <span>E</span>
-                                        <span>F</span>
-                                        <span>G</span>
-                                        <span>H</span>
-                                        <span>I</span>
-                                        <span>J</span>
-                                        <span>K</span>
-                                        <span>L</span>
-                                        <span>M</span>
-                                        <span>N</span>
-                                        <span>O</span>
-                                        <span>P</span>
-                                        <span>Q</span>
-                                        <span>R</span>
-                                        <span>S</span>
-                                        <span>T</span>
-                                        <span>U</span>
-                                        <span>V</span>
-                                        <span>W</span>
-                                        <span>X</span>
-                                        <span>Y</span>
-                                        <span>Z</span>
-                                        <span>#</span>
-                                    </div>
+                                    @*<div id="caContactTabInsideContent">*@
+                                    @Html.RenderAction("GetAllUsers", "Chat", new { UserId = UserId });
                                 </div>
                             </div>
                         </div>
@@ -852,7 +416,10 @@
                 </div>
             </div>
         </div>
-        <div id="rdrConversationId" class="ca-content-wrapper">
+        <div class="ca-content-wrapper">
+            <div id="rdrConversationId" class="ca-content">
+
+            </div>
             @*@{
                     Html.RenderAction("PersonalChat", "Chat", new { UserId = Session["UserId"], UserName = "" });
                 }*@
@@ -3571,6 +3138,12 @@
             });
         });
 
+        $(document).ready(function () {
+            $('#contact-chat-tab').click(function () {
+                $('#contact')[0].click()
+            });
+        });
+
     </script>
 
     @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
@@ -3714,8 +3287,8 @@
                 $("#outGoingCall").modal("show");
                 $("#callpesronname").text(ChatUser);
             }
-          
-         
+
+
         }
 
 //function getAllMessage() {

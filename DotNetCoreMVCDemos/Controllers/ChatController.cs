@@ -65,15 +65,17 @@ namespace DotNetCoreMVCDemos.Controllers
 
         //public PartialViewResult ConversationPanel(string UserId, string ChatUserId, string ChatUserName, string Lastseen, string Message, IFormFile imageArr)
         //[EnableCors("CorsPolicy")]
-        public PartialViewResult ConversationPanel(string UserId, string ChatUserId, string ChatUserName, string Lastseen, string Message)
-        {
+        public PartialViewResult ConversationPanel(string UserId, string ChatUserId, string ChatUserName, string Lastseen, string Message, int? MsgCount)
+       {
             ChatConversation chat = new ChatConversation();
             chat.UserId = UserId;
             chat.ChatUserName = ChatUserName;
             chat.ChatUserId = ChatUserId;
             chat.Lastseen = Lastseen;
-
-
+            if (MsgCount == 0)
+            {
+                ChatRepo.SendNewContactMessage(UserId, ChatUserId);
+            }
             chat.Messages = ChatRepo.GetMessages(UserId, ChatUserId, Message);
 
             foreach (var doc in chat.Messages)
@@ -88,7 +90,7 @@ namespace DotNetCoreMVCDemos.Controllers
                         Byte[] bytes = System.IO.File.ReadAllBytes(path);
                         doc.DocUrl = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes);
                     }
-                   
+
                 }
             }
             if (!string.IsNullOrEmpty(Message))
@@ -164,7 +166,7 @@ namespace DotNetCoreMVCDemos.Controllers
                     if (System.IO.File.Exists(FilePath))
                     {
                         FileBuffer = wc.DownloadData(FilePath); //live
-                       // FileBuffer = System.IO.File.ReadAllBytes(FilePath);
+                                                                // FileBuffer = System.IO.File.ReadAllBytes(FilePath);
                         if (lsExtension.Trim('.') == Convert.ToString("pdf"))
                             return File(FileBuffer, "application/pdf;", lsFileName);
                         else if (lsExtension.Trim('.') == Convert.ToString("png"))
@@ -200,7 +202,7 @@ namespace DotNetCoreMVCDemos.Controllers
                 }
             }
 
-            
+
         }
         public PartialViewResult MessagePanel(string UserId, string ChatUserId)
         {
@@ -215,14 +217,14 @@ namespace DotNetCoreMVCDemos.Controllers
                 {
 
                     var path = Path.Combine(_environment.WebRootPath, "Documents", doc.Message);
-                    if(System.IO.File.Exists(path))
+                    if (System.IO.File.Exists(path))
                     {
                         var imageFileStream = System.IO.File.OpenRead(path);
                         string extention = doc.Message.Split('.')[1];
                         Byte[] bytes = System.IO.File.ReadAllBytes(path);
                         doc.DocUrl = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes);
                     }
-                    
+
                 }
             }
             return PartialView("_MessagePanel", chat);
@@ -241,7 +243,7 @@ namespace DotNetCoreMVCDemos.Controllers
             }
             return PartialView("_Logout");
         }
-        public PartialViewResult GetContactInfo(string ChatUserId,string UserId)
+        public PartialViewResult GetContactInfo(string ChatUserId, string UserId)
         {
             UserId = string.IsNullOrEmpty(UserId) ? session.GetString("UserId") : UserId;
             if (!string.IsNullOrEmpty(session.GetString("Email")) && !string.IsNullOrEmpty(ChatUserId) && !string.IsNullOrEmpty(UserId))
@@ -322,7 +324,7 @@ namespace DotNetCoreMVCDemos.Controllers
                         Byte[] bytes = System.IO.File.ReadAllBytes(path);
                         doc.DocUrl = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes);
                     }
-                        
+
                 }
             }
             if (!string.IsNullOrEmpty(Message))
@@ -350,7 +352,7 @@ namespace DotNetCoreMVCDemos.Controllers
                         Byte[] bytes = System.IO.File.ReadAllBytes(path);
                         doc.DocUrl = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes);
                     }
-                        
+
                 }
             }
             return PartialView("_GrpMessagePanel", chat);
@@ -422,7 +424,7 @@ namespace DotNetCoreMVCDemos.Controllers
                     string FilePath = Path.Combine(folderPath, FileName);
                     Regex regex = new Regex(@"^[\w/\:.-]+;base64,");
                     System.IO.File.WriteAllBytes(FilePath, Convert.FromBase64String(regex.Replace(FileUrl.url, string.Empty)));
-                    chat.GroupMessages = ChatRepo.GetGroupMessages(docData.GroupId, docData.UserId,  FileName);
+                    chat.GroupMessages = ChatRepo.GetGroupMessages(docData.GroupId, docData.UserId, FileName);
                 }
 
                 string ConnectionId = ChatRepo.GetSignalrConnection(docData.GroupId);
@@ -484,7 +486,30 @@ namespace DotNetCoreMVCDemos.Controllers
             return PartialView("_CallList", callList);
 
         }
-            private bool Validate(IFormFile file)
+
+        public PartialViewResult GetAllUsers(string UserId)
+        {
+            UserId = string.IsNullOrEmpty(UserId) ? session.GetString("UserId") : UserId;
+            if (!string.IsNullOrEmpty(session.GetString("Email")) && !string.IsNullOrEmpty(UserId))
+            {
+                List<AllUsersModel> users = new List<AllUsersModel>();
+                users = ChatRepo.GetAllUsers(UserId);
+                return PartialView("_Contact", users);
+            }
+            return PartialView("_Logout");
+        }
+        public PartialViewResult GetContactDetails(string UserId)
+        {
+            UserId = string.IsNullOrEmpty(UserId) ? session.GetString("UserId") : UserId;
+            if (!string.IsNullOrEmpty(session.GetString("Email")) && !string.IsNullOrEmpty(UserId))
+            {
+                ContactDetails contact = new ContactDetails();
+                contact = ChatRepo.GetContactDetails(UserId);
+                return PartialView("_ContactDetails", contact);
+            }
+            return PartialView("_Logout");
+        }
+        private bool Validate(IFormFile file)
         {
             if (file.Length > FileSizeLimit)
                 return false;
