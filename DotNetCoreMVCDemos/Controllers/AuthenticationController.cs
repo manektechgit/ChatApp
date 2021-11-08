@@ -1,4 +1,4 @@
-﻿using DotNetCoreMVCDemos.Hubs;
+using DotNetCoreMVCDemos.Hubs;
 using DotNetCoreMVCDemos.Models;
 using DotNetCoreMVCDemos.Repository;
 using Microsoft.AspNetCore.Authentication;
@@ -53,13 +53,18 @@ namespace DotNetCoreMVCDemos.Controllers
                 session.SetString("UserId", LoginUser.UserId.ToString());
                 session.SetString("UserName", LoginUser.UserName);
                 session.SetString("Mobile", LoginUser.MobileNumber);
+                session.SetString("Facebook", LoginUser.Facebook);
+                session.SetString("Instagram", LoginUser.Instagram);
+                session.SetString("Twitter", LoginUser.Twitter);
+                session.SetString("Snapchat", LoginUser.Snapchat);
+                session.SetString("ProfileImage", LoginUser.ProfileImage);
                 ViewData["Message"] = null;
                 //await _chatHub.Clients.All.SendAsync("ActiveInactiveUser");
 
                 //await connection.InvokeAsync("SendUserStatus");
 
                 return RedirectToAction("ChatHome", "Chat");
-                //return RedirectToAction("ChatDemo", "Chat");
+                
             }
             else
             {
@@ -93,6 +98,7 @@ namespace DotNetCoreMVCDemos.Controllers
             return View(Register);
         }
 
+        
         public async Task<IActionResult> Logout()
         {
             int code = -1;

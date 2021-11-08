@@ -1,8 +1,10 @@
-﻿using DotNetCoreMVCDemos.Models;
+using DotNetCoreMVCDemos.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,6 +12,7 @@ namespace DotNetCoreMVCDemos.Repository
 {
     public class ChatRepository
     {
+        public readonly AuthenticationRepository repo = new AuthenticationRepository();
         public List<PersonalChatModel> GetPersonalChat(string UserId, string UserName)
         {
             List<PersonalChatModel> personalChat = new List<PersonalChatModel>();
@@ -38,6 +41,59 @@ namespace DotNetCoreMVCDemos.Repository
                 }
             }
             return personalChat;
+        }
+        public int SaveUserInfo(ProfileInfo userLogin)
+        {
+            ProfileInfo objUsers = new Models.ProfileInfo();
+            DataTable dtUser = new DataTable();
+            int ResultCode = 1;
+            SqlParameter[] objParameter = new SqlParameter[5];
+            objParameter[0] = new SqlParameter("@UserID", userLogin.UserId);
+            objParameter[1] = new SqlParameter("@Facebook", userLogin.Facebook);
+            objParameter[2] = new SqlParameter("@Snapchat", userLogin.Snapchat);
+
+            objParameter[3] = new SqlParameter("@Twitter", userLogin.Twitter);
+            objParameter[4] = new SqlParameter("@Instagram", userLogin.Instagram);
+
+            Common.SqlHelper.Fill(dtUser, "[SaveUserInfo]", objParameter);
+
+            if (dtUser != null && dtUser.Rows.Count > 0)
+            {
+                foreach (DataRow row in dtUser.Rows)
+                {
+                    ResultCode = Convert.ToInt32(row["ResultCode"]);
+                }
+                return ResultCode;
+            }
+            else
+            {
+                return ResultCode;
+            }
+        }
+
+        public int UpdateProfilePicture(ProfileInfo userid, string newPath)
+        {
+            ProfileInfo objUsers = new Models.ProfileInfo();
+            DataTable dtUser = new DataTable();
+            int ResultCode = 1;
+            SqlParameter[] objParameter = new SqlParameter[2];
+            objParameter[0] = new SqlParameter("@UserID", userid.UserId);
+            objParameter[1] = new SqlParameter("@ProfileImage", newPath);
+            
+            Common.SqlHelper.Fill(dtUser, "[SaveProfileImage]", objParameter);
+
+            if (dtUser != null && dtUser.Rows.Count > 0)
+            {
+                foreach (DataRow row in dtUser.Rows)
+                {
+                    ResultCode = Convert.ToInt32(row["ResultCode"]);
+                }
+                return ResultCode;
+            }
+            else
+            {
+                return ResultCode;
+            }
         }
 
         public List<Messages> GetMessages(string UserId, string ChatUserId, string Message)

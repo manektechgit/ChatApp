@@ -1,4 +1,4 @@
-﻿using DotNetCoreMVCDemos.Models;
+using DotNetCoreMVCDemos.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -35,7 +35,11 @@ namespace DotNetCoreMVCDemos.Repository
             {
                 return ResultCode;
             }
+
+            
         }
+
+
         public UserLogin UserLogin(string Email, string Password)
         {
 
@@ -56,6 +60,11 @@ namespace DotNetCoreMVCDemos.Repository
                     objUsers.UserName = Convert.ToString(row["UserName"]);
                     objUsers.Password = Convert.ToString(row["Password"]);
                     objUsers.MobileNumber = Convert.ToString(row["Mobile"]);
+                    objUsers.Facebook = row["Facebook"] is DBNull?"": Convert.ToString(row["Facebook"]);
+                    objUsers.Twitter = row["Twitter"] is DBNull ? "" : Convert.ToString(row["Twitter"]);
+                    objUsers.Instagram = row["Instagram"] is DBNull ? "" : Convert.ToString(row["Instagram"]);
+                    objUsers.Snapchat   = row["Snapchat"] is DBNull ? "" : Convert.ToString(row["Snapchat"]);
+                    objUsers.ProfileImage   = row["ProfileImage"] is DBNull ? "" : Convert.ToString(row["ProfileImage"]);
                 }
             }
             return objUsers;
@@ -79,6 +88,11 @@ namespace DotNetCoreMVCDemos.Repository
             {
                 return ResultCode;
             }
+        }
+
+        internal int SaveUserInfo(UserLogin saveUInfo)
+        {
+            throw new NotImplementedException();
         }
     }
 }
