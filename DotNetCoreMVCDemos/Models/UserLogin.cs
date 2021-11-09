@@ -22,6 +22,12 @@ namespace DotNetCoreMVCDemos.Models
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string MobileNumber { get; set; }
+        public string ProfileImage { get; set; }
+        public string Facebook { get; set; }
+        public string Snapchat { get; set; }
+        public string Twitter { get; set; }
+        public string Instagram { get; set; }
+
     }
     public class CallOffer
     {

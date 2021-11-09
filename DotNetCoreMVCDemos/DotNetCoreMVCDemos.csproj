@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Documents\" />
+    <Folder Include="wwwroot\lib\images\icon\" />
   </ItemGroup>
 
 </Project>

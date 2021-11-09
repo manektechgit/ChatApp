@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.FileProviders;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -49,6 +50,67 @@ namespace DotNetCoreMVCDemos.Controllers
             return View();
         }
 
+        [HttpPost]
+        public ActionResult ChatHome(ProfileInfo SaveUInfo)
+        {
+            int code = -1;
+            if (!ModelState.IsValid)
+            {
+                return View(SaveUInfo);
+            }
+            code = ChatRepo.SaveUserInfo(SaveUInfo);
+            //int code2 = repo.Registration(SaveUInfo);
+            if (code == 0)
+            {
+                TempData["Success"] = "Your details Updated Successfuly";
+                //return RedirectToAction("Login");
+            }
+
+            else
+            {
+                TempData["Success"] = null;
+            }
+            //return PartialView("~/Views/Chat/_ProfileModal.cshtml");
+            return RedirectToAction("ChatHome");
+            //HttpContext.Session.Clear();
+        }
+
+        //Hemant
+        [HttpPost]
+        public IActionResult UpdateProfilePicture(ProfileInfo LoginUserId, IFormFile files)
+        {
+            if (files != null)
+            {
+                if (files.Length > 0)
+                {
+                    //Getting FileName
+                    var fileName = Path.GetFileName(files.FileName);
+
+                    //Assigning Unique Filename (Guid)
+                    var myUniqueFileName = Convert.ToString(Guid.NewGuid());
+
+                    //Getting file Extension
+                    var fileExtension = Path.GetExtension(fileName);
+
+                    // concatenating  FileName + FileExtension
+                    var newFileName = String.Concat(myUniqueFileName, fileExtension);
+
+                    // Combines two strings into a path.
+                    var filepath =
+            new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "lib", "images", "user", "500")).Root + $@"{ newFileName}";
+
+                    using (FileStream fs = System.IO.File.Create(filepath))
+                    {
+                        files.CopyTo(fs);
+                        fs.Flush();
+                        int code;
+                        code = ChatRepo.UpdateProfilePicture(LoginUserId, newFileName);
+                    }
+                    session.SetString("ProfileImage", newFileName);
+                }
+            }
+            return RedirectToAction("ChatHome");
+        }
         //[ChildActionOnly]
 
         public PartialViewResult PersonalChat(string UserId, string UserName)
@@ -66,7 +128,7 @@ namespace DotNetCoreMVCDemos.Controllers
         //public PartialViewResult ConversationPanel(string UserId, string ChatUserId, string ChatUserName, string Lastseen, string Message, IFormFile imageArr)
         //[EnableCors("CorsPolicy")]
         public PartialViewResult ConversationPanel(string UserId, string ChatUserId, string ChatUserName, string Lastseen, string Message, int? MsgCount)
-       {
+        {
             ChatConversation chat = new ChatConversation();
             chat.UserId = UserId;
             chat.ChatUserName = ChatUserName;
@@ -239,6 +301,7 @@ namespace DotNetCoreMVCDemos.Controllers
                 profileInfo.Email = session.GetString("Email");
                 profileInfo.UserName = session.GetString("UserName");
                 profileInfo.MobileNumber = session.GetString("Mobile");
+                profileInfo.ProfileImage = session.GetString("ProfileImage");
                 return PartialView("_ProfileModal", profileInfo);
             }
             return PartialView("_Logout");

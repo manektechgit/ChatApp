@@ -6,6 +6,7 @@
 }
 @{
     var UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
+    var ProfileImage = @HttpContextAccessor.HttpContext.Session.GetString("ProfileImage");
 }
 <link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
@@ -173,7 +174,7 @@
                 <div class="ca-sidebar__header">
                     <div class="ca-userprofile" data-toggle="modal" data-target="#viewProfileModal">
                         <a href="javascript:;" target="_self" class="user-avatar user-avatar-rounded">
-                            <img src="~/lib/images/user/100/face-01.jpg" alt="">
+                            <img src="~/lib/images/user/500/@ProfileImage" alt="">
                             @*<div class="user-avatar user-avatar-rounded avatar-info">
                                     <span>EH</span>
                                 </div>*@
