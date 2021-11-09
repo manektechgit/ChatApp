@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DotNetCoreMVCDemos.Models.PersonalChatModel>
+@model IEnumerable<DotNetCoreMVCDemos.Models.PersonalChatModel>
 @inject IHttpContextAccessor HttpContextAccessor
 @using Microsoft.AspNetCore.Http;
 @{
@@ -30,7 +30,7 @@
 
                     <div id="activeChatId_@count" class="conversation">
                         <div id="userStatusId_@count" class="user-avatar user-avatar-rounded @chat.Status">
-                            <img src="~/lib/images/user/250/02.jpg" alt="">
+                            <img src="~/lib/images/user/500/@chat.ProfileImage" alt="">
                         </div>
                         <div class="conversation__details" data-cid="" data-username=@chat.UserId>
                             <div class="conversation__name">
