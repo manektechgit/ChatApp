@@ -35,7 +35,8 @@ namespace DotNetCoreMVCDemos.Repository
                         Lastseen = Convert.ToString(row["Lastseen"]),
                         LastMessage = Convert.ToString(row["LastMessage"]),
                         LastMessageTime = Convert.ToString(row["LastMessageTime"]),
-                        MessageCount = Convert.ToInt16(row["MessageCount"])
+                        MessageCount = Convert.ToInt16(row["MessageCount"]),
+                        ProfileImage = Convert.ToString(row["ProfileImage"])
                     };
                     personalChat.Add(chat);
                 }
