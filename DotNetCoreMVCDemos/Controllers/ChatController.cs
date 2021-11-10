@@ -1,4 +1,4 @@
-﻿using DotNetCoreMVCDemos.Hubs;
+using DotNetCoreMVCDemos.Hubs;
 using DotNetCoreMVCDemos.Models;
 using DotNetCoreMVCDemos.Repository;
 using Microsoft.AspNetCore.Cors;
@@ -302,6 +302,10 @@ namespace DotNetCoreMVCDemos.Controllers
                 profileInfo.UserName = session.GetString("UserName");
                 profileInfo.MobileNumber = session.GetString("Mobile");
                 profileInfo.ProfileImage = session.GetString("ProfileImage");
+                profileInfo.Facebook = session.GetString("Facebook");
+                profileInfo.Instagram = session.GetString("Instagram");
+                profileInfo.Twitter = session.GetString("Twitter");
+                profileInfo.Snapchat = session.GetString("Snapchat");
                 return PartialView("_ProfileModal", profileInfo);
             }
             return PartialView("_Logout");
