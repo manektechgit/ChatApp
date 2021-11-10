@@ -86,8 +86,8 @@ namespace DotNetCoreMVCDemos.Controllers
                     //Getting FileName
                     var fileName = Path.GetFileName(files.FileName);
 
-                    //Assigning Unique Filename (Guid)
-                    var myUniqueFileName = Convert.ToString(Guid.NewGuid());
+                    //Assigning Unique Filename (Guid)                    
+                    var myUniqueFileName = DateTime.Now.ToString("yyyymmddMMss");
 
                     //Getting file Extension
                     var fileExtension = Path.GetExtension(fileName);
