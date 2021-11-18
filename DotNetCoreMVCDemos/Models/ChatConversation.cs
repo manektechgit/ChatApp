@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -23,6 +23,6 @@ namespace DotNetCoreMVCDemos.Models
         public byte IsRead { get; set; }
         [NotMapped]
         public string DocUrl { get; set; }
-
+        public string ProfileImage { get; set; }
     }
 }
