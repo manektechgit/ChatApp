@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,8 +22,8 @@ namespace DotNetCoreMVCDemos.Models
         [Required(ErrorMessage = "Please enter a password")]
         public string Password { get; set; }
 
-        [Required(ErrorMessage = "Please enter a mobile number")]
-        [StringLength(10, MinimumLength = 10, ErrorMessage = "Mobile number must be a maximum of 10 digits")]
-        public string MobileNumber { get; set; }
+        // [Required(ErrorMessage = "Please enter a mobile number")]
+        // [StringLength(10, MinimumLength = 10, ErrorMessage = "Mobile number must be a maximum of 10 digits")]
+        // public string MobileNumber { get; set; }
     }
 }
