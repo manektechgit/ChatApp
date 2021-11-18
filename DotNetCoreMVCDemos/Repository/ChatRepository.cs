@@ -72,7 +72,55 @@ namespace DotNetCoreMVCDemos.Repository
                 return ResultCode;
             }
         }
+public int DeleteChatMessage(int userid, int Conversationid)
+        {
+            Messages msg = new Models.Messages();               
+            DataTable dtUser = new DataTable();
+            int ResultCode = 1;
+            SqlParameter[] objParameter = new SqlParameter[2];
+            objParameter[0] = new SqlParameter("@UserID", userid);
+            objParameter[1] = new SqlParameter("@ConversationID", Conversationid);
 
+
+            Common.SqlHelper.Fill(dtUser, "[DeleteChatConversation]", objParameter);
+
+            if (dtUser != null && dtUser.Rows.Count > 0)
+            {
+                foreach (DataRow row in dtUser.Rows)
+                {
+                    ResultCode = Convert.ToInt32(row["ResultCode"]);
+                }
+                return ResultCode;
+            }
+            else
+            {
+                return ResultCode;
+            }
+
+        }
+        public int ClearChatMessages(int UserId, int ChatUserId)
+        {
+            List<ChatConversation> messages = new List<ChatConversation>();
+            DataTable dtChat = new DataTable();
+            SqlParameter[] objParameter = new SqlParameter[2];            
+            objParameter[0] = new SqlParameter("@userId", UserId);
+            objParameter[1] = new SqlParameter("@chatUserid", ChatUserId);
+            Common.SqlHelper.Fill(dtChat, "[ClearChatMessages]", objParameter);
+            int ResultCode = 1;
+
+            if (dtChat != null && dtChat.Rows.Count > 0)
+            {
+                foreach (DataRow row in dtChat.Rows)
+                {
+                    ResultCode = Convert.ToInt32(row["ResultCode"]);
+                }
+                return ResultCode;
+            }
+            else
+            {
+                return ResultCode;
+            }
+        }
         public int UpdateProfilePicture(ProfileInfo userid, string newPath)
         {
             ProfileInfo objUsers = new Models.ProfileInfo();
@@ -118,7 +166,8 @@ namespace DotNetCoreMVCDemos.Repository
                         Message = Convert.ToString(row["Message"]),
                         MessageTime = Convert.ToString(row["MessageTime"]),
                         UserID = Convert.ToString(row["UserId"]),
-                        IsRead = Convert.ToByte(row["IsRead"])
+                        IsRead = Convert.ToByte(row["IsRead"]),
+                        ProfileImage = Convert.ToString(row["ProfileImage"])
                     };
                     messages.Add(message);
                 }
