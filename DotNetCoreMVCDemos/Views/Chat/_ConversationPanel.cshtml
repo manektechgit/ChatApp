@@ -1,4 +1,4 @@
-﻿@model DotNetCoreMVCDemos.Models.ChatConversation
+@model DotNetCoreMVCDemos.Models.ChatConversation
 @inject IHttpContextAccessor HttpContextAccessor
 @using Microsoft.AspNetCore.Http;
 @{
@@ -79,9 +79,14 @@
                                     <span><i class="mdi mdi-wallpaper"></i></span>
                                     <span>Wallpaper</span>
                                 </a>
-                                <a class="dropdown-item" href="javascript:;">
+                                 @using (Html.BeginForm("ClearChatMessage", "Chat", new { uid = Model.UserId, uchatid = Model.ChatUserId}))
+                                {
+                                    <span  style="margin-left:25px;"><i class="mdi mdi-notification-clear-all"></i></span>
+                                    <input type="submit" value="Clear Chat" style="background:white" />
+                                }
+                                <!-- <a class="dropdown-item" href="javascript:;">
                                     <span><i class="mdi mdi-notification-clear-all"></i></span>
-                                    <span>Clear Chat</span>
+                                    <span>Clear Chat</span> -->
                                 </a>
                                 <a class="dropdown-item" href="javascript:;">
                                     <span><i class="mdi mdi-export-variant"></i></span>
@@ -129,10 +134,14 @@
                                                                     <span><i class="mdi mdi-star-outline"></i></span>
                                                                     <span>Add Star</span>
                                                                 </a>
-                                                                <a class="dropdown-item" href="javascript:;">
+                                                                <!-- <a class="dropdown-item" href="javascript:;">
                                                                     <span><i class="mdi mdi-trash-can-outline"></i></span>
                                                                     <span>Delete</span>
-                                                                </a>
+                                                                </a> -->
+                                                                @using (Html.BeginForm("DeleteChatMessage", "Chat", new {       ConversationID = message.ConversationID }))
+                                                                {
+                                                                    <span style="margin-left:25px;"><i class="mdi mdi-trash-can-outline"></i></span>
+                                                                    <input type="submit"  value="Delete" style="background:white" />}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -156,7 +165,7 @@
                                             </div>
 
                                             <div class="user-avatar user-avatar-sm user-avatar-rounded online">
-                                                <img src="~/lib/images/user/250/02.jpg" alt="">
+                                                <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
                                             </div>
                                         </div>
                                     }
@@ -324,7 +333,7 @@
                                     {
                                         <div class="ca-received">
                                             <div class="user-avatar user-avatar-sm user-avatar-rounded online">
-                                                <img src="~/lib/images/user/250/01.jpg" alt="">
+                                                <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
                                             </div>
                                             <div class="ca-received__msg-group">
                                                 <div class="ca-received__msgwrapper">
@@ -347,10 +356,14 @@
                                                                     <span><i class="mdi mdi-star-outline"></i></span>
                                                                     <span>Add Star</span>
                                                                 </a>
-                                                                <a class="dropdown-item" href="javascript:;">
+                                                                <!-- <a class="dropdown-item" href="javascript:;">
                                                                     <span><i class="mdi mdi-trash-can-outline"></i></span>
                                                                     <span>Delete</span>
-                                                                </a>
+                                                                </a> -->
+                                                                 @using (Html.BeginForm("DeleteChatMessage", "Chat", new { ConversationID = message.ConversationID }))
+                                                                {
+                                                                     <span style="margin-left:25px;"><i class="mdi mdi-trash-can-outline"></i></span>
+                                                                     <input type="submit" value="Delete" style="background:white" />}
                                                             </div>
                                                         </div>
                                                     </div>
