@@ -48,13 +48,14 @@ namespace DotNetCoreMVCDemos.Repository
             ProfileInfo objUsers = new Models.ProfileInfo();
             DataTable dtUser = new DataTable();
             int ResultCode = 1;
-            SqlParameter[] objParameter = new SqlParameter[5];
+            SqlParameter[] objParameter = new SqlParameter[6];
             objParameter[0] = new SqlParameter("@UserID", userLogin.UserId);
-            objParameter[1] = new SqlParameter("@Facebook", userLogin.Facebook);
-            objParameter[2] = new SqlParameter("@Snapchat", userLogin.Snapchat);
+            objParameter[1] = new SqlParameter("@ProfileImage", userLogin.ProfileImage);
+            objParameter[2] = new SqlParameter("@Facebook", userLogin.Facebook);
+            objParameter[3] = new SqlParameter("@Snapchat", userLogin.Snapchat);
 
-            objParameter[3] = new SqlParameter("@Twitter", userLogin.Twitter);
-            objParameter[4] = new SqlParameter("@Instagram", userLogin.Instagram);
+            objParameter[4] = new SqlParameter("@Twitter", userLogin.Twitter);
+            objParameter[5] = new SqlParameter("@Instagram", userLogin.Instagram);
 
             Common.SqlHelper.Fill(dtUser, "[SaveUserInfo]", objParameter);
 
