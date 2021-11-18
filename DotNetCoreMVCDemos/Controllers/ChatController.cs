@@ -74,8 +74,21 @@ namespace DotNetCoreMVCDemos.Controllers
             return RedirectToAction("ChatHome");
             //HttpContext.Session.Clear();
         }
-
-        //Hemant
+        public ActionResult DeleteChatMessage(Messages messages ) 
+        {            
+            int code = -1;
+            var UserId =int.Parse(session.GetString("UserId"));
+            code = ChatRepo.DeleteChatMessage(UserId, messages.ConversationID);
+            return RedirectToAction("ChatHome");
+        }
+        public ActionResult ClearChatMessage(int uid, int uchatid)
+        {
+            int code = -1;
+            code= ChatRepo.ClearChatMessages(uid, uchatid);
+            
+            return RedirectToAction("ChatHome");
+        }
+        
         [HttpPost]
         public IActionResult UpdateProfilePicture(ProfileInfo LoginUserId, IFormFile files)
         {
