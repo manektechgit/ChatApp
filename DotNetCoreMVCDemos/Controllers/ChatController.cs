@@ -53,12 +53,20 @@ namespace DotNetCoreMVCDemos.Controllers
         [HttpPost]
         public ActionResult ChatHome(ProfileInfo SaveUInfo)
         {
+            var fb = SaveUInfo.Facebook;
+            var ig = SaveUInfo.Instagram;
+            var twitter = SaveUInfo.Twitter;
+            var sc = SaveUInfo.Snapchat;
             int code = -1;
             if (!ModelState.IsValid)
             {
                 return View(SaveUInfo);
             }
             code = ChatRepo.SaveUserInfo(SaveUInfo);
+            session.SetString("Facebook", fb);
+            session.SetString("Instagram", ig);
+            session.SetString("Twitter", twitter);
+            session.SetString("Snapchat", sc);
             //int code2 = repo.Registration(SaveUInfo);
             if (code == 0)
             {
