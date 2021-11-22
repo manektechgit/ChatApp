@@ -13,6 +13,7 @@ namespace DotNetCoreMVCDemos.Models
         public string ChatUserId { get; set; }
         public string ChatUserName { get; set; }
         public string Lastseen { get; set; }
+        public string ProfileImage { get; set; }
     }
     public class Messages
     {
