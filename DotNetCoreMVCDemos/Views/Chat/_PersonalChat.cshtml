@@ -26,7 +26,7 @@
                         new AjaxOptions { InsertionMode = InsertionMode.Replace, UpdateTargetId = "rdrConversationId", HttpMethod = "GET" }, new { @id = "ajaxConversationId_" + @count + "", @style = "display:none" })*@
 
                     <a data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace"
-                       data-ajax-update="#rdrConversationId" href="@Url.Action("ConversationPanel","Chat",new {UserId=@UserId, ChatUserId = chat.UserId, ChatUserName = chat.UserName, Lastseen = chat.Lastseen })" id="ajaxConversationId_@count" style="display:none"></a>
+                       data-ajax-update="#rdrConversationId" href="@Url.Action("ConversationPanel","Chat",new {UserId=@UserId, ChatUserId = chat.UserId, ChatUserName = chat.UserName, Lastseen = chat.Lastseen, ProfileImage = chat.ProfileImage })" id="ajaxConversationId_@count" style="display:none"></a>
 
                     <div id="activeChatId_@count" class="conversation">
                         <div id="userStatusId_@count" class="user-avatar user-avatar-rounded @chat.Status">
