@@ -148,13 +148,14 @@ namespace DotNetCoreMVCDemos.Controllers
 
         //public PartialViewResult ConversationPanel(string UserId, string ChatUserId, string ChatUserName, string Lastseen, string Message, IFormFile imageArr)
         //[EnableCors("CorsPolicy")]
-        public PartialViewResult ConversationPanel(string UserId, string ChatUserId, string ChatUserName, string Lastseen, string Message, int? MsgCount)
+        public PartialViewResult ConversationPanel(string UserId, string ChatUserId, string ChatUserName, string Lastseen, string ProfileImage, string Message, int? MsgCount)
         {
             ChatConversation chat = new ChatConversation();
             chat.UserId = UserId;
             chat.ChatUserName = ChatUserName;
             chat.ChatUserId = ChatUserId;
             chat.Lastseen = Lastseen;
+            chat.ProfileImage = ProfileImage;
             if (MsgCount == 0)
             {
                 ChatRepo.SendNewContactMessage(UserId, ChatUserId);
