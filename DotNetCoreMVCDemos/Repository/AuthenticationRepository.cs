@@ -15,11 +15,12 @@ namespace DotNetCoreMVCDemos.Repository
             UserRegister objUsers = new Models.UserRegister();
             DataTable dtUser = new DataTable();
             int ResultCode = -1;
-            SqlParameter[] objParameter = new SqlParameter[3];
+            SqlParameter[] objParameter = new SqlParameter[4];
             objParameter[0] = new SqlParameter("@UserName", Register.UserName);
             objParameter[1] = new SqlParameter("@Email", Register.Email);
             string HashPassword = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(Register.Password));
             objParameter[2] = new SqlParameter("@Password", HashPassword);
+            objParameter[3] = new SqlParameter("@Profileimage", "blank-profile-picture.PNG");
             // objParameter[3] = new SqlParameter("@Mobile", Register.MobileNumber);
 
             Common.SqlHelper.Fill(dtUser, "[UserRegister]", objParameter);
