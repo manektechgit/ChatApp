@@ -79,15 +79,19 @@
                                     <span><i class="mdi mdi-wallpaper"></i></span>
                                     <span>Wallpaper</span>
                                 </a>
-                                 @using (Html.BeginForm("ClearChatMessage", "Chat", new { uid = Model.UserId, uchatid = Model.ChatUserId}))
+                                <a class="dropdown-item"  data-ajax="true" method="post" asp-action="ClearChatMessage" data-ajax-complete="getAllMessage" data-ajax-method="post" data-ajax-mode='replace' data-ajax-url="@Url.Action("ClearChatMessage","Chat" ,new { uid = Model.UserId, uchatid = Model.ChatUserId })">
+                                    <span><i class="mdi mdi-notification-clear-all"></i></span>
+                                    <input type="submit" value="Clear Chat" style="background:white" />
+                                </a>
+                                 <!-- @using (Html.BeginForm("ClearChatMessage", "Chat", new { uid = Model.UserId, uchatid = Model.ChatUserId}))
                                 {
                                     <span  style="margin-left:25px;"><i class="mdi mdi-notification-clear-all"></i></span>
                                     <input type="submit" value="Clear Chat" style="background:white" />
-                                }
+                                } -->
                                 <!-- <a class="dropdown-item" href="javascript:;">
                                     <span><i class="mdi mdi-notification-clear-all"></i></span>
-                                    <span>Clear Chat</span> -->
-                                </a>
+                                    <span>Clear Chat</span>
+                                </a> -->
                                 <a class="dropdown-item" href="javascript:;">
                                     <span><i class="mdi mdi-export-variant"></i></span>
                                     <span>Export Chat</span>
@@ -134,14 +138,18 @@
                                                                     <span><i class="mdi mdi-star-outline"></i></span>
                                                                     <span>Add Star</span>
                                                                 </a>
+                                                                 <a class="dropdown-item" data-ajax="true" method="post" asp-action="DeleteChatMessage" data-ajax-complete="getAllMessage" data-ajax-method="post" data-ajax-mode='replace' data-ajax-url="@Url.Action("DeleteChatMessage","Chat" ,new { ConversationID = message.ConversationID })">
+                                            <span><i class="mdi mdi-trash-can-outline"></i></span>
+                                            <input type="submit" value="Delete" data-dismiss="modal" style="background:white" />
+                                        </a>
                                                                 <!-- <a class="dropdown-item" href="javascript:;">
                                                                     <span><i class="mdi mdi-trash-can-outline"></i></span>
                                                                     <span>Delete</span>
                                                                 </a> -->
-                                                                @using (Html.BeginForm("DeleteChatMessage", "Chat", new {       ConversationID = message.ConversationID }))
+                                                                <!-- @using (Html.BeginForm("DeleteChatMessage", "Chat", new {       ConversationID = message.ConversationID }))
                                                                 {
                                                                     <span style="margin-left:25px;"><i class="mdi mdi-trash-can-outline"></i></span>
-                                                                    <input type="submit"  value="Delete" style="background:white" />}
+                                                                    <input type="submit"  value="Delete" style="background:white" />} -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -356,14 +364,18 @@
                                                                     <span><i class="mdi mdi-star-outline"></i></span>
                                                                     <span>Add Star</span>
                                                                 </a>
+                                                                <a class="dropdown-item" data-ajax="true" method="post" asp-action="DeleteChatMessage" data-ajax-complete="getAllMessage" data-ajax-method="post" data-ajax-mode='replace' data-ajax-url="@Url.Action("DeleteChatMessage","Chat" ,new { ConversationID = message.ConversationID })">
+                            <span><i class="mdi mdi-trash-can-outline"></i></span>
+                            <input type="submit" value="Delete" data-dismiss="modal" style="background:white" />
+                        </a>
                                                                 <!-- <a class="dropdown-item" href="javascript:;">
                                                                     <span><i class="mdi mdi-trash-can-outline"></i></span>
                                                                     <span>Delete</span>
                                                                 </a> -->
-                                                                 @using (Html.BeginForm("DeleteChatMessage", "Chat", new { ConversationID = message.ConversationID }))
+                                                                 <!-- @using (Html.BeginForm("DeleteChatMessage", "Chat", new { ConversationID = message.ConversationID }))
                                                                 {
                                                                      <span style="margin-left:25px;"><i class="mdi mdi-trash-can-outline"></i></span>
-                                                                     <input type="submit" value="Delete" style="background:white" />}
+                                                                     <input type="submit" value="Delete" style="background:white" />} -->
                                                             </div>
                                                         </div>
                                                     </div>
