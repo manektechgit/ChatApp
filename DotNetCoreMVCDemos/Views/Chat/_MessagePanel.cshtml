@@ -1,4 +1,4 @@
-﻿@model DotNetCoreMVCDemos.Models.ChatConversation
+@model DotNetCoreMVCDemos.Models.ChatConversation
 @inject IHttpContextAccessor HttpContextAccessor
 @using Microsoft.AspNetCore.Http;
 @{
@@ -45,9 +45,9 @@
                                                 <span><i class="mdi mdi-star-outline"></i></span>
                                                 <span>Add Star</span>
                                             </a>
-                                            <a class="dropdown-item" href="javascript:;">
+                                            <a class="dropdown-item" data-ajax="true" method="post" asp-action="DeleteChatMessage" data-ajax-complete="getAllMessage" data-ajax-method="post" data-ajax-mode='replace' data-ajax-url="@Url.Action("DeleteChatMessage","Chat" ,new { ConversationID = message.ConversationID })">
                                                 <span><i class="mdi mdi-trash-can-outline"></i></span>
-                                                <span>Delete</span>
+                                                <input type="submit" value="Delete" data-dismiss="modal" style="background:white" />
                                             </a>
                                         </div>
                                     </div>
@@ -72,7 +72,7 @@
                         </div>
 
                         <div class="user-avatar user-avatar-sm user-avatar-rounded online">
-                            <img src="~/lib/images/user/250/02.jpg" alt="">
+                           <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
                         </div>
                     </div>
                 }
@@ -239,7 +239,7 @@
                 {
                     <div class="ca-received">
                         <div class="user-avatar user-avatar-sm user-avatar-rounded online">
-                            <img src="~/lib/images/user/250/01.jpg" alt="">
+                            <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
                         </div>
                         <div class="ca-received__msg-group">
                             <div class="ca-received__msgwrapper">
@@ -262,9 +262,9 @@
                                                 <span><i class="mdi mdi-star-outline"></i></span>
                                                 <span>Add Star</span>
                                             </a>
-                                            <a class="dropdown-item" href="javascript:;">
+                                            <a class="dropdown-item" data-ajax="true" method="post" asp-action="DeleteChatMessage" data-ajax-complete="getAllMessage" data-ajax-method="post" data-ajax-mode='replace' data-ajax-url="@Url.Action("DeleteChatMessage","Chat" ,new { ConversationID = message.ConversationID })">
                                                 <span><i class="mdi mdi-trash-can-outline"></i></span>
-                                                <span>Delete</span>
+                                                <input type="submit" value="Delete" data-dismiss="modal" style="background:white" />
                                             </a>
                                         </div>
                                     </div>
