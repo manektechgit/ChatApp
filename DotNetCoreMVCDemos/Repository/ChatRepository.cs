@@ -494,7 +494,8 @@ public int DeleteChatMessage(int userid, int Conversationid)
                     AllUsersModel chat = new AllUsersModel
                     {
                         UserContactID = Convert.ToString(row["UserContactID"]),
-                        UserName = Convert.ToString(row["UserName"])                        
+                        UserName = Convert.ToString(row["UserName"])
+                        ProfileImage = Convert.ToString(row["ProfileImage"])                        
                     };
                     users.Add(chat);
                 }
