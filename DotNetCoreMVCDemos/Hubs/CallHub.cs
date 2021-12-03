@@ -42,7 +42,7 @@ namespace DotNetCoreMVCDemos.Hubs
         }
         public override async Task OnConnectedAsync()
         {
-            ChatRepo.AddSignalrConnection(Context.ConnectionId, session.GetString("UserId"));
+            //ChatRepo.AddSignalrConnection(Context.ConnectionId, session.GetString("UserId")); add comment by akshay
             //  await Clients.All.SendAsync("UserConnected", Context.ConnectionId, session.GetString("UserId"));
             // Add the new user
             _Users.Add(new User
@@ -54,7 +54,7 @@ namespace DotNetCoreMVCDemos.Hubs
             // Send down the new list to all clients
             await SendUserListUpdate();
             await base.OnConnectedAsync();
-          
+
         }
         public override async Task OnDisconnectedAsync(Exception exception)
         {
@@ -176,7 +176,7 @@ namespace DotNetCoreMVCDemos.Hubs
             {
                 foreach (var user in currentCall.Users.Where(u => u.ConnectionId != callingUser.ConnectionId))
                 {
-                   
+
                     await Clients.Client(user.ConnectionId).CallEnded(callingUser, string.Format("{0} has hung up.", callingUser.Username));
                 }
 
@@ -223,6 +223,10 @@ namespace DotNetCoreMVCDemos.Hubs
         private async Task SendUserListUpdate()
         {
             _Users.ForEach(u => u.InCall = (GetUserCall(u.ConnectionId) != null));
+            //foreach (User user in _Users)
+            //{
+            //    ChatRepo.AddSignalrConnection(user.ConnectionId,user.Username);
+            //}
             await Clients.All.UpdateUserList(_Users);
         }
 

@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "E:\\ManekTech\\Git Projects\\dotnetdemomvc\\DotNetCoreMVCDemos\\DotNetCoreMVCDemos.csproj": {}
+    "D:\\Gitlab Projects\\dotnetdemomvc\\DotNetCoreMVCDemos\\DotNetCoreMVCDemos.csproj": {}
   },
   "projects": {
-    "E:\\ManekTech\\Git Projects\\dotnetdemomvc\\DotNetCoreMVCDemos\\DotNetCoreMVCDemos.csproj": {
+    "D:\\Gitlab Projects\\dotnetdemomvc\\DotNetCoreMVCDemos\\DotNetCoreMVCDemos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\ManekTech\\Git Projects\\dotnetdemomvc\\DotNetCoreMVCDemos\\DotNetCoreMVCDemos.csproj",
+        "projectUniqueName": "D:\\Gitlab Projects\\dotnetdemomvc\\DotNetCoreMVCDemos\\DotNetCoreMVCDemos.csproj",
         "projectName": "DotNetCoreMVCDemos",
-        "projectPath": "E:\\ManekTech\\Git Projects\\dotnetdemomvc\\DotNetCoreMVCDemos\\DotNetCoreMVCDemos.csproj",
-        "packagesPath": "C:\\Users\\Akshay Kothari\\.nuget\\packages\\",
-        "outputPath": "E:\\ManekTech\\Git Projects\\dotnetdemomvc\\DotNetCoreMVCDemos\\obj\\",
+        "projectPath": "D:\\Gitlab Projects\\dotnetdemomvc\\DotNetCoreMVCDemos\\DotNetCoreMVCDemos.csproj",
+        "packagesPath": "C:\\Users\\MTPC-38\\.nuget\\packages\\",
+        "outputPath": "D:\\Gitlab Projects\\dotnetdemomvc\\DotNetCoreMVCDemos\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Akshay Kothari\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\MTPC-38\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -79,7 +83,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

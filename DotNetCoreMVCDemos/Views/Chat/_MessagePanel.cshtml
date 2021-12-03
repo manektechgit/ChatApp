@@ -437,7 +437,8 @@
     $(document).ready(function () {
 
         connection.on("UserTypeMessage", function (connectionId, userId) {
-            console.log('i am message:' + userId);
+            //debugger
+            console.log('i am from message panel userid:' + userId);
             if (parseInt(userId) == parseInt($('#hdnChatUserId').val())) {
                 console.log('calling from message panel');
                 $("#msgTypingId").show().delay(3000).fadeOut();

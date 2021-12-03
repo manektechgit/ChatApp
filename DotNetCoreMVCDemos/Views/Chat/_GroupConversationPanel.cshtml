@@ -944,7 +944,7 @@
             type: 'GET',
             dataType: 'html',
             success: function (result) {
-                $("#addMemberModal").append(result);
+                $("#addMemberModal").empty().append(result);
             }
         });
     }

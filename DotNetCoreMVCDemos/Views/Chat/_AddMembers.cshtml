@@ -2,6 +2,12 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @using Microsoft.AspNetCore.Http;
 @{var UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");}
+<link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
+<link rel="stylesheet" href="~/lib/bootstrap.min.css">
+<link rel="stylesheet" href="~/lib/css/app.css">
+<link rel="stylesheet" href="~/lib/css/theme/default.css">
 <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -12,11 +18,11 @@
         </div>
         <div class="modal-body">
 
-            <div class="searchbar">
+            @*<div class="searchbar">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search" aria-label="Search">
                 </div>
-            </div>
+            </div>*@
             <div class="modal-contact-list">
                 <ul class="list-unstyled">
                     @foreach (var contact in Model)
@@ -57,9 +63,9 @@
     </div>
 </div>
 
-@*<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
+<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
 <script src="~/lib/bootstrap.bundle.min.js"></script>
 <script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
 <script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
-<script src="~/lib/js/app.js"></script>*@
+<script src="~/lib/js/app.js"></script>

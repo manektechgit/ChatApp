@@ -47,8 +47,8 @@ window.RTCSessionDescription = window.RTCSessionDescription || window.mozRTCSess
 const isDebugging = true;
 
 ////var connection = new signalR.HubConnectionBuilder().withUrl("/aspdontnetcoredemo/chathub").build();
-var connection = new signalR.HubConnectionBuilder().withUrl("/chathub").build();
 var wsconn = new signalR.HubConnectionBuilder().withUrl("/callhub", signalR.HttpTransportType.WebSockets).configureLogging(signalR.LogLevel.None).build();
+var connection = new signalR.HubConnectionBuilder().withUrl("/chathub").build();
 var peerConnectionConfig = { "iceServers": [{ "url": "stun:stun.l.google.com:19302" }] };
 var webrtcConstraints = { audio: true, video: false };
 var streamInfo = { applicationName: WOWZA_APPLICATION_NAME, streamName: WOWZA_STREAM_NAME, sessionId: WOWZA_SESSION_ID_EMPTY };
