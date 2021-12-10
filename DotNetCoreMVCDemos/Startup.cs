@@ -28,17 +28,18 @@ namespace DotNetCoreMVCDemos
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
-            //{
-            //    builder
-            //    .AllowAnyOrigin()
-            //    .AllowAnyMethod()
-            //    .AllowAnyHeader();
-            //    //.SetIsOriginAllowedToAllowWildcardSubdomains();
-            //    //.AllowCredentials();
-            //    //.WithOrigins("https://localhost:5001","http://localhost:5000", "http://50.21.182.225/aspdontnetcoredemo",
-            //    //"https://project-demo-server.net/aspdontnetcoredemo");
-            //}));
+            services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
+            {
+                builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                //.SetIsOriginAllowedToAllowWildcardSubdomains();
+                .AllowCredentials()
+                //.WithOrigins("*");
+                .WithOrigins("http://50.21.182.225/aspdontnetcoredemo/Chat/ChatHome", "http://50.21.182.225/aspdontnetcoredemo",
+                "https://project-demo-server.net/aspdontnetcoredemo");
+            }));
 
             services.AddSignalR(o =>
             {
@@ -90,9 +91,9 @@ namespace DotNetCoreMVCDemos
             }
 
             app.UseSession();
-            //app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();  
             app.UseStaticFiles();
-            //app.UseCors("CorsPolicy");
+            app.UseCors("CorsPolicy");
             app.UseCookiePolicy();
             app.UseRouting();
             app.UseAuthorization();
@@ -104,8 +105,8 @@ namespace DotNetCoreMVCDemos
                     pattern: "{controller=Authentication}/{action=Login}/{id?}");
 
                 //endpoints.MapHub<ChatHub>("/aspdontnetcoredemo/chathub");
-                endpoints.MapHub<CallHub>("/callhub");
                 endpoints.MapHub<ChatHub>("/chathub");
+                //endpoints.MapHub<CallHub>("/aspdontnetcoredemo/callhub");
             });
         }
     }

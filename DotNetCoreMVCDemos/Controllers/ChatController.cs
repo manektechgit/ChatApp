@@ -22,12 +22,13 @@ namespace DotNetCoreMVCDemos.Controllers
         public readonly ChatRepository ChatRepo = new ChatRepository();
         public readonly ISession session;
         private readonly IHubContext<ChatHub> _chatHub;
-        private readonly IHubContext<CallHub> _callHub;
+        //private readonly IHubContext<CallHub> _callHub;
         private readonly int FileSizeLimit;
         private readonly string[] AllowedExtensions;
         private readonly IWebHostEnvironment _environment;
         //HubConnection connection;
-        public ChatController(IHttpContextAccessor httpContextAccessor, IHubContext<ChatHub> chatHub, IHubContext<CallHub> callHub,
+        public ChatController(IHttpContextAccessor httpContextAccessor, IHubContext<ChatHub> chatHub, 
+            //IHubContext<CallHub> callHub,
             IConfiguration configruation, IWebHostEnvironment environment)
         {
             session = httpContextAccessor.HttpContext.Session;
@@ -35,7 +36,7 @@ namespace DotNetCoreMVCDemos.Controllers
             FileSizeLimit = configruation.GetSection("FileUpload").GetValue<int>("FileSizeLimit");
             AllowedExtensions = configruation.GetSection("FileUpload").GetValue<string>("AllowedExtensions").Split(",");
             _environment = environment;
-            _callHub = callHub;
+            //_callHub = callHub;
         }
         public ActionResult ChatDemo()
         {

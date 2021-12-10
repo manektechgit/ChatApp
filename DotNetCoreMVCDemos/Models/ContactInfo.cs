@@ -14,6 +14,7 @@ namespace DotNetCoreMVCDemos.Models
 
         public int TotalMediaFile { get; set; }
         public int TotalDocumentFile { get; set; }
+        public string ProfileImage { get; set; }
 
         public List<ImageDetails> Image { get; set; }
 

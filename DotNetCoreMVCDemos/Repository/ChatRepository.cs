@@ -72,9 +72,9 @@ namespace DotNetCoreMVCDemos.Repository
                 return ResultCode;
             }
         }
-public int DeleteChatMessage(int userid, int Conversationid)
+        public int DeleteChatMessage(int userid, int Conversationid)
         {
-            Messages msg = new Models.Messages();               
+            Messages msg = new Models.Messages();
             DataTable dtUser = new DataTable();
             int ResultCode = 1;
             SqlParameter[] objParameter = new SqlParameter[2];
@@ -102,7 +102,7 @@ public int DeleteChatMessage(int userid, int Conversationid)
         {
             List<ChatConversation> messages = new List<ChatConversation>();
             DataTable dtChat = new DataTable();
-            SqlParameter[] objParameter = new SqlParameter[2];            
+            SqlParameter[] objParameter = new SqlParameter[2];
             objParameter[0] = new SqlParameter("@userId", UserId);
             objParameter[1] = new SqlParameter("@chatUserid", ChatUserId);
             Common.SqlHelper.Fill(dtChat, "[ClearChatMessages]", objParameter);
@@ -129,7 +129,7 @@ public int DeleteChatMessage(int userid, int Conversationid)
             SqlParameter[] objParameter = new SqlParameter[2];
             objParameter[0] = new SqlParameter("@UserID", userid.UserId);
             objParameter[1] = new SqlParameter("@ProfileImage", newPath);
-            
+
             Common.SqlHelper.Fill(dtUser, "[SaveProfileImage]", objParameter);
 
             if (dtUser != null && dtUser.Rows.Count > 0)
@@ -193,7 +193,8 @@ public int DeleteChatMessage(int userid, int Conversationid)
                 objUsers.Email = Convert.ToString(dsuser.Tables[1].Rows[0]["Email"]);
                 objUsers.ChatUserName = Convert.ToString(dsuser.Tables[1].Rows[0]["UserName"]);
                 objUsers.MobileNumber = Convert.ToString(dsuser.Tables[1].Rows[0]["Mobile"]);
-                if(dsuser.Tables[0] != null && dsuser.Tables[0].Rows.Count > 0)
+                objUsers.ProfileImage = Convert.ToString(dsuser.Tables[1].Rows[0]["ProfileImage"]);
+                if (dsuser.Tables[0] != null && dsuser.Tables[0].Rows.Count > 0)
                 {
                     objUsers.TotalMediaFile = Convert.ToInt32(dsuser.Tables[0].Rows[0]["TotalMediaFile"]);
                     objUsers.TotalDocumentFile = Convert.ToInt32(dsuser.Tables[0].Rows[0]["TotalDocumentFile"]);
@@ -220,9 +221,9 @@ public int DeleteChatMessage(int userid, int Conversationid)
 
                     }
                 }
-               
 
-               
+
+
                 objUsers.Image = image;
                 objUsers.Documents = documentList;
             }
@@ -494,7 +495,8 @@ public int DeleteChatMessage(int userid, int Conversationid)
                     AllUsersModel chat = new AllUsersModel
                     {
                         UserContactID = Convert.ToString(row["UserContactID"]),
-                        UserName = Convert.ToString(row["UserName"])                        
+                        UserName = Convert.ToString(row["UserName"]),
+                        ProfileImage = Convert.ToString(row["ProfileImage"])
                     };
                     users.Add(chat);
                 }
@@ -529,7 +531,7 @@ public int DeleteChatMessage(int userid, int Conversationid)
             objParameter[0] = new SqlParameter("@UserId", UserId);
             objParameter[1] = new SqlParameter("@ChatUserId", ChatUserId);
 
-            Common.SqlHelper.Fill(dtUser, "[SendNewContactMessage]", objParameter);            
+            Common.SqlHelper.Fill(dtUser, "[SendNewContactMessage]", objParameter);
         }
     }
 }

@@ -1107,7 +1107,6 @@ D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\bin\Debug\net5.0\runtimes\wi
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
-D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\DotNetCoreMVCDemos.csproj.AssemblyReference.cache
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\DotNetCoreMVCDemos.GeneratedMSBuildEditorConfig.editorconfig
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\DotNetCoreMVCDemos.AssemblyInfoInputs.cache
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\DotNetCoreMVCDemos.AssemblyInfo.cs
@@ -1156,3 +1155,4 @@ D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\DotNetCoreM
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\ref\DotNetCoreMVCDemos.dll
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\DotNetCoreMVCDemos.pdb
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\DotNetCoreMVCDemos.genruntimeconfig.cache
+D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\DotNetCoreMVCDemos.csproj.AssemblyReference.cache
