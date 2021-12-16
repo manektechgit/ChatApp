@@ -769,9 +769,9 @@
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <h6 class="border-bottom pb-2">Light Theme</h6>
-                                                            <a href="javascript:;" data-theme="light-default-theme" class="theme default-theme selected"></a>
+                                                            <a href="javascript:;" data-theme="light-default-theme" class="theme default-theme"></a>
                                                             <a href="javascript:;" data-theme="light-purple-theme" class="theme purple-theme"></a>
-                                                            <a href="javascript:;" data-theme="light-pink-theme" class="theme pink-theme"></a>
+                                                            <a href="javascript:;" data-theme="light-pink-theme" class="theme pink-theme selected"></a>
                                                             <a href="javascript:;" data-theme="light-green-theme" class="theme green-theme"></a>
                                                             <a href="javascript:;" data-theme="light-red-theme" class="theme red-theme"></a>
                                                             <a href="javascript:;" data-theme="light-orange-theme" class="theme orange-theme"></a>
@@ -2731,9 +2731,9 @@
                     <div class="modal-body">
                         <h6 class="border-bottom pb-2">Light Theme</h6>
                         <div class="d-flex flex-wrap">
-                            <a href="javascript:;" data-theme="light-default-theme" class="theme default-theme selected"></a>
+                            <a href="javascript:;" data-theme="light-default-theme" class="theme default-theme"></a>
                             <a href="javascript:;" data-theme="light-purple-theme" class="theme purple-theme"></a>
-                            <a href="javascript:;" data-theme="light-pink-theme" class="theme pink-theme"></a>
+                            <a href="javascript:;" data-theme="light-pink-theme" class="theme pink-theme selected"></a>
                             <a href="javascript:;" data-theme="light-green-theme" class="theme green-theme"></a>
                             <a href="javascript:;" data-theme="light-red-theme" class="theme red-theme"></a>
                             <a href="javascript:;" data-theme="light-orange-theme" class="theme orange-theme"></a>
@@ -2773,9 +2773,9 @@
             <div class="theme-customizer-content">
                 <h6 class="border-bottom pb-2">Light Theme</h6>
                 <div class="d-flex flex-wrap">
-                    <a href="javascript:;" data-theme="light-default-theme" class="theme default-theme selected"></a>
+                    <a href="javascript:;" data-theme="light-default-theme" class="theme default-theme"></a>
                     <a href="javascript:;" data-theme="light-purple-theme" class="theme purple-theme"></a>
-                    <a href="javascript:;" data-theme="light-pink-theme" class="theme pink-theme"></a>
+                    <a href="javascript:;" data-theme="light-pink-theme" class="theme pink-theme selected"></a>
                     <a href="javascript:;" data-theme="light-green-theme" class="theme green-theme"></a>
                     <a href="javascript:;" data-theme="light-red-theme" class="theme red-theme"></a>
                     <a href="javascript:;" data-theme="light-orange-theme" class="theme orange-theme"></a>
@@ -2990,7 +2990,112 @@
 
 
         }
+        //function copyToCliBoard() {
+        //    var copyText = document.getElementById("akid").textContent;
+        //    console.log(copyText);
+        //    copyText.
+        //    copyText.setSelectionRange(0, 99999)
+        //    toastr["success"]("Link Copied");
+        //    document.execCommand("copy");
+        //}
 
+        function copyToCliBoard(that) {
+            var inp = document.createElement('input');
+            document.body.appendChild(inp)
+            inp.value = that
+            inp.select();
+            document.execCommand('copy', false);
+            inp.remove();
+        }
+
+        function ExportChat(UserId, ChatUserId) {
+            var markup = "";
+            $.ajax({
+                url: "/Chat/ExportChat?UserId=" + UserId + "&ChatUserId=" + ChatUserId + "",
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    for (var x = 0; x < data.length; x++) {
+                        markup += "Name : " + data[x].name + " Message : " + data[x].message + " Time : " + data[x].messageTime + "\n";
+                    }
+                    console.log(markup);
+                    const textToBLOB = new Blob([markup], { type: 'text/plain' });
+                    const sFileName = 'ChatData.txt';	   // The file to save the data.
+
+                    let newLink = document.createElement("a");
+                    newLink.download = sFileName;
+
+                    if (window.webkitURL != null) {
+                        newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+                    }
+                    else {
+                        newLink.href = window.URL.createObjectURL(textToBLOB);
+                        newLink.style.display = "none";
+                        document.body.appendChild(newLink);
+                    }
+                    newLink.click();
+                }
+            });
+        }
+
+        function ExportGroupChat(GroupId, UserId) {
+            var markup = "";
+            $.ajax({
+                url: "/Chat/ExportGroupChat?GroupId=" + GroupId + "&UserId=" + UserId + "",
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    for (var x = 0; x < data.length; x++) {
+                        markup += "Name : " + data[x].name + " Message : " + data[x].message + " Time : " + data[x].messageTime + "\n";
+                    }
+                    console.log(markup);
+                    const textToBLOB = new Blob([markup], { type: 'text/plain' });
+                    const sFileName = 'ChatData.txt';	   // The file to save the data.
+
+                    let newLink = document.createElement("a");
+                    newLink.download = sFileName;
+
+                    if (window.webkitURL != null) {
+                        newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+                    }
+                    else {
+                        newLink.href = window.URL.createObjectURL(textToBLOB);
+                        newLink.style.display = "none";
+                        document.body.appendChild(newLink);
+                    }
+                    newLink.click();
+                }
+            });
+        }
+
+        function AddStar(ConversationID, Status) {
+            if ($("#txt_" + ConversationID + "").text() == "Add Star") {
+                Status = true
+            }
+            else {
+                Status = false
+            }
+            $.ajax({
+                url: "../Chat/AddStar?ConversationID=" + ConversationID + "&Status=" + Status + "&MsgType=1",
+                contentType: 'application/html; charset=utf-8',
+                type: "GET",
+                //dataType: 'html',
+                success: function (result) {
+                    if ($("#txt_" + ConversationID + "").text() == "Add Star") {
+                        $("#" + ConversationID + "").removeClass("mdi mdi-star-outline");
+                        $("#" + ConversationID + "").addClass("mdi mdi-star-face");
+                        $("#txt_" + ConversationID + "").text("Remove Star");
+                    }
+                    else {
+                        $("#" + ConversationID + "").removeClass("mdi mdi-star-face");
+                        $("#" + ConversationID + "").addClass("mdi mdi-star-outline");
+                        $("#txt_" + ConversationID + "").text("Add Star");
+                    }
+                }
+            });
+        }
 //function getAllMessage() {
 //    var userID = $('#hdnUserId').val();
 //    var chatUserID = $('#hdnChatUserId').val();

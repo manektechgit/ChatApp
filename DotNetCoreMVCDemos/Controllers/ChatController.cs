@@ -1,3 +1,4 @@
+using ClosedXML.Excel;
 using DotNetCoreMVCDemos.Hubs;
 using DotNetCoreMVCDemos.Models;
 using DotNetCoreMVCDemos.Repository;
@@ -12,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -27,7 +29,7 @@ namespace DotNetCoreMVCDemos.Controllers
         private readonly string[] AllowedExtensions;
         private readonly IWebHostEnvironment _environment;
         //HubConnection connection;
-        public ChatController(IHttpContextAccessor httpContextAccessor, IHubContext<ChatHub> chatHub, 
+        public ChatController(IHttpContextAccessor httpContextAccessor, IHubContext<ChatHub> chatHub,
             //IHubContext<CallHub> callHub,
             IConfiguration configruation, IWebHostEnvironment environment)
         {
@@ -612,6 +614,21 @@ namespace DotNetCoreMVCDemos.Controllers
                 return false;
 
             return true;
+        }
+        public JsonResult ExportChat(string UserId, string ChatUserId)
+        {
+            List<Messages> Messages = ChatRepo.GetMessages(UserId, ChatUserId, "");
+            return Json(Messages);
+        }
+        public JsonResult ExportGroupChat(string GroupId, string UserId)
+        {
+            List<GroupMessages> GroupMessages = ChatRepo.GetGroupMessages(GroupId, UserId, "");
+            return Json(GroupMessages);
+        }
+        public JsonResult AddStar(string ConversationID, bool Status, byte MsgType)
+        {
+            ChatRepo.AddStar(ConversationID, Status, MsgType);
+            return Json("data");
         }
     }
 }

@@ -22,6 +22,8 @@ namespace DotNetCoreMVCDemos.Models
         public string UserID { get; set; }
         public string ChatUserID { get; set; }
         public byte IsRead { get; set; }
+        public string ProfileImage { get; set; }
+        public string Name { get; set; }
 
         [NotMapped]
         public string DocUrl { get; set; }

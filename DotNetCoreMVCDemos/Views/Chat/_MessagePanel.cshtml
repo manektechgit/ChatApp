@@ -41,10 +41,20 @@
                                                 <span><i class="mdi mdi-content-copy"></i></span>
                                                 <span>Copy</span>
                                             </a>
-                                            <a class="dropdown-item" href="javascript:;">
-                                                <span><i class="mdi mdi-star-outline"></i></span>
-                                                <span>Add Star</span>
-                                            </a>
+                                            @if (@message.IsStar)
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','false')">
+                                                    <span><i class="mdi mdi-star-face" id="@message.ConversationID"></i></span>
+                                                    <span id="txt_@message.ConversationID">Remove Star</span>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','true')">
+                                                    <span><i class="mdi mdi-star-outline" id="@message.ConversationID"></i></span>
+                                                    <span id="txt_@message.ConversationID">Add Star</span>
+                                                </a>
+                                            }
                                             <a class="dropdown-item" data-ajax="true" method="post" asp-action="DeleteChatMessage" data-ajax-complete="getAllMessage" data-ajax-method="post" data-ajax-mode='replace' data-ajax-url="@Url.Action("DeleteChatMessage","Chat" ,new { ConversationID = message.ConversationID })">
                                                 <span><i class="mdi mdi-trash-can-outline"></i></span>
                                                 <input type="submit" value="Delete" data-dismiss="modal" style="background:white" />
@@ -88,23 +98,33 @@
                                         </div>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsms1">
                                             @*<a class="dropdown-item" href="javascript:;">
-                                                <span>
-                                                    <i class="mdi mdi-download-outline"></i>
-                                                </span>
-                                                <span>Download</span>
-                                            </a>*@
+            <span>
+                <i class="mdi mdi-download-outline"></i>
+            </span>
+            <span>Download</span>
+        </a>*@
                                             <a class="dropdown-item" href="javascript:;">
                                                 <span><i class="mdi mdi-share-outline"></i></span>
                                                 <span>Forward</span>
                                             </a>
-                                            <a class="dropdown-item" href="javascript:;">
-                                                <span><i class="mdi mdi-content-copy"></i></span>
-                                                <span>Copy</span>
-                                            </a>
-                                            <a class="dropdown-item" href="javascript:;">
-                                                <span><i class="mdi mdi-star-outline"></i></span>
-                                                <span>Add Star</span>
-                                            </a>
+                                            @*<a class="dropdown-item" href="javascript:;">
+            <span><i class="mdi mdi-content-copy"></i></span>
+            <span>Copy</span>
+        </a>*@
+                                            @if (@message.IsStar)
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','false')">
+                                                    <span><i class="mdi mdi-star-face" id="@message.ConversationID"></i></span>
+                                                    <span id="txt_@message.ConversationID">Remove Star</span>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','true')">
+                                                    <span><i class="mdi mdi-star-outline" id="@message.ConversationID"></i></span>
+                                                    <span id="txt_@message.ConversationID">Add Star</span>
+                                                </a>
+                                            }
                                             <a class="dropdown-item" href="javascript:;">
                                                 <span><i class="mdi mdi-trash-can-outline"></i></span>
                                                 <span>Delete</span>
@@ -164,10 +184,20 @@
                                                 <span><i class="mdi mdi-content-copy"></i></span>
                                                 <span>Copy</span>
                                             </a>
-                                            <a class="dropdown-item" href="javascript:;">
-                                                <span><i class="mdi mdi-star-outline"></i></span>
-                                                <span>Add Star</span>
-                                            </a>
+                                            @if (@message.IsStar)
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','false')">
+                                                    <span><i class="mdi mdi-star-face" id="@message.ConversationID"></i></span>
+                                                    <span id="txt_@message.ConversationID">Remove Star</span>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','true')">
+                                                    <span><i class="mdi mdi-star-outline" id="@message.ConversationID"></i></span>
+                                                    <span id="txt_@message.ConversationID">Add Star</span>
+                                                </a>
+                                            }
                                             <a class="dropdown-item" href="javascript:;">
                                                 <span><i class="mdi mdi-trash-can-outline"></i></span>
                                                 <span>Delete</span>
@@ -228,7 +258,7 @@
                             </div>
                         </div>
                         <div class="user-avatar user-avatar-sm user-avatar-rounded online">
-                            <img src="/lib/images/user/250/02.jpg" alt="">
+                            <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
                         </div>
                     </div>
                 }
@@ -258,10 +288,20 @@
                                                 <span><i class="mdi mdi-content-copy"></i></span>
                                                 <span>Copy</span>
                                             </a>
-                                            <a class="dropdown-item" href="javascript:;">
-                                                <span><i class="mdi mdi-star-outline"></i></span>
-                                                <span>Add Star</span>
-                                            </a>
+                                            @if (@message.IsStar)
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','false')">
+                                                    <span><i class="mdi mdi-star-face" id="@message.ConversationID"></i></span>
+                                                    <span id="txt_@message.ConversationID">Remove Star</span>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','true')">
+                                                    <span><i class="mdi mdi-star-outline" id="@message.ConversationID"></i></span>
+                                                    <span id="txt_@message.ConversationID">Add Star</span>
+                                                </a>
+                                            }
                                             <a class="dropdown-item" data-ajax="true" method="post" asp-action="DeleteChatMessage" data-ajax-complete="getAllMessage" data-ajax-method="post" data-ajax-mode='replace' data-ajax-url="@Url.Action("DeleteChatMessage","Chat" ,new { ConversationID = message.ConversationID })">
                                                 <span><i class="mdi mdi-trash-can-outline"></i></span>
                                                 <input type="submit" value="Delete" data-dismiss="modal" style="background:white" />
@@ -280,7 +320,7 @@
                 {
                     <div class="ca-received">
                         <div class="user-avatar user-avatar-sm user-avatar-rounded online">
-                            <img src="/lib/images/user/250/01.jpg" alt="">
+                            <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
                         </div>
                         <div class="ca-received__msg-group">
                             <div class="ca-received__msgwrapper">
@@ -306,14 +346,24 @@
                                                 <span><i class="mdi mdi-share-outline"></i></span>
                                                 <span>Forward</span>
                                             </a>
-                                            <a class="dropdown-item" href="javascript:;">
-                                                <span><i class="mdi mdi-content-copy"></i></span>
-                                                <span>Copy</span>
-                                            </a>
-                                            <a class="dropdown-item" href="javascript:;">
-                                                <span><i class="mdi mdi-star-outline"></i></span>
-                                                <span>Add Star</span>
-                                            </a>
+                                            @*<a class="dropdown-item" href="javascript:;">
+            <span><i class="mdi mdi-content-copy"></i></span>
+            <span>Copy</span>
+        </a>*@
+                                            @if (@message.IsStar)
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','false')">
+                                                    <span><i class="mdi mdi-star-face" id="@message.ConversationID"></i></span>
+                                                    <span id="txt_@message.ConversationID">Remove Star</span>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','true')">
+                                                    <span><i class="mdi mdi-star-outline" id="@message.ConversationID"></i></span>
+                                                    <span id="txt_@message.ConversationID">Add Star</span>
+                                                </a>
+                                            }
                                             <a class="dropdown-item" href="javascript:;">
                                                 <span><i class="mdi mdi-trash-can-outline"></i></span>
                                                 <span>Delete</span>
@@ -332,7 +382,7 @@
                 {
                     <div class="ca-received">
                         <div class="user-avatar user-avatar-sm user-avatar-rounded online">
-                            <img src="/lib/images/user/250/01.jpg" alt="">
+                            <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
                         </div>
                         <div class="ca-received__msg-group">
                             <div class="ca-received__msgwrapper">
@@ -389,10 +439,20 @@
                                                 <span><i class="mdi mdi-content-copy"></i></span>
                                                 <span>Copy</span>
                                             </a>
-                                            <a class="dropdown-item" href="javascript:;">
-                                                <span><i class="mdi mdi-star-outline"></i></span>
-                                                <span>Add Star</span>
-                                            </a>
+                                            @if (@message.IsStar)
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','false')">
+                                                    <span><i class="mdi mdi-star-face" id="@message.ConversationID"></i></span>
+                                                    <span id="txt_@message.ConversationID">Remove Star</span>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','true')">
+                                                    <span><i class="mdi mdi-star-outline" id="@message.ConversationID"></i></span>
+                                                    <span id="txt_@message.ConversationID">Add Star</span>
+                                                </a>
+                                            }
                                             <a class="dropdown-item" href="javascript:;">
                                                 <span><i class="mdi mdi-trash-can-outline"></i></span>
                                                 <span>Delete</span>

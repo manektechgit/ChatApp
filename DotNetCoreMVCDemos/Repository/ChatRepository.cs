@@ -167,7 +167,9 @@ namespace DotNetCoreMVCDemos.Repository
                         MessageTime = Convert.ToString(row["MessageTime"]),
                         UserID = Convert.ToString(row["UserId"]),
                         IsRead = Convert.ToByte(row["IsRead"]),
-                        ProfileImage = Convert.ToString(row["ProfileImage"])
+                        ProfileImage = Convert.ToString(row["ProfileImage"]),
+                        Name = Convert.ToString(row["Name"]),
+                        IsStar= Convert.ToBoolean(row["IsStar"]),
                     };
                     messages.Add(message);
                 }
@@ -347,8 +349,10 @@ namespace DotNetCoreMVCDemos.Repository
                         Message = Convert.ToString(row["Message"]),
                         MessageTime = Convert.ToString(row["MessageTime"]),
                         UserID = Convert.ToString(row["UserId"]),
+                        ProfileImage = Convert.ToString(row["ProfileImage"]),
                         //ChatUserID = Convert.ToString(row["ChatUserID"]),
-                        //IsRead = Convert.ToByte(row["IsRead"])
+                        //IsRead = Convert.ToByte(row["IsRead"]),
+                        Name= Convert.ToString(row["Name"])
                     };
                     messages.Add(message);
                 }
@@ -397,7 +401,8 @@ namespace DotNetCoreMVCDemos.Repository
                     {
                         Name = Convert.ToString(row["Name"]),
                         ContactUserId = Convert.ToString(row["ContactUserId"]),
-                        IsExist = Convert.ToInt32(row["IsExist"])
+                        IsExist = Convert.ToInt32(row["IsExist"]),
+                        ProfileImage = Convert.ToString(row["ProfileImage"])                        
                     };
                     Contacts.Add(Contact);
                 }
@@ -435,7 +440,8 @@ namespace DotNetCoreMVCDemos.Repository
             objParameter[0] = new SqlParameter("@GroupId", GroupId);
             Common.SqlHelper.FillDataset(dsUser, "[GetGroupInfo]", objParameter);
             List<ImageDetails> image = new List<ImageDetails>();
-            List<string> memberList = new List<string>();
+            //List<string> memberList = new List<string>();
+            List<MemberDetails> memberList = new List<MemberDetails>();
             List<string> documentList = new List<string>();
 
             if (dsUser != null && dsUser.Tables[0].Rows.Count > 0)
@@ -472,7 +478,12 @@ namespace DotNetCoreMVCDemos.Repository
                 {
                     for (int j = 0; j < dsUser.Tables[1].Rows.Count; j++)
                     {
-                        memberList.Add(dsUser.Tables[1].Rows[j]["MemberName"].ToString());
+                        var member = new MemberDetails
+                        {
+                            Name = dsUser.Tables[1].Rows[j]["MemberName"].ToString(),
+                            ProfileImage = dsUser.Tables[1].Rows[j]["ProfileImage"].ToString(),
+                        };
+                        memberList.Add(member);
                     }
                     objUsers.Members = memberList;
                 }
@@ -532,6 +543,16 @@ namespace DotNetCoreMVCDemos.Repository
             objParameter[1] = new SqlParameter("@ChatUserId", ChatUserId);
 
             Common.SqlHelper.Fill(dtUser, "[SendNewContactMessage]", objParameter);
+        }
+
+        public void AddStar(string ConversationID,bool Status,byte MsgType)
+        {
+            DataTable dtUser = new DataTable();
+            SqlParameter[] objParameter = new SqlParameter[3];
+            objParameter[0] = new SqlParameter("@ConversationID", ConversationID);
+            objParameter[1] = new SqlParameter("@Status", Status);
+            objParameter[2] = new SqlParameter("@MsgType", MsgType);
+            Common.SqlHelper.Fill(dtUser, "[AddStarMessage]", objParameter);            
         }
     }
 }

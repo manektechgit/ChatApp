@@ -10,5 +10,6 @@ namespace DotNetCoreMVCDemos.Models
         public string Name { get; set; }
         public string ContactUserId { get; set; }
         public int IsExist { get; set; }
+        public string ProfileImage { get; set; }
     }
 }

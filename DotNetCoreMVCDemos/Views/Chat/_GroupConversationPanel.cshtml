@@ -77,7 +77,11 @@
                                             <span><i class="mdi mdi-notification-clear-all"></i></span>
                                             <span>Clear Chat</span>
                                         </a>
-                                        <a class="dropdown-item" href="javascript:;">
+                                        @*<a class="dropdown-item" href="javascript:;">
+                                                <span><i class="mdi mdi-export-variant"></i></span>
+                                                <span>Export Chat</span>
+                                            </a>*@
+                                        <a class="dropdown-item" href="javascript:;" onclick="ExportGroupChat('@Model.GroupId', '@UserId')">
                                             <span><i class="mdi mdi-export-variant"></i></span>
                                             <span>Export Chat</span>
                                         </a>
@@ -138,7 +142,7 @@
                                                     </div>
 
                                                     <div class="user-avatar user-avatar-sm user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/02.jpg" alt="">
+                                                        <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
                                                     </div>
                                                 </div>
                                             }
@@ -154,11 +158,11 @@
                                                                     </div>
                                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsms1">
                                                                         @*<a class="dropdown-item" href="javascript:;">
-                                                                            <span>
-                                                                                <i class="mdi mdi-download-outline"></i>
-                                                                            </span>
-                                                                            <span>Download</span>
-                                                                        </a>*@
+                                                                                <span>
+                                                                                    <i class="mdi mdi-download-outline"></i>
+                                                                                </span>
+                                                                                <span>Download</span>
+                                                                            </a>*@
                                                                         <a class="dropdown-item" href="javascript:;">
                                                                             <span><i class="mdi mdi-share-outline"></i></span>
                                                                             <span>Forward</span>
@@ -187,10 +191,10 @@
                                                             </div>
                                                         </div>
                                                         <div class="metadata">
-                                                            <span class="time">@message.MessageTime</span>                                                            
+                                                            <span class="time">@message.MessageTime</span>
                                                         </div>
                                                     </div><div class="user-avatar user-avatar-sm user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/02.jpg" alt="">
+                                                        <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
                                                     </div>
                                                 </div>
                                             }
@@ -266,11 +270,11 @@
                                                         </div>
 
                                                         <div class="metadata">
-                                                            <span class="time">@message.MessageTime</span>                                                            
+                                                            <span class="time">@message.MessageTime</span>
                                                         </div>
                                                     </div>
                                                     <div class="user-avatar user-avatar-sm user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/02.jpg" alt="">
+                                                        <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
                                                     </div>
                                                 </div>
                                             }
@@ -281,7 +285,7 @@
                                             {
                                                 <div class="ca-received">
                                                     <div class="user-avatar user-avatar-sm user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/01.jpg" alt="">
+                                                        <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
                                                     </div>
                                                     <div class="ca-received__msg-group">
                                                         <div class="ca-received__msgwrapper">
@@ -323,7 +327,7 @@
                                             {
                                                 <div class="ca-received">
                                                     <div class="user-avatar user-avatar-sm user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/01.jpg" alt="">
+                                                        <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
                                                     </div>
                                                     <div class="ca-received__msg-group">
                                                         <div class="ca-received__msgwrapper">
@@ -375,7 +379,7 @@
                                             {
                                                 <div class="ca-received">
                                                     <div class="user-avatar user-avatar-sm user-avatar-rounded online">
-                                                        <img src="~/lib/images/user/250/01.jpg" alt="">
+                                                        <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
                                                     </div>
                                                     <div class="ca-received__msg-group">
                                                         <div class="ca-received__msgwrapper">

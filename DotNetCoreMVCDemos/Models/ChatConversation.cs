@@ -25,5 +25,7 @@ namespace DotNetCoreMVCDemos.Models
         [NotMapped]
         public string DocUrl { get; set; }
         public string ProfileImage { get; set; }
+        public string Name { get; set; }
+        public bool IsStar { get; set; }
     }
 }

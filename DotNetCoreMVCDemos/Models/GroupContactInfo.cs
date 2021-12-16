@@ -16,7 +16,8 @@ namespace DotNetCoreMVCDemos.Models
 
         public List<string> ShowImageURL { get; set; }
 
-        public List<string> Members { get; set; }
+        //public List<string> Members { get; set; }
+        public List<MemberDetails> Members { get; set; }
 
         public List<string> Documents { get; set; }
     }
@@ -24,5 +25,10 @@ namespace DotNetCoreMVCDemos.Models
     {
         public string ImageURL { get; set; }
         public string ImageName { get; set; }
+    }
+    public class MemberDetails
+    {
+        public string Name { get; set; }
+        public string ProfileImage { get; set; }
     }
 }
