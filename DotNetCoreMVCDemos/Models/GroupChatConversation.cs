@@ -24,7 +24,8 @@ namespace DotNetCoreMVCDemos.Models
         public byte IsRead { get; set; }
         public string ProfileImage { get; set; }
         public string Name { get; set; }
-
+        public string GroupMsgID { get; set; }
+        public bool IsStar { get; set; }
         [NotMapped]
         public string DocUrl { get; set; }
 

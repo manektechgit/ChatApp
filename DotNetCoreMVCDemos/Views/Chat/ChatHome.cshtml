@@ -3071,6 +3071,7 @@
         }
 
         function AddStar(ConversationID, Status) {
+            var userID = $('#hdnUserId').val();
             if ($("#txt_" + ConversationID + "").text() == "Add Star") {
                 Status = true
             }
@@ -3078,7 +3079,7 @@
                 Status = false
             }
             $.ajax({
-                url: "../Chat/AddStar?ConversationID=" + ConversationID + "&Status=" + Status + "&MsgType=1",
+                url: "../Chat/AddStar?ConversationID=" + ConversationID + "&Status=" + Status + "&MsgType=1" + "&UserId=" + userID + "",
                 contentType: 'application/html; charset=utf-8',
                 type: "GET",
                 //dataType: 'html',
@@ -3092,6 +3093,34 @@
                         $("#" + ConversationID + "").removeClass("mdi mdi-star-face");
                         $("#" + ConversationID + "").addClass("mdi mdi-star-outline");
                         $("#txt_" + ConversationID + "").text("Add Star");
+                    }
+                }
+            });
+        }
+
+        function AddGroupStar(GroupMsgID, Status) {
+            var userID = $('#hdnUserId').val();
+            if ($("#txt_" + GroupMsgID + "").text() == "Add Star") {
+                Status = true
+            }
+            else {
+                Status = false
+            }
+            $.ajax({
+                url: "../Chat/AddStar?GroupMsgID=" + GroupMsgID + "&Status=" + Status + "&MsgType=2" + "&UserId=" + userID + "",
+                contentType: 'application/html; charset=utf-8',
+                type: "GET",
+                //dataType: 'html',
+                success: function (result) {
+                    if ($("#txt_" + GroupMsgID + "").text() == "Add Star") {
+                        $("#" + GroupMsgID + "").removeClass("mdi mdi-star-outline");
+                        $("#" + GroupMsgID + "").addClass("mdi mdi-star-face");
+                        $("#txt_" + GroupMsgID + "").text("Remove Star");
+                    }
+                    else {
+                        $("#" + GroupMsgID + "").removeClass("mdi mdi-star-face");
+                        $("#" + GroupMsgID + "").addClass("mdi mdi-star-outline");
+                        $("#txt_" + GroupMsgID + "").text("Add Star");
                     }
                 }
             });

@@ -169,7 +169,7 @@ namespace DotNetCoreMVCDemos.Repository
                         IsRead = Convert.ToByte(row["IsRead"]),
                         ProfileImage = Convert.ToString(row["ProfileImage"]),
                         Name = Convert.ToString(row["Name"]),
-                        IsStar= Convert.ToBoolean(row["IsStar"]),
+                        IsStar = Convert.ToBoolean(row["IsStar"]),
                     };
                     messages.Add(message);
                 }
@@ -352,7 +352,9 @@ namespace DotNetCoreMVCDemos.Repository
                         ProfileImage = Convert.ToString(row["ProfileImage"]),
                         //ChatUserID = Convert.ToString(row["ChatUserID"]),
                         //IsRead = Convert.ToByte(row["IsRead"]),
-                        Name= Convert.ToString(row["Name"])
+                        Name = Convert.ToString(row["Name"]),
+                        GroupMsgID= Convert.ToString(row["GroupMsgID"]),
+                        IsStar = Convert.ToBoolean(row["IsStar"])
                     };
                     messages.Add(message);
                 }
@@ -402,7 +404,7 @@ namespace DotNetCoreMVCDemos.Repository
                         Name = Convert.ToString(row["Name"]),
                         ContactUserId = Convert.ToString(row["ContactUserId"]),
                         IsExist = Convert.ToInt32(row["IsExist"]),
-                        ProfileImage = Convert.ToString(row["ProfileImage"])                        
+                        ProfileImage = Convert.ToString(row["ProfileImage"])
                     };
                     Contacts.Add(Contact);
                 }
@@ -545,14 +547,16 @@ namespace DotNetCoreMVCDemos.Repository
             Common.SqlHelper.Fill(dtUser, "[SendNewContactMessage]", objParameter);
         }
 
-        public void AddStar(string ConversationID,bool Status,byte MsgType)
+        public void AddStar(string ConversationID, bool Status, byte MsgType, string UserId,string GroupMsgID)
         {
             DataTable dtUser = new DataTable();
-            SqlParameter[] objParameter = new SqlParameter[3];
+            SqlParameter[] objParameter = new SqlParameter[5];
             objParameter[0] = new SqlParameter("@ConversationID", ConversationID);
-            objParameter[1] = new SqlParameter("@Status", Status);
-            objParameter[2] = new SqlParameter("@MsgType", MsgType);
-            Common.SqlHelper.Fill(dtUser, "[AddStarMessage]", objParameter);            
+            objParameter[1] = new SqlParameter("@GroupMsgID", GroupMsgID);
+            objParameter[2] = new SqlParameter("@Status", Status);
+            objParameter[3] = new SqlParameter("@MsgType", MsgType);
+            objParameter[4] = new SqlParameter("@UserId", UserId);
+            Common.SqlHelper.Fill(dtUser, "[AddStarMessage]", objParameter);
         }
     }
 }

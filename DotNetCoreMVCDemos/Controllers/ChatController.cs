@@ -625,9 +625,9 @@ namespace DotNetCoreMVCDemos.Controllers
             List<GroupMessages> GroupMessages = ChatRepo.GetGroupMessages(GroupId, UserId, "");
             return Json(GroupMessages);
         }
-        public JsonResult AddStar(string ConversationID, bool Status, byte MsgType)
+        public JsonResult AddStar(string ConversationID,string GroupMsgID, bool Status, byte MsgType, string UserId)
         {
-            ChatRepo.AddStar(ConversationID, Status, MsgType);
+            ChatRepo.AddStar(ConversationID, Status, MsgType, UserId, GroupMsgID);
             return Json("data");
         }
     }
