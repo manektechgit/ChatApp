@@ -1,0 +1,911 @@
+@model IEnumerable<DotNetCoreMVCDemos.Models.StarredMessage>
+@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,600,700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
+    <link rel="stylesheet" href="~/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="~/lib/css/app.css">
+    <link rel="stylesheet" href="~/lib/css/theme/default.css">*@
+@{
+    var UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
+}
+<link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
+<link rel="stylesheet" href="~/lib/bootstrap.min.css">
+<link rel="stylesheet" href="~/lib/css/app.css">
+<link rel="stylesheet" href="~/lib/css/theme/default.css">
+<div class="ca-content__chatstab">
+    <div class="ca-content__chatstab--personal">
+        <div class="conversation-wrapper">
+            <div class="conversation-panel">
+                <div class="conversation-panel__head">
+                    <div class="conversation-panel__back-button ">
+                        <i class="mdi mdi-arrow-left"></i>
+                    </div>
+                    <div class="conversation-panel__avatar personalinfo-panel-opener">
+                        @*<div class="user-avatar user-avatar-rounded">
+                                <img src="~/lib/images/user/500/@Model.ProfileImage" alt="">
+                            </div>*@
+                        <div class="conversation__name">
+                            <div class="conversation__name--title">Starred Messages</div>
+                        </div>
+                    </div>
+                    <div class="conversation__actions">                        
+                        <div class="iconbox-dropdown dropdown">
+                            <div class="iconbox btn-hovered-light" role="button" id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="iconbox__icon mdi mdi-dots-vertical"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="htmlMessageBody" class="conversation-panel__body">
+                    <div class="container">
+                        <div id="htmlMessageId" class="chatstyle-01">
+                            @*<div class="chat-date"><span>Monday 16 May</span></div>*@
+                            @foreach (var message in Model)
+                            {
+                                if (string.IsNullOrEmpty(@message.DocUrl) && !(@message.Message.Contains("pdf") || @message.Message.Contains("doc") || @message.Message.Contains("xls") || @message.Message.Contains("ppt") || @message.Message.Contains(".mp4") || @message.Message.Contains(".wmv") || @message.Message.Contains(".webm") || @message.Message.Contains(".avi")))
+                                {
+                                    <div class="ca-received">
+                                        @*<div class="user-avatar user-avatar-sm user-avatar-rounded online">
+                                            <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
+                                        </div>*@
+                                        <div class="ca-received__msg-group">
+                                            <div class="ca-received__msgwrapper">
+                                                <div class="ca-received__msg">@message.Message</div>
+                                                <div class="ca-msg-actions">
+                                                    <div class="iconbox-dropdown dropdown">
+                                                        <div class="iconbox btn-hovered-light" id="dropdownMenuButtonsr1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                                                        </div>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsr1">                                                            
+                                                            <a class="dropdown-item" href="javascript:;" onclick="copyToCliBoard('@message.Message')">
+                                                                <span><i class="mdi mdi-content-copy"></i></span>
+                                                                <span>Copy</span>
+                                                            </a>                                                     
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="metadata">
+                                                <span class="time">@message.MessageTime</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else if (@message.Message.Contains(".jpeg") || @message.Message.Contains(".jpg") || @message.Message.Contains(".png") || @message.Message.Contains(".gif"))
+                                {
+                                    <div class="ca-received">
+                                        @*<div class="user-avatar user-avatar-sm user-avatar-rounded online">
+                                            <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
+                                        </div>*@
+                                        <div class="ca-received__msg-group">
+                                            <div class="ca-received__msgwrapper">
+                                                <div class="ca-received__msg">
+                                                    <div class="ca-received__msg-media-group">
+                                                        <div class="ca-received__msg-media">
+                                                            <img src="@message.DocUrl" alt="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="ca-msg-actions">
+                                                    <div class="iconbox-dropdown dropdown">
+                                                        <div class="iconbox btn-hovered-light" id="dropdownMenuButtonsr6" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                                                        </div>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsr6">
+                                                            @*<a class="dropdown-item" href="javascript:;">
+                                                                <span><i class="mdi mdi-download-outline"></i></span>
+                                                                <span>Download</span>
+                                                            </a>*@
+                                                            @*<a class="dropdown-item" href="javascript:;">
+                                                                <span><i class="mdi mdi-share-outline"></i></span>
+                                                                <span>Forward</span>
+                                                            </a>*@
+                                                            @*<a class="dropdown-item" href="javascript:;" onclick="copyToCliBoard('@message.Message')">
+                                                                    <span><i class="mdi mdi-content-copy"></i></span>
+                                                                    <span>Copy</span>
+                                                                </a>*@
+                                                            @*@if (@message.IsStar)
+                                                            {
+                                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','false')">
+                                                                    <span><i class="mdi mdi-star-face" id="@message.ConversationID"></i></span>
+                                                                    <span id="txt_@message.ConversationID">Remove Star</span>
+                                                                </a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','true')">
+                                                                    <span><i class="mdi mdi-star-outline" id="@message.ConversationID"></i></span>
+                                                                    <span id="txt_@message.ConversationID">Add Star</span>
+                                                                </a>
+                                                            }*@
+                                                            @*<a class="dropdown-item" href="javascript:;">
+                                                                <span><i class="mdi mdi-trash-can-outline"></i></span>
+                                                                <span>Delete</span>
+                                                            </a>*@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="metadata">
+                                                <span class="time">@message.MessageTime</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="ca-received">
+                                        @*<div class="user-avatar user-avatar-sm user-avatar-rounded online">
+                                            <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
+                                        </div>*@
+                                        <div class="ca-received__msg-group">
+                                            <div class="ca-received__msgwrapper">
+                                                <div class="ca-received__msg">
+                                                    <div class="ca__file">
+                                                        <div class="ca__fileicon">
+                                                            @if (@message.Message.Contains("pdf"))
+                                                            {
+                                                                <img src="/lib/images/svg/pdf.svg" alt="">
+                                                            }
+                                                            else if (@message.Message.Contains("doc"))
+                                                            {
+                                                                <img src="/lib/images/svg/doc.svg" alt="">
+                                                            }
+                                                            else if (@message.Message.Contains("xls"))
+                                                            {
+                                                                <img src="/lib/images/svg/xls.svg" alt="">
+                                                            }
+                                                            else if (@message.Message.Contains("ppt"))
+                                                            {
+                                                                <img src="/lib/images/svg/ppt.svg" alt="">
+                                                            }
+                                                            else if (@message.Message.Contains(".mp4") || @message.Message.Contains(".wmv") || @message.Message.Contains(".webm") || @message.Message.Contains(".avi"))
+                                                            {
+                                                                <img src="/lib/images/svg/mp4.svg" alt="">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img src="/lib/images/svg/happy.svg" alt="">
+                                                            }
+                                                        </div>
+                                                        <div class="ca__filename">
+                                                            <span class="ca__filename--title">@message.Message</span>
+                                                            @*<span class="ca__filename--size">21Kb</span>*@
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="ca-msg-actions">
+                                                    <div class="iconbox-dropdown dropdown">
+                                                        <div class="iconbox btn-hovered-light" id="dropdownMenuButtonsr7" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                                                        </div>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsr7" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                                                            @*<a class="dropdown-item" href="@Url.Action("DownloadDocument","Chat",new { filename=@message.Message})">
+                                                                <span><i class="mdi mdi-download-outline"></i></span>
+                                                                <span>Download</span>
+                                                            </a>
+                                                            <a class="dropdown-item" href="javascript:;">
+                                                                <span><i class="mdi mdi-share-outline"></i></span>
+                                                                <span>Forward</span>
+                                                            </a>*@
+                                                            <a class="dropdown-item" href="javascript:;" onclick="copyToCliBoard('@message.Message')">
+                                                                <span><i class="mdi mdi-content-copy"></i></span>
+                                                                <span>Copy</span>
+                                                            </a>
+                                                            @*@if (@message.IsStar)
+                                                            {
+                                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','false')">
+                                                                    <span><i class="mdi mdi-star-face" id="@message.ConversationID"></i></span>
+                                                                    <span id="txt_@message.ConversationID">Remove Star</span>
+                                                                </a>
+                                                            }
+                                                            else
+                                                            {
+                                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','true')">
+                                                                    <span><i class="mdi mdi-star-outline" id="@message.ConversationID"></i></span>
+                                                                    <span id="txt_@message.ConversationID">Add Star</span>
+                                                                </a>
+                                                            }*@
+                                                            @*<a class="dropdown-item" href="javascript:;">
+                                                                <span><i class="mdi mdi-trash-can-outline"></i></span>
+                                                                <span>Delete</span>
+                                                            </a>*@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="metadata">
+                                                <span class="time">@message.MessageTime</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ca-content__contactstab">
+    <div class="container">
+        <div class="conversation-panel__back-button back2contacts">
+            <i class="mdi mdi-arrow-left"></i>
+            <span>Back</span>
+        </div>
+        <div class="ca-profile-thumb" style="background-image: url(Content/images/media/07.jpg);">
+
+            <div class="ca-profile-info">
+                <div class="ca-profile-pic"><img class="img-fluid" src="~/lib/images/user/500/09.jpg" alt=""></div>
+            </div>
+            <div class="ca-profile-actions">
+                <div class="iconbox-group">
+                    <div class="iconbox btn-hovered-light">
+                        <i class="iconbox__icon mdi mdi-star-outline"></i>
+                    </div>
+                    <div class="iconbox btn-hovered-light">
+                        <i class="iconbox__icon mdi mdi-pencil-outline"></i>
+                    </div>
+                    <div class="iconbox btn-hovered-light">
+                        <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ca-overlay"></div>
+        </div>
+
+        <div class="profile-settings-list border mb-5">
+            <div class="ca-profile-title">
+                <h2 class="ca-profile-name">Pearl Villarreal</h2>
+                <div class="ca-profile-tag">
+                    <span>Co-Workers</span>
+                </div>
+                <div class="ca-contcat-profile__calling-buttons pt-2">
+
+                    <div class="iconbox iconbox-pill btn-outline-light">
+                        <i class="iconbox__icon mdi mdi-message-text-outline"></i>
+                        <span>Message</span>
+                    </div>
+                    <div class="iconbox iconbox-pill btn-outline-light">
+                        <i class="iconbox__icon mdi mdi-phone"></i>
+                        <span>Voice Call</span>
+                    </div>
+                    <div class="iconbox iconbox-pill btn-outline-light">
+                        <i class="iconbox__icon mdi mdi-video-outline"></i>
+                        <span>Video Call</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="setting-sunheading  setting-sunheading-style01  my-3">Personal & Contact Information</div>
+            <ul class="list-unstyled">
+                <li>
+                    <div class="ps-list">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-account-heart-outline"></i></div>
+                            <div class="ps-list__left--name">Nick name</div>
+                        </div>
+                        <div class="ps-list__right">Eva</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ps-list">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-gender-male-female"></i></div>
+                            <div class="ps-list__left--name">Gender</div>
+                        </div>
+                        <div class="ps-list__right">Female</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ps-list">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-cake"></i></div>
+                            <div class="ps-list__left--name">Birth date</div>
+                        </div>
+                        <div class="ps-list__right">20/12/2016</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ps-list">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-cellphone-android"></i></div>
+                            <div class="ps-list__left--name">Mobile number</div>
+                        </div>
+                        <div class="ps-list__right">+01 369 2015</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ps-list">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-email-outline"></i></div>
+                            <div class="ps-list__left--name">Email</div>
+                        </div>
+                        <div class="ps-list__right">earnest.clements@email.com</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ps-list border-bottom-0">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-at"></i></div>
+                            <div class="ps-list__left--name">Website</div>
+                        </div>
+                        <div class="ps-list__right">www.earnestclements.com</div>
+                    </div>
+                </li>
+            </ul>
+
+
+            <div class="setting-sunheading setting-sunheading-style01 my-4">Social Network</div>
+
+
+            <ul class="list-unstyled">
+                <li>
+                    <div class="ps-list">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-facebook"></i></div>
+                            <div class="ps-list__left--name">Facebook</div>
+                        </div>
+                        <div class="ps-list__right">earnest.clements</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ps-list">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-instagram"></i></div>
+                            <div class="ps-list__left--name">Instagram</div>
+                        </div>
+                        <div class="ps-list__right">earnest_clements</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ps-list">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-snapchat"></i></div>
+                            <div class="ps-list__left--name">Snapchat</div>
+                        </div>
+                        <div class="ps-list__right">earnestclements212</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="ps-list border-bottom-0">
+                        <div class="ps-list__left">
+                            <div class="ps-list__left--icon"><i class="mdi mdi-twitter"></i></div>
+                            <div class="ps-list__left--name">Twitter</div>
+                        </div>
+                        <div class="ps-list__right">iamearnest</div>
+                    </div>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+
+        (function ($) {
+            $(document).ready(function () {
+
+                generateID()
+                choose()
+                generateOption()
+                selectionOption()
+                removeClass()
+                uploadImage()
+                submit()
+                resetButton()
+                removeNotification()
+                autoRemoveNotification()
+                autoDequeue()
+
+                var ID
+                var way = 0
+                var queue = []
+                var fullStock = 10
+                var speedCloseNoti = 1000
+
+                function generateID() {
+                    var text = $('header span')
+                    var newID = ''
+
+                    for (var i = 0; i < 3; i++) {
+                        newID += Math.floor(Math.random() * 3)
+                    }
+
+                    ID = 'ID: 5988' + newID
+                    text.html(ID)
+                }
+
+                function choose() {
+                    var li = $('.ways li')
+                    var section = $('.sections section')
+                    var index = 0
+                    li.on('click', function () {
+                        index = $(this).index()
+                        $(this).addClass('active')
+                        $(this).siblings().removeClass('active')
+
+                        section.siblings().removeClass('active')
+                        section.eq(index).addClass('active')
+                        if (!way) {
+                            way = 1
+                        } else {
+                            way = 0
+                        }
+                    })
+                }
+
+                function generateOption() {
+                    var select = $('select option')
+                    var selectAdd = $('.select-option .option')
+                    $.each(select, function (i, val) {
+                        $('.select-option .option').append('<div rel="' + $(val).val() + '">' + $(val).html() + '</div>')
+                    })
+                }
+
+                function selectionOption() {
+                    var select = $('.select-option .head')
+                    var option = $('.select-option .option div')
+
+                    select.on('click', function (event) {
+                        event.stopPropagation()
+                        $('.select-option').addClass('active')
+                    })
+
+                    option.on('click', function () {
+                        var value = $(this).attr('rel')
+                        $('.select-option').removeClass('active')
+                        select.html(value)
+
+                        $('select#category').val(value)
+                    })
+                }
+
+                function removeClass() {
+                    $('body').on('click', function () {
+                        $('.select-option').removeClass('active')
+                    })
+                }
+
+                function uploadImage() {
+                    var button = $('.addImages .pic');
+                    var uploader = $('<input type="file" id="myFile" accept="image/*" />');
+
+                    var images = $('.images');
+
+                    button.on('click', function () {
+                        uploader.click()
+                    })
+
+                    uploader.on('change', function () {
+                        var reader = new FileReader()
+                        reader.onload = function (event) {
+                            images.prepend('<div class="col-2 img" id="imgPreview"> <img class="photo" src="' + event.target.result + '" height="150px" width="110px" style="border-radius: 9%;padding-top: 7%;padding-bottom: 7%;" rel="' + event.target.result + '"><div style="position: absolute;top: 0;right: 0;background-color: #dc3545;border-radius: 22%;"><i class="mdi mdi-close" style="color:white;"></i></div></div>');
+                            //images.prepend('<div class="col-2 img" id="imgPreview"> <img class="photo" src="' + event.target.result + '" height="100px" rel="' + event.target.result + '"><span><i class="mdi mdi-trash-can-outline"></i></span></div></div>');
+                        }
+                        reader.readAsDataURL(uploader[0].files[0])
+                    })
+                    images.on('click', '.img', function () {
+                        $(this).remove()
+                    })
+
+                    var buttonDoc = $('.addDoc .pic')
+                    var uploaderDoc = $('<input type="file" id="myFile" accept="application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-powerpoint,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,video/x-ms-wmv,video/x-msvideo,video/mp4,video/webm" />');
+                    var imagesDoc = $('.images')
+
+                    buttonDoc.on('click', function () {
+                        uploaderDoc.click()
+                    })
+
+                    uploaderDoc.on('change', function () {
+                        console.log('event is');
+                        console.log(event.target);
+                        console.log(event.target.value);
+                        console.log(event.target.files);
+                        var docName = (event.target.value).split('.');
+                        var reader = new FileReader()
+                        reader.onload = function (event) {
+                            console.log(docName[1]);
+                            var docImgUrl = docName[1];
+                            imagesDoc.prepend('<div class="col-2 img" id="imgPreview"> <img class="photo" src="../lib/images/svg/' + docImgUrl + '.svg" width="100%" height="100%" style="padding-bottom: 7%;" rel="' + event.target.result + '"><div style="position: absolute;top: 0;right: 0;background-color: #dc3545;;border-radius: 22%;"><i class="mdi mdi-close" style="color:white;"></i></div></div>')
+                        }
+                        reader.readAsDataURL(uploaderDoc[0].files[0])
+                    })
+
+                    imagesDoc.on('click', '.img', function () {
+                        $(this).remove()
+                    })
+                }
+
+                function submit() {
+                    var button = $('#send')
+
+                    button.on('click', function () {
+                        if (!way) {
+                            var title = $('#title')
+                            var cate = $('#category')
+                            var images = $('.images .img')
+                            var imageArr = []
+
+
+                            for (var i = 0; i < images.length; i++) {
+                                imageArr.push({ url: $(images[i]).attr('rel') })
+                            }
+
+                            var newStock = {
+                                title: title.val(),
+                                category: cate.val(),
+                                images: imageArr,
+                                type: 1
+                            }
+
+                            saveToQueue(newStock)
+                        } else {
+                            // discussion
+                            var topic = $('#topic')
+                            var message = $('#msg')
+
+                            var newStock = {
+                                title: topic.val(),
+                                message: message.val(),
+                                type: 2
+                            }
+
+                            saveToQueue(newStock)
+                        }
+                    })
+                }
+
+                function removeNotification() {
+                    var close = $('.notification')
+                    close.on('click', 'span', function () {
+                        var parent = $(this).parent()
+                        parent.fadeOut(300)
+                        setTimeout(function () {
+                            parent.remove()
+                        }, 300)
+                    })
+                }
+
+                function autoRemoveNotification() {
+                    setInterval(function () {
+                        var notification = $('.notification')
+                        var notiPage = $(notification).children('.btn')
+                        var noti = $(notiPage[0])
+
+                        setTimeout(function () {
+                            setTimeout(function () {
+                                noti.remove()
+                            }, speedCloseNoti)
+                            noti.fadeOut(speedCloseNoti)
+                        }, speedCloseNoti)
+                    }, speedCloseNoti)
+                }
+
+                function autoDequeue() {
+                    var notification = $('.notification')
+                    var text
+
+                    setInterval(function () {
+
+                        if (queue.length > 0) {
+                            if (queue[0].type == 2) {
+                                text = ' Your discusstion is sent'
+                            } else {
+                                text = ' Your order is allowed.'
+                            }
+
+                            notification.append('<div class="success btn"><p><strong>Success:</strong>' + text + '</p><span><i class=\"fa fa-times\" aria-hidden=\"true\"></i></span></div>')
+                            queue.splice(0, 1)
+
+                        }
+                    }, 10000)
+                }
+
+                function resetButton() {
+                    var resetbtn = $('#reset')
+                    resetbtn.on('click', function () {
+                        reset()
+                    })
+                }
+
+                // helpers
+                function saveToQueue(stock) {
+                    var notification = $('.notification')
+                    var check = 0
+
+                    if (queue.length <= fullStock) {
+                        if (stock.type == 2) {
+                            if (!stock.title || !stock.message) {
+                                check = 1
+                            }
+                        } else {
+                            if (!stock.title || !stock.category || stock.images == 0) {
+                                check = 1
+                            }
+                        }
+
+                        if (check) {
+                            notification.append('<div class="error btn"><p><strong>Error:</strong> Please fill in the form.</p><span><i class=\"fa fa-times\" aria-hidden=\"true\"></i></span></div>')
+                        } else {
+                            notification.append('<div class="success btn"><p><strong>Success:</strong> ' + ID + ' is submitted.</p><span><i class=\"fa fa-times\" aria-hidden=\"true\"></i></span></div>')
+                            queue.push(stock)
+                            reset()
+                        }
+                    } else {
+                        notification.append('<div class="error btn"><p><strong>Error:</strong> Please waiting a queue.</p><span><i class=\"fa fa-times\" aria-hidden=\"true\"></i></span></div>')
+                    }
+                }
+                function reset() {
+
+                    $('#title').val('')
+                    $('.select-option .head').html('Category')
+                    $('select#category').val('')
+
+                    var images = $('.images .img')
+                    for (var i = 0; i < images.length; i++) {
+                        $(images)[i].remove()
+                    }
+
+                    var topic = $('#topic').val('')
+                    var message = $('#msg').val('')
+                }
+            })
+        })(jQuery)
+
+        $(document).ready(function () {
+            $('.conversation-panel__body').animate({
+                scrollTop: $('.conversation-panel__body')[0].scrollHeight
+            }, 100);
+        });
+
+
+        $(document).ready(function () {
+            //getAllMessage();
+            connection.on("SendMessageToUser", function (ConnectionId, ChatUserId, UserId, Message) {
+                    console.log('from conversation send message to user calling: ' + ConnectionId);
+                    console.log('from conversation send message to user calling userid : ' + ChatUserId);
+                //    if (parseInt(ChatUserId) == parseInt($('#hdnChatUserId').val())){
+
+                //    }
+                getAll();
+                getAllMessage();
+            });
+
+            connection.on("UserTypeMessage", function (connectionId, UserId) {
+                console.log('i am from conver panel my connectionid is :' + connectionId + ' and my user id is: ' + UserId);
+                console.log('chat user id is: ' + $('#hdnChatUserId').val())
+                if (parseInt(UserId) == parseInt($('#hdnChatUserId').val())) {
+
+                    console.log('calling from conversation panel');
+                    $("#msgTypingId").show().delay(3000).fadeOut();
+                    $(document).ready(function () {
+                        $('.conversation-panel__body').animate({
+                            scrollTop: $('.conversation-panel__body')[0].scrollHeight
+                        }, 40);
+                    });
+                }
+            });
+
+            connection.on("UserReadMessage", function (connectionId) {
+                console.log('message read successfully....');
+                getAllMessage();
+            });
+        });
+
+        var elem = document.getElementById("txtMessageId");
+        elem.onkeyup = function (e) {
+            if (e.keyCode == 13) {
+                SendMessage();
+            }
+        }
+
+        function SendMessage() {
+            var userID = $('#hdnUserId').val();
+            var chatUserID = $('#hdnChatUserId').val();
+            var message = $('#txtMessageId').val();
+            var chatUserName = $('#hdnChatUserName').val();
+            var lastseen = $('#hdnLastseen').val();
+            var msgCount = $('#hdnMsgCount').val();
+
+            var images = $('.images .photo')
+            var imageArr = [];
+
+            //var fileUpload = $("#myFile").get(0);
+            //var files = fileUpload.files;
+            //var fileData = new FormData();
+            var docData = new Object();
+            //for (var i = 0; i < files.length; i++) {
+            //    fileData.append(files[i].name, files[i]);
+            //}
+
+            //for (var i = 0; i < files.length; i++) {
+            //    fileData.append(files[i].name, files[i]);
+            //}
+            for (var i = 0; i < images.length; i++) {
+                imageArr.push({ url: $(images[i]).attr('rel') });
+                console.log(imageArr[i]);
+            }
+
+            console.log(JSON.stringify(imageArr));
+
+
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var messageTime = today.getHours() + ":" + today.getMinutes();
+
+            var messageHtml = '<div class="ca-send"><div class="ca-send__msg-group"><div class="ca-send__msgwrapper"><div class="ca-msg-actions">                                                        <div class="iconbox-dropdown dropdown">                                                            <div class="iconbox btn-hovered-light" id="dropdownMenuButtons1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">                                                                <i class="iconbox__icon mdi mdi-dots-horizontal"></i>                                                            </div>                                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButtons1">                                                                <a class="dropdown-item" href="javascript:;">                                                                    <span><i class="mdi mdi-share-outline"></i></span>                                                                    <span>Forward</span>                                                                </a>                                                                <a class="dropdown-item" href="javascript:;">                                                                    <span><i class="mdi mdi-content-copy"></i></span>                                                                    <span>Copy</span>                                                                </a>                                                                <a class="dropdown-item" href="javascript:;">                                                                    <span><i class="mdi mdi-star-outline"></i></span>                                                                    <span>Add Star</span>                                                                </a>                                                                <a class="dropdown-item" href="javascript:;">                                                                    <span><i class="mdi mdi-trash-can-outline"></i></span>                                                                    <span>Delete</span>                                                                </a>                                                            </div>                                                        </div>                                                    </div>                                                    <div class="ca-send__msg">' + message + '</div>                                                </div>                                                <div class="metadata">                                                    <span class="time">' + messageTime + '</span>                                                    <span class="tick">                                                        <img src="/lib/images/tick/tick-delivered.svg" alt="">                                                    </span>                                                </div>                                            </div>                                            <div class="user-avatar user-avatar-sm user-avatar-rounded online">                                                <img src="../lib/images/user/500/blank-profile-picture.png" alt="">                                            </div>                                        </div>'
+            if (images.length == 0) {
+                $.ajax({
+                    //url: "http://50.21.182.225/aspdontnetcoredemo/Chat/ConversationPanel?UserId=" + userID + "&ChatUserId=" + chatUserID + "&ChatUserName=" + chatUserName + "&Lastseen=" + lastseen + "&Message=" + message + "&imageArr=" + imageArr + "",
+                    url: "../Chat/ConversationPanel?UserId=" + userID + "&ChatUserId=" + chatUserID + "&ChatUserName=" + chatUserName + "&Lastseen=" + lastseen + "&Message=" + message + "&imageArr=" + imageArr + "&MsgCount=" + msgCount + "",
+                    contentType: 'application/html; charset=utf-8',
+                    type: "GET",
+                    dataType: 'html',
+                    success: function (result) {
+                        $("#htmlMessageId").append(messageHtml);
+                        $("#txtMessageId").val('');
+                        getAllMessage();
+                        $(document).ready(function () {
+                            $('.conversation-panel__body').animate({
+                                scrollTop: $('.conversation-panel__body')[0].scrollHeight
+                            }, 40);
+                        });
+                        var chatUserID = $('#hdnChatUserId').val();
+                        var userID = $('#hdnUserId').val();
+                        connection.invoke("SendAndGetMessage", chatUserID, userID, message).catch(function (err) {
+                            return console.error(err.toString());
+                        });
+                        getAll();
+                    }
+                });
+            }
+            else {
+                docData.File = imageArr;
+                docData.UserId = userID;
+                docData.ChatUserID = chatUserID;
+                //var imageHtml=null;
+                for (var i = 0; i < images.length; i++) {
+                    //imageHtml.append({ url: $(images[i]).attr('rel') });
+                    console.log(imageArr[i].url);
+                    $("#htmlMessageId").append('<div class="ca-send"><div class="ca-send__msg-group"><div class="ca-send__msgwrapper"><div class="ca-msg-actions"><div class="iconbox-dropdown dropdown"><div class="iconbox btn-hovered-light" id="dropdownMenuButtonsms1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="iconbox__icon mdi mdi-dots-horizontal"></i></div><div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsms1"><a class="dropdown-item" href="javascript:;"><span><i class="mdi mdi-download-outline"></i></span><span>Download</span></a><a class="dropdown-item" href="javascript:;"><span><i class="mdi mdi-share-outline"></i></span><span>Forward</span></a><a class="dropdown-item" href="javascript:;"><span><i class="mdi mdi-content-copy"></i></span><span>Copy</span></a><a class="dropdown-item" href="javascript:;"><span><i class="mdi mdi-star-outline"></i></span><span>Add Star</span></a><a class="dropdown-item" href="javascript:;"><span><i class="mdi mdi-trash-can-outline"></i></span><span>Delete</span></a></div></div></div><div class="ca-send__msg"><div class="ca-send__msg-media-group"><div class="ca-send__msg-media"><img src="' + imageArr[i].url + '" alt=""></div></div></div></div><div class="metadata"><span class="time">' + messageTime + '</span><span class="tick"><img src="/lib/images/tick/tick-delivered.svg" alt=""></span></div></div><div class="user-avatar user-avatar-sm user-avatar-rounded online"><img src="../lib/images/user/250/02.jpg" alt=""></div></div>');
+
+                    $(document).ready(function () {
+                        $('.conversation-panel__body').animate({
+                            scrollTop: $('.conversation-panel__body')[0].scrollHeight
+                        }, 40);
+                    });
+                }
+                for (var i = 0; i < images.length; i++) {
+                    $("#imgPreview").remove();
+                }
+                console.log(JSON.stringify(docData));
+                $.ajax({
+                    //url: "http://50.21.182.225/aspdontnetcoredemo/Chat/UploadDocument",
+                    url: "../Chat/UploadDocument",
+                    type: "post",
+                    data: JSON.stringify(docData),
+                    contentType: 'application/json; charset=utf-8',
+                    //processData: false,
+                    //contentType: false,
+                    //dataType: 'json',
+                    //beforeSend: function (xhr) {
+                    //    xhr.setRequestHeader("XSRF-TOKEN",
+                    //        $('input:hidden[name="__RequestVerificationToken"]').val());
+                    //},
+                    success: function (result) {
+                        //$("#htmlMessageId").append(imageHtml);
+                        $("#txtMessageId").val('');
+                        getAllMessage();
+                        $(document).ready(function () {
+                            $('.conversation-panel__body').animate({
+                                scrollTop: $('.conversation-panel__body')[0].scrollHeight
+                            }, 40);
+                        });
+                        var chatUserID = $('#hdnChatUserId').val();
+                        var userID = $('#hdnUserId').val();
+                        connection.invoke("SendAndGetMessage", chatUserID, userID, message).catch(function (err) {
+                            return console.error(err.toString());
+                        });
+                        getAll();
+                    }
+                });
+            }
+
+        }
+
+        function getAllMessage() {
+            var model = $('#htmlMessageBody');
+            var userID = $('#hdnUserId').val();
+            var chatUserID = $('#hdnChatUserId').val();
+            var chatUserName = $('#hdnChatUserName').val();
+            var lastseen = $('#hdnLastseen').val();
+            $.ajax({
+                url: "../Chat/MessagePanel?UserId=" + userID + "&ChatUserId=" + chatUserID + "",
+                //url: "http://50.21.182.225/aspdontnetcoredemo/Chat/MessagePanel?UserId=" + userID + "&ChatUserId=" + chatUserID + "",
+                contentType: 'application/html ; charset:utf-8',
+                type: 'GET',
+                dataType: 'html',
+                success: function (result) {
+                    model.empty().append(result);
+                    $(document).ready(function () {
+                        $('.conversation-panel__body').animate({
+                            scrollTop: $('.conversation-panel__body')[0].scrollHeight
+                        }, 40);
+                    });
+                getAll();
+                }
+            });
+        }
+
+    @*function UserTyping() {
+        var chatUserID = $('#hdnChatUserId').val();
+        var userID = $('#hdnUserId').val();
+
+        console.log('conver panel my user id is: ' + userID);
+        console.log('conver panel typing');
+
+        connection.invoke("MessageTyping", chatUserID, userID).catch(function (err) {
+        return console.error(err.toString());
+        });
+        }*@
+        var keypr1 = 0;
+        function UserTyping() {
+        var chatUserID = $('#hdnChatUserId').val();
+        var userID = $('#hdnUserId').val();
+        console.log('conv panel my user id is: ' + userID);
+        console.log('conv panel typing');
+        if (keypr1++ % 5 == 0) {
+            connection.invoke("MessageTyping", chatUserID, userID).catch(function (err) {
+                return console.error(err.toString());
+                });
+            }
+        }
+    @*$('#txtMessageId').keydown(function () {
+        let timer, timeoutVal = 700;
+        var chatUserID = $('#hdnChatUserId').val();
+        var userID = $('#hdnUserId').val();
+        console.log('conver. panel key down');
+        //clearTimeout(timer);
+        connection.invoke("MessageTyping", chatUserID, userID).catch(function (err) {
+        return console.error(err.toString());
+        });
+        });*@
+
+    @*var keyCount=0;
+        $('#txtMessageId').keydown(function () {
+        let timer, timeoutVal = 700;
+        var chatUserID = $('#hdnChatUserId').val();
+        var userID = $('#hdnUserId').val();
+        keyCount=keyCount+1;
+        console.log('conver. panel key down');
+        if(keyCount > 3){
+        console.log("keycount is :"+)
+        }
+        //clearTimeout(timer);
+        connection.invoke("MessageTyping", chatUserID, userID).catch(function (err) {
+        return console.error(err.toString());
+        });
+        });*@
+</script>
+
+<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
+<script src="~/lib/bootstrap.bundle.min.js"></script>
+<script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
+<script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
+<script src="~/lib/js/app.js"></script>
+

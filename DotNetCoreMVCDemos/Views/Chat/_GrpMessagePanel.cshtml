@@ -42,10 +42,20 @@
                                                 <span><i class="mdi mdi-content-copy"></i></span>
                                                 <span>Copy</span>
                                             </a>
-                                            <a class="dropdown-item" href="javascript:;">
-                                                <span><i class="mdi mdi-star-outline"></i></span>
-                                                <span>Add Star</span>
-                                            </a>
+                                            @if (@message.IsStar)
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddGroupStar('@message.GroupMsgID','false')">
+                                                    <span><i class="mdi mdi-star-face" id="@message.GroupMsgID"></i></span>
+                                                    <span id="txt_@message.GroupMsgID">Remove Star</span>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddGroupStar('@message.GroupMsgID','true')">
+                                                    <span><i class="mdi mdi-star-outline" id="@message.GroupMsgID"></i></span>
+                                                    <span id="txt_@message.GroupMsgID">Add Star</span>
+                                                </a>
+                                            }
                                             <a class="dropdown-item" href="javascript:;">
                                                 <span><i class="mdi mdi-trash-can-outline"></i></span>
                                                 <span>Delete</span>
@@ -77,11 +87,11 @@
                                         </div>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsms1">
                                             @*<a class="dropdown-item" href="javascript:;">
-                                                <span>
-                                                    <i class="mdi mdi-download-outline"></i>
-                                                </span>
-                                                <span>Download</span>
-                                            </a>*@
+            <span>
+                <i class="mdi mdi-download-outline"></i>
+            </span>
+            <span>Download</span>
+        </a>*@
                                             <a class="dropdown-item" href="javascript:;">
                                                 <span><i class="mdi mdi-share-outline"></i></span>
                                                 <span>Forward</span>
@@ -90,10 +100,20 @@
                                                 <span><i class="mdi mdi-content-copy"></i></span>
                                                 <span>Copy</span>
                                             </a>
-                                            <a class="dropdown-item" href="javascript:;">
-                                                <span><i class="mdi mdi-star-outline"></i></span>
-                                                <span>Add Star</span>
-                                            </a>
+                                            @if (@message.IsStar)
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddGroupStar('@message.GroupMsgID','false')">
+                                                    <span><i class="mdi mdi-star-face" id="@message.GroupMsgID"></i></span>
+                                                    <span id="txt_@message.GroupMsgID">Remove Star</span>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddGroupStar('@message.GroupMsgID','true')">
+                                                    <span><i class="mdi mdi-star-outline" id="@message.GroupMsgID"></i></span>
+                                                    <span id="txt_@message.GroupMsgID">Add Star</span>
+                                                </a>
+                                            }
                                             <a class="dropdown-item" href="javascript:;">
                                                 <span><i class="mdi mdi-trash-can-outline"></i></span>
                                                 <span>Delete</span>
@@ -141,10 +161,20 @@
                                                 <span><i class="mdi mdi-content-copy"></i></span>
                                                 <span>Copy</span>
                                             </a>
-                                            <a class="dropdown-item" href="javascript:;">
-                                                <span><i class="mdi mdi-star-outline"></i></span>
-                                                <span>Add Star</span>
-                                            </a>
+                                            @if (@message.IsStar)
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddGroupStar('@message.GroupMsgID','false')">
+                                                    <span><i class="mdi mdi-star-face" id="@message.GroupMsgID"></i></span>
+                                                    <span id="txt_@message.GroupMsgID">Remove Star</span>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddGroupStar('@message.GroupMsgID','true')">
+                                                    <span><i class="mdi mdi-star-outline" id="@message.GroupMsgID"></i></span>
+                                                    <span id="txt_@message.GroupMsgID">Add Star</span>
+                                                </a>
+                                            }
                                             <a class="dropdown-item" href="javascript:;">
                                                 <span><i class="mdi mdi-trash-can-outline"></i></span>
                                                 <span>Delete</span>
@@ -224,10 +254,20 @@
                                                 <span><i class="mdi mdi-content-copy"></i></span>
                                                 <span>Copy</span>
                                             </a>
-                                            <a class="dropdown-item" href="javascript:;">
-                                                <span><i class="mdi mdi-star-outline"></i></span>
-                                                <span>Add Star</span>
-                                            </a>
+                                            @if (@message.IsStar)
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddGroupStar('@message.GroupMsgID','false')">
+                                                    <span><i class="mdi mdi-star-face" id="@message.GroupMsgID"></i></span>
+                                                    <span id="txt_@message.GroupMsgID">Remove Star</span>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddGroupStar('@message.GroupMsgID','true')">
+                                                    <span><i class="mdi mdi-star-outline" id="@message.GroupMsgID"></i></span>
+                                                    <span id="txt_@message.GroupMsgID">Add Star</span>
+                                                </a>
+                                            }
                                             <a class="dropdown-item" href="javascript:;">
                                                 <span><i class="mdi mdi-trash-can-outline"></i></span>
                                                 <span>Delete</span>
@@ -276,10 +316,20 @@
                                                 <span><i class="mdi mdi-content-copy"></i></span>
                                                 <span>Copy</span>
                                             </a>
-                                            <a class="dropdown-item" href="javascript:;">
-                                                <span><i class="mdi mdi-star-outline"></i></span>
-                                                <span>Add Star</span>
-                                            </a>
+                                            @if (@message.IsStar)
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddGroupStar('@message.GroupMsgID','false')">
+                                                    <span><i class="mdi mdi-star-face" id="@message.GroupMsgID"></i></span>
+                                                    <span id="txt_@message.GroupMsgID">Remove Star</span>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddGroupStar('@message.GroupMsgID','true')">
+                                                    <span><i class="mdi mdi-star-outline" id="@message.GroupMsgID"></i></span>
+                                                    <span id="txt_@message.GroupMsgID">Add Star</span>
+                                                </a>
+                                            }
                                             <a class="dropdown-item" href="javascript:;">
                                                 <span><i class="mdi mdi-trash-can-outline"></i></span>
                                                 <span>Delete</span>
@@ -355,10 +405,20 @@
                                                 <span><i class="mdi mdi-content-copy"></i></span>
                                                 <span>Copy</span>
                                             </a>
-                                            <a class="dropdown-item" href="javascript:;">
-                                                <span><i class="mdi mdi-star-outline"></i></span>
-                                                <span>Add Star</span>
-                                            </a>
+                                            @if (@message.IsStar)
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddGroupStar('@message.GroupMsgID','false')">
+                                                    <span><i class="mdi mdi-star-face" id="@message.GroupMsgID"></i></span>
+                                                    <span id="txt_@message.GroupMsgID">Remove Star</span>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <a class="dropdown-item" href="javascript:;" onclick="AddGroupStar('@message.GroupMsgID','true')">
+                                                    <span><i class="mdi mdi-star-outline" id="@message.GroupMsgID"></i></span>
+                                                    <span id="txt_@message.GroupMsgID">Add Star</span>
+                                                </a>
+                                            }
                                             <a class="dropdown-item" href="javascript:;">
                                                 <span><i class="mdi mdi-trash-can-outline"></i></span>
                                                 <span>Delete</span>

@@ -3,6 +3,7 @@ D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\P
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\wwwroot\Documents\202100111008.jpeg
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\wwwroot\Documents\202103111021.doc
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\wwwroot\Documents\202103111022.pdf
+D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\wwwroot\Documents\202120141229.png
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\wwwroot\Documents\202134111051.jpeg
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\wwwroot\Documents\202137111006.jpeg
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\wwwroot\Documents\202143111045.jpeg
@@ -120,6 +121,7 @@ D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\P
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\wwwroot\lib\images\user\500\07.jpg
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\wwwroot\lib\images\user\500\08.jpg
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\wwwroot\lib\images\user\500\09.jpg
+D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\wwwroot\lib\images\user\500\202101101255.jpg
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\wwwroot\lib\images\user\500\202113031245.jpg
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\wwwroot\lib\images\user\500\202150031247.jpg
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\wwwroot\lib\images\user\500\42e23866-c739-4538-8ada-e2e3a479d28a.jpeg
@@ -356,6 +358,9 @@ D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\P
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\DotNetCoreMVCDemos.deps.json
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\DotNetCoreMVCDemos.runtimeconfig.json
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\DotNetCoreMVCDemos.pdb
+D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\ClosedXML.dll
+D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\DocumentFormat.OpenXml.dll
+D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\ExcelNumberFormat.dll
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\Microsoft.AspNetCore.Connections.Abstractions.dll
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\Microsoft.AspNetCore.Http.Features.dll
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
@@ -372,6 +377,7 @@ D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\P
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\Microsoft.Extensions.Primitives.dll
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\Newtonsoft.Json.dll
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\System.Data.SqlClient.dll
+D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\System.IO.Packaging.dll
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\System.IO.Pipelines.dll
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\System.Net.WebSockets.WebSocketProtocol.dll
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\PubTmp\Out\cs\Microsoft.CodeAnalysis.resources.dll

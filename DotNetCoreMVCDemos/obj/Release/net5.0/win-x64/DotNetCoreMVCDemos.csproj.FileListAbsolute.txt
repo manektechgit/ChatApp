@@ -759,3 +759,7 @@ D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\D
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\ref\DotNetCoreMVCDemos.dll
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\DotNetCoreMVCDemos.pdb
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Release\net5.0\win-x64\DotNetCoreMVCDemos.genruntimeconfig.cache
+D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\bin\Release\net5.0\win-x64\ClosedXML.dll
+D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\bin\Release\net5.0\win-x64\DocumentFormat.OpenXml.dll
+D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\bin\Release\net5.0\win-x64\ExcelNumberFormat.dll
+D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\bin\Release\net5.0\win-x64\System.IO.Packaging.dll

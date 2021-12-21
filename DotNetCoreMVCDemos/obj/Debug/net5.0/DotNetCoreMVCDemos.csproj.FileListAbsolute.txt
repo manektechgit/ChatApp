@@ -1160,3 +1160,4 @@ D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\bin\Debug\net5.0\ClosedXML.d
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\bin\Debug\net5.0\DocumentFormat.OpenXml.dll
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\bin\Debug\net5.0\ExcelNumberFormat.dll
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\bin\Debug\net5.0\System.IO.Packaging.dll
+D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Chat\_StarredMessage.cshtml.g.cs

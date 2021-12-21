@@ -14,7 +14,8 @@
             @{int count = 0; }
             @foreach (var chat in Model)
             {
-                <li id="liGroupConverId_@count">
+
+                <li id="liGroupConverId_@count" class="hdnGrpChatId_@chat.GroupID">
                     <a data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace"
                        data-ajax-update="#rdrConversationId" href="@Url.Action("GroupConversationPanel","Chat",new {GroupId=chat.GroupID, UserId = UserId, GroupName = chat.GroupName, TotalMembers = chat.TotalMembers })" id="ajaxConversationId_@count" style="display:none">
                     </a>
@@ -46,6 +47,7 @@
                         </div>
                     </div>
                 </li>
+
                 count++;
             }
             <input type="hidden" id="hdnCount" value="@count" />

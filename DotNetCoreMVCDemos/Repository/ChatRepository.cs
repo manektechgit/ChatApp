@@ -353,7 +353,7 @@ namespace DotNetCoreMVCDemos.Repository
                         //ChatUserID = Convert.ToString(row["ChatUserID"]),
                         //IsRead = Convert.ToByte(row["IsRead"]),
                         Name = Convert.ToString(row["Name"]),
-                        GroupMsgID= Convert.ToString(row["GroupMsgID"]),
+                        GroupMsgID = Convert.ToString(row["GroupMsgID"]),
                         IsStar = Convert.ToBoolean(row["IsStar"])
                     };
                     messages.Add(message);
@@ -547,7 +547,7 @@ namespace DotNetCoreMVCDemos.Repository
             Common.SqlHelper.Fill(dtUser, "[SendNewContactMessage]", objParameter);
         }
 
-        public void AddStar(string ConversationID, bool Status, byte MsgType, string UserId,string GroupMsgID)
+        public void AddStar(string ConversationID, bool Status, byte MsgType, string UserId, string GroupMsgID)
         {
             DataTable dtUser = new DataTable();
             SqlParameter[] objParameter = new SqlParameter[5];
@@ -557,6 +557,37 @@ namespace DotNetCoreMVCDemos.Repository
             objParameter[3] = new SqlParameter("@MsgType", MsgType);
             objParameter[4] = new SqlParameter("@UserId", UserId);
             Common.SqlHelper.Fill(dtUser, "[AddStarMessage]", objParameter);
+        }
+        public List<StarredMessage> GetStarredMessages(string UserId)
+        {
+            List<StarredMessage> messages = new List<StarredMessage>();
+            DataTable dtChat = new DataTable();
+            SqlParameter[] objParameter = new SqlParameter[1];
+            objParameter[0] = new SqlParameter("@UserId", UserId);
+            Common.SqlHelper.Fill(dtChat, "[GetStarredMessages]", objParameter);
+            if (dtChat != null && dtChat.Rows.Count > 0)
+            {
+                foreach (DataRow row in dtChat.Rows)
+                {
+                    StarredMessage message = new StarredMessage
+                    {
+                        Message = Convert.ToString(row["Message"]),
+                        MessageTime = Convert.ToString(row["MessageTime"])
+                        //ProfileImage = Convert.ToString(row["ProfileImage"]),
+                    };
+                    messages.Add(message);
+                }
+            }
+            return messages;
+        }
+
+        public void LeaveGroup(string GroupId, string UserId)
+        {
+            DataTable dtUser = new DataTable();
+            SqlParameter[] objParameter = new SqlParameter[2];
+            objParameter[0] = new SqlParameter("@GroupId", GroupId);
+            objParameter[1] = new SqlParameter("@UserId", UserId);
+            Common.SqlHelper.Fill(dtUser, "[LeaveGroup]", objParameter);
         }
     }
 }

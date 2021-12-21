@@ -6,7 +6,7 @@
         <title>@ViewData["Title"] - DotNetCoreMVCDemos</title>
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="~/css/site.css" />*@
-    <base href="ChatHome"/>
+    <base href="ChatHome" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="~/lib/css/app.css">
     <link rel="stylesheet" href="~/lib/css/theme/default.css">
 </head>
-<body class="light-default-theme">
+<body class="light-default-theme" id="hdnDynamicTheme">
     @*<header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
                 <div class="container">
@@ -70,7 +70,7 @@
         <script src="/signalr/hubs" type="text/javascript"></script>*@
 
     <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
-    
+
     @RenderSection("scripts", required: false)
 
     @*<script src="~/lib/jquery/dist/jquery.min.js"></script>

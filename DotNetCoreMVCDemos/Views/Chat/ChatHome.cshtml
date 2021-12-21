@@ -195,7 +195,7 @@
                                 <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
                             </div>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="javascript:;">
+                                <a class="dropdown-item" href="javascript:;" onclick="LoadStarredMessage()">
                                     <span><i class="mdi mdi-star-outline"></i></span>
                                     <span>Starred Messages</span>
                                 </a>
@@ -771,7 +771,7 @@
                                                             <h6 class="border-bottom pb-2">Light Theme</h6>
                                                             <a href="javascript:;" data-theme="light-default-theme" class="theme default-theme"></a>
                                                             <a href="javascript:;" data-theme="light-purple-theme" class="theme purple-theme"></a>
-                                                            <a href="javascript:;" data-theme="light-pink-theme" class="theme pink-theme selected"></a>
+                                                            <a href="javascript:;" data-theme="light-pink-theme" class="theme pink-theme"></a>
                                                             <a href="javascript:;" data-theme="light-green-theme" class="theme green-theme"></a>
                                                             <a href="javascript:;" data-theme="light-red-theme" class="theme red-theme"></a>
                                                             <a href="javascript:;" data-theme="light-orange-theme" class="theme orange-theme"></a>
@@ -2733,7 +2733,7 @@
                         <div class="d-flex flex-wrap">
                             <a href="javascript:;" data-theme="light-default-theme" class="theme default-theme"></a>
                             <a href="javascript:;" data-theme="light-purple-theme" class="theme purple-theme"></a>
-                            <a href="javascript:;" data-theme="light-pink-theme" class="theme pink-theme selected"></a>
+                            <a href="javascript:;" data-theme="light-pink-theme" class="theme pink-theme"></a>
                             <a href="javascript:;" data-theme="light-green-theme" class="theme green-theme"></a>
                             <a href="javascript:;" data-theme="light-red-theme" class="theme red-theme"></a>
                             <a href="javascript:;" data-theme="light-orange-theme" class="theme orange-theme"></a>
@@ -2753,7 +2753,6 @@
                             <a href="javascript:;" data-theme="dark-darkblue-theme" class="theme darkblue-theme"></a>
                             <a href="javascript:;" data-theme="dark-lightpink-theme" class="theme lightpink-theme"></a>
                         </div>
-
                         <h6 class="border-bottom py-3">RTL Layout</h6>
                         <label class="material-switch">
                             <input type="checkbox" class="rtlSwitch">
@@ -2775,7 +2774,7 @@
                 <div class="d-flex flex-wrap">
                     <a href="javascript:;" data-theme="light-default-theme" class="theme default-theme"></a>
                     <a href="javascript:;" data-theme="light-purple-theme" class="theme purple-theme"></a>
-                    <a href="javascript:;" data-theme="light-pink-theme" class="theme pink-theme selected"></a>
+                    <a href="javascript:;" data-theme="light-pink-theme" class="theme pink-theme"></a>
                     <a href="javascript:;" data-theme="light-green-theme" class="theme green-theme"></a>
                     <a href="javascript:;" data-theme="light-red-theme" class="theme red-theme"></a>
                     <a href="javascript:;" data-theme="light-orange-theme" class="theme orange-theme"></a>
@@ -3122,6 +3121,35 @@
                         $("#" + GroupMsgID + "").addClass("mdi mdi-star-outline");
                         $("#txt_" + GroupMsgID + "").text("Add Star");
                     }
+                }
+            });
+        }
+
+        function LoadStarredMessage() {
+            var userID = $('#hdnUserId').val();
+            var model = $('#rdrConversationId');
+            $.ajax({
+                url: "../Chat/GetStarredMessage?UserId=" + userID + "",
+                contentType: 'application/html; charset=utf-8',
+                type: "GET",
+                dataType: 'html',
+                success: function (result) {
+                    model.empty().append(result);
+                    console.log(result);
+                }
+            });
+        }
+
+        function LeaveGroup(GroupId, UserId) {
+            $.ajax({
+                url: "../Chat/LeaveGroup?GroupId=" + GroupId + "&UserId=" + UserId + "",
+                contentType: 'application/html; charset=utf-8',
+                type: "GET",
+                //dataType: 'html',
+                success: function (result) {
+                    console.log($(".hdnGrpChatId_" + GroupId + ""));
+                    $(".hdnGrpChatId_" + GroupId + "").remove();
+                    $('#rdrConversationId').empty();
                 }
             });
         }

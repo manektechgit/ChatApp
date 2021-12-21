@@ -625,9 +625,37 @@ namespace DotNetCoreMVCDemos.Controllers
             List<GroupMessages> GroupMessages = ChatRepo.GetGroupMessages(GroupId, UserId, "");
             return Json(GroupMessages);
         }
-        public JsonResult AddStar(string ConversationID,string GroupMsgID, bool Status, byte MsgType, string UserId)
+        public JsonResult AddStar(string ConversationID, string GroupMsgID, bool Status, byte MsgType, string UserId)
         {
             ChatRepo.AddStar(ConversationID, Status, MsgType, UserId, GroupMsgID);
+            return Json("data");
+        }
+        public PartialViewResult GetStarredMessage(string UserId)
+        {
+            List<StarredMessage> messages = new List<StarredMessage>();
+            messages = ChatRepo.GetStarredMessages(UserId);
+            foreach (var doc in messages)
+            {
+                if (doc.Message.Contains(".jpeg") || doc.Message.Contains(".jpg") || doc.Message.Contains(".png") || doc.Message.Contains(".gif"))
+                {
+                    var path = Path.Combine(_environment.WebRootPath, "Documents", doc.Message);
+                    if (System.IO.File.Exists(path))
+                    {
+                        var imageFileStream = System.IO.File.OpenRead(path);
+                        string extention = doc.Message.Split('.')[1];
+                        Byte[] bytes = System.IO.File.ReadAllBytes(path);
+                        doc.DocUrl = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes);
+                    }
+                }
+            }
+            return PartialView("_StarredMessage", messages);
+        }
+        public JsonResult LeaveGroup(string GroupId, string UserId)
+        {
+            if (!string.IsNullOrEmpty(UserId)&& !string.IsNullOrEmpty(GroupId))
+            {
+                ChatRepo.LeaveGroup(GroupId, UserId);
+            }
             return Json("data");
         }
     }
