@@ -652,11 +652,65 @@ namespace DotNetCoreMVCDemos.Controllers
         }
         public JsonResult LeaveGroup(string GroupId, string UserId)
         {
-            if (!string.IsNullOrEmpty(UserId)&& !string.IsNullOrEmpty(GroupId))
+            if (!string.IsNullOrEmpty(UserId) && !string.IsNullOrEmpty(GroupId))
             {
                 ChatRepo.LeaveGroup(GroupId, UserId);
             }
             return Json("data");
+        }
+        public JsonResult ChangeTheme(string UserId, string Theme)
+        {
+            ChatRepo.ChangeTheme(UserId, Theme);
+            session.SetString("Theme", Theme);
+            return Json("data");
+        }
+
+        public PartialViewResult GetForwardMessageChat(string UserId, string ConversationID, string GroupMsgID)
+        {
+            UserId = string.IsNullOrEmpty(UserId) ? session.GetString("UserId") : UserId;
+            if (!string.IsNullOrEmpty(session.GetString("Email")) && !string.IsNullOrEmpty(UserId))
+            {
+                List<ForwardMessageChatModel> chats = new List<ForwardMessageChatModel>();
+                chats = ChatRepo.GetForwardMessageChat(UserId);
+                //ViewBag.ConversationID = ConversationID;
+                //ViewBag.GroupMsgID = GroupMsgID;
+                return PartialView("_ForwardMessage", chats);
+            }
+            return PartialView("_Logout");
+        }
+        public PartialViewResult SendForwardMessage(string UserId, string ChatUserId, string ConversationID, string GroupMsgID)
+        {
+            MessageModel Message = new MessageModel();
+            Message = ChatRepo.SaveForwardMessage(UserId, ChatUserId, ConversationID, GroupMsgID);
+            if (Message.Message.Contains(".jpeg") || Message.Message.Contains(".jpg") || Message.Message.Contains(".png") || Message.Message.Contains(".gif"))
+            {
+                var path = Path.Combine(_environment.WebRootPath, "Documents", Message.Message);
+                if (System.IO.File.Exists(path))
+                {
+                    var imageFileStream = System.IO.File.OpenRead(path);
+                    string extention = Message.Message.Split('.')[1];
+                    Byte[] bytes = System.IO.File.ReadAllBytes(path);
+                    Message.DocUrl = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes);
+                }
+            }
+            return PartialView("_Message", Message);
+        }
+        public PartialViewResult SendForwardGroupMessage(string UserId,string GroupID, string GroupMsgID, string ConversationID)
+        {
+            MessageModel Message = new MessageModel();
+            Message = ChatRepo.SendForwardGroupMessage(UserId, GroupID, GroupMsgID, ConversationID);
+            if (Message.Message.Contains(".jpeg") || Message.Message.Contains(".jpg") || Message.Message.Contains(".png") || Message.Message.Contains(".gif"))
+            {
+                var path = Path.Combine(_environment.WebRootPath, "Documents", Message.Message);
+                if (System.IO.File.Exists(path))
+                {
+                    var imageFileStream = System.IO.File.OpenRead(path);
+                    string extention = Message.Message.Split('.')[1];
+                    Byte[] bytes = System.IO.File.ReadAllBytes(path);
+                    Message.DocUrl = "data:image/" + extention + ";base64," + Convert.ToBase64String(bytes);
+                }
+            }
+            return PartialView("_Message", Message);
         }
     }
 }

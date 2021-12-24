@@ -589,5 +589,89 @@ namespace DotNetCoreMVCDemos.Repository
             objParameter[1] = new SqlParameter("@UserId", UserId);
             Common.SqlHelper.Fill(dtUser, "[LeaveGroup]", objParameter);
         }
+
+        public void ChangeTheme(string UserId, string Theme)
+        {
+            DataTable dtUser = new DataTable();
+            SqlParameter[] objParameter = new SqlParameter[2];
+            objParameter[0] = new SqlParameter("@UserId", UserId);
+            objParameter[1] = new SqlParameter("@Theme", Theme);
+            Common.SqlHelper.Fill(dtUser, "[ChangeTheme]", objParameter);
+        }
+
+        public List<ForwardMessageChatModel> GetForwardMessageChat(string UserId)
+        {
+            List<ForwardMessageChatModel> chats = new List<ForwardMessageChatModel>();
+            DataTable dtChat = new DataTable();
+            SqlParameter[] objParameter = new SqlParameter[1];
+            objParameter[0] = new SqlParameter("@UserId", UserId);
+            Common.SqlHelper.Fill(dtChat, "[GetForwardMessageChat]", objParameter);
+
+            if (dtChat != null && dtChat.Rows.Count > 0)
+            {
+                foreach (DataRow row in dtChat.Rows)
+                {
+                    ForwardMessageChatModel chat = new ForwardMessageChatModel
+                    {
+                        Name = Convert.ToString(row["Name"]),
+                        ChatUserId = Convert.ToString(row["ChatUserId"]),
+                        ProfileImage = Convert.ToString(row["ProfileImage"]),
+                        GroupID = Convert.ToString(row["GroupID"])
+                    };
+                    chats.Add(chat);
+                }
+            }
+            return chats;
+        }
+
+        public MessageModel SaveForwardMessage(string UserId, string ChatUserId, string ConversationID, string GroupMsgID)
+        {
+            MessageModel Message = new MessageModel();
+            DataTable dtChat = new DataTable();
+            SqlParameter[] objParameter = new SqlParameter[4];
+            objParameter[0] = new SqlParameter("@UserId", UserId);
+            objParameter[1] = new SqlParameter("@ChatUserId", ChatUserId);
+            objParameter[2] = new SqlParameter("@ConversationID", ConversationID);
+            objParameter[3] = new SqlParameter("@GroupMsgID", GroupMsgID);
+
+            Common.SqlHelper.Fill(dtChat, "[SaveForwardMessage]", objParameter);
+
+            if (dtChat != null && dtChat.Rows.Count > 0)
+            {
+                foreach (DataRow row in dtChat.Rows)
+                {
+                    Message.Message = Convert.ToString(row["Message"]);
+                    Message.MessageTime = Convert.ToString(row["MessageTime"]);
+                    Message.ConversationID = Convert.ToString(row["ConversationID"]);
+                    Message.GroupMsgID = "";
+                }
+            }
+            return Message;
+        }
+
+        public MessageModel SendForwardGroupMessage(string UserId, string GroupID, string GroupMsgID,string ConversationID)
+        {
+            MessageModel Message = new MessageModel();
+            DataTable dtChat = new DataTable();
+            SqlParameter[] objParameter = new SqlParameter[4];
+            objParameter[0] = new SqlParameter("@UserId", UserId);
+            objParameter[1] = new SqlParameter("@GroupMsgID", GroupMsgID);
+            objParameter[2] = new SqlParameter("@GroupID", GroupID);
+            objParameter[3] = new SqlParameter("@ConversationID", ConversationID);
+            
+            Common.SqlHelper.Fill(dtChat, "[SaveForwardGroupMessage]", objParameter);
+
+            if (dtChat != null && dtChat.Rows.Count > 0)
+            {
+                foreach (DataRow row in dtChat.Rows)
+                {
+                    Message.Message = Convert.ToString(row["Message"]);
+                    Message.MessageTime = Convert.ToString(row["MessageTime"]);
+                    Message.GroupMsgID = Convert.ToString(row["GroupMsgID"]);
+                    Message.ConversationID = "";
+                }
+            }
+            return Message;
+        }
     }
 }

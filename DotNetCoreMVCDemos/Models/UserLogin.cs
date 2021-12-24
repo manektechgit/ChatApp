@@ -27,6 +27,7 @@ namespace DotNetCoreMVCDemos.Models
         public string Snapchat { get; set; }
         public string Twitter { get; set; }
         public string Instagram { get; set; }
+        public string Theme { get; set; }
 
     }
     public class CallOffer

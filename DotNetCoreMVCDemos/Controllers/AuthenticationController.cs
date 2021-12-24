@@ -58,7 +58,9 @@ namespace DotNetCoreMVCDemos.Controllers
                 session.SetString("Twitter", LoginUser.Twitter);
                 session.SetString("Snapchat", LoginUser.Snapchat);
                 session.SetString("ProfileImage", LoginUser.ProfileImage);
+                session.SetString("Theme", LoginUser.Theme);
                 ViewData["Message"] = null;
+                ViewData["Theme"] = LoginUser.Theme;
                 //await _chatHub.Clients.All.SendAsync("ActiveInactiveUser");
 
                 //await connection.InvokeAsync("SendUserStatus");

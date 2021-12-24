@@ -1,10 +1,10 @@
 @model IEnumerable<DotNetCoreMVCDemos.Models.PersonalChatModel>
 @inject IHttpContextAccessor HttpContextAccessor
 @using Microsoft.AspNetCore.Http;
-@{
+@*@{
 
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+}*@
 @{
     var UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
 }

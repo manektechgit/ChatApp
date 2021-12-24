@@ -2,7 +2,8 @@
 
 ////var connection = new signalR.HubConnectionBuilder().withUrl("/aspdontnetcoredemo/chathub").build();
 //var wsconn = new signalR.HubConnectionBuilder().withUrl("/aspdontnetcoredemo/callhub", signalR.HttpTransportType.WebSockets).configureLogging(signalR.LogLevel.None).build();
-var connection = new signalR.HubConnectionBuilder().withUrl("https://project-demo-server.net/aspdontnetcoredemo/chathub").build();
+//var connection = new signalR.HubConnectionBuilder().withUrl("https://project-demo-server.net/aspdontnetcoredemo/chathub").build();
+var connection = new signalR.HubConnectionBuilder().withUrl("/chathub").build();
 $(document).ready(function () {
     //getAll();
     //connection.on("ActiveInactiveUser", function () {

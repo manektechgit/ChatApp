@@ -66,6 +66,7 @@ namespace DotNetCoreMVCDemos.Repository
                     objUsers.Instagram = row["Instagram"] is DBNull ? "" : Convert.ToString(row["Instagram"]);
                     objUsers.Snapchat   = row["Snapchat"] is DBNull ? "" : Convert.ToString(row["Snapchat"]);
                     objUsers.ProfileImage   = row["ProfileImage"] is DBNull ? "" : Convert.ToString(row["ProfileImage"]);
+                    objUsers.Theme=row["Theme"] is DBNull ? "" : Convert.ToString(row["Theme"]);
                 }
             }
             return objUsers;

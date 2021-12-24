@@ -1,10 +1,9 @@
-@model IEnumerable<DotNetCoreMVCDemos.Models.AllUsersModel>
+@model IEnumerable<DotNetCoreMVCDemos.Models.ForwardMessageChatModel>
 @inject IHttpContextAccessor HttpContextAccessor
 @using Microsoft.AspNetCore.Http;
 @{ Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@{ var UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
-}
+@{var UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");}
 <link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
 <link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
@@ -13,49 +12,52 @@
 <link rel="stylesheet" href="~/lib/css/theme/default.css">
 @*<div class="tab-pane fade position-relative" id="caContacts" role="tabpanel" aria-labelledby="caContactsTab">*@
 <div class="sidebar-contactlist">
+    <input type="hidden" id="hdnFwdConversationID" value="" />
+    <input type="hidden" id="hdnFwdGroupMsgID" value="" />
+
     <ul class="list-unstyled userSearchList">
-        <li>
-            <div class="contactlist-heading">
-                <span>All Contacts</span>
-            </div>
-        </li>
+        @*<li>
+                <div class="contactlist-heading">
+                    <span>All Contacts</span>
+                </div>
+            </li>*@
         @{int count = 0; }
+
         @foreach (var contact in Model)
         {
-            @*<li id="liConversationId_@count" onclick="LoadContactsDetails('@contact.UserContactID')">*@
-            <!-- <li id="liConversationId_@count" onclick="LoadConversationPanel('@contact.UserContactID', '@contact.UserName')"> -->
-            <li id="liConversationId_@count" onclick="LoadConversationPanel('@contact.UserContactID', '@contact.UserName', '@contact.ProfileImage')">
-                @*<a data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace"
-                    data-ajax-update="#rdrConversationId"
-                    href="@Url.Action("GetContactDetails","Chat",new {UserId=contact.UserContactID})"
-                    id="ajaxConversationId_@count" style="display:none"></a>*@
-
-                @*<div class="contactlist active">*@
-                <input type="hidden" id="hdnContactUserId" value="@contact.UserContactID" />
-                <input type="hidden" id="hdnUserId" value="@UserId" />
-                <input type="hidden" id="hdnChatUsername" value="@contact.UserName" />
-                <div class="contactlist conversation">
+            <li>
+                @*<input type="hidden" id="hdnChatUsername" value="@contact.UserName" />*@
+                <div class="contactlist">
                     <div class="user-avatar user-avatar-rounded">
-                        <!-- <img src="~/lib/images/user/250/01.jpg" alt=""> -->
                         <img src="~/lib/images/user/500/@contact.ProfileImage" alt="">
                     </div>
                     <div class="contactlist__details">
-                        <div class="contactlist__details--name">@contact.UserName</div>
+                        <div class="contactlist__details--name">@contact.Name</div>
                         @*<div class="calllist__details--info">
                                 <span><i class="mdi mdi-tag-outline"></i></span>
-                                <span>Co-Workers</span>
+                                <span>Friends</span>
                             </div>*@
                     </div>
                     <div class="contactlist__actions">
-                        <div class="iconbox btn-solid-primary">
-                            <i class="iconbox__icon mdi mdi-message-text-outline" data-dismiss="modal"></i>
-                        </div>
+                        @if (!string.IsNullOrEmpty(@contact.ChatUserId))
+                        {
+                            <div class="iconbox btn-solid-info setdisableicon_@count" onclick="SendForwardMessage('@UserId','@contact.ChatUserId')" id="addMemberId_@contact.ChatUserId" style="pointer-events: auto;">
+                                <i class="iconbox__icon mdi mdi-send seticon_@count" id="checkMarkId_@contact.ChatUserId"></i>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="iconbox btn-solid-info setdisableicon_@count" onclick="SendForwardGroupMessage('@UserId', '@contact.GroupID','@contact.Name')" id="addGrpId_@contact.GroupID">
+                                <i class="iconbox__icon mdi mdi-send seticon_@count" id="checkGrpMarkId_@contact.GroupID"></i>
+                            </div>
+                        }
                     </div>
                 </div>
             </li>
             count++;
         }
         <input type="hidden" id="hdnCount" value="@count" />
+        <input type="hidden" id="hdnSetIconCount" value="@count" />
     </ul>
 </div>
 @*</div>*@

@@ -33,12 +33,10 @@ namespace DotNetCoreMVCDemos
                 builder
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
-                .AllowAnyHeader()
-                //.SetIsOriginAllowedToAllowWildcardSubdomains();
-                .AllowCredentials()
-                //.WithOrigins("*");
-                .WithOrigins("http://50.21.182.225/aspdontnetcoredemo/Chat/ChatHome", "http://50.21.182.225/aspdontnetcoredemo",
-                "https://project-demo-server.net/aspdontnetcoredemo");
+                .AllowAnyHeader();
+                //.AllowCredentials()
+                //.WithOrigins("http://50.21.182.225/aspdontnetcoredemo/Chat/ChatHome", "http://50.21.182.225/aspdontnetcoredemo",
+                //"https://project-demo-server.net/aspdontnetcoredemo");
             }));
 
             services.AddSignalR(o =>

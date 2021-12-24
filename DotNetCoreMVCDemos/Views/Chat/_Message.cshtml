@@ -1,0 +1,380 @@
+@model DotNetCoreMVCDemos.Models.MessageModel
+@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+@{
+    var ProfileImage = @HttpContextAccessor.HttpContext.Session.GetString("ProfileImage");
+    var UserName = @HttpContextAccessor.HttpContext.Session.GetString("UserName");
+}
+@if (!string.IsNullOrEmpty(Model.ConversationID))
+{
+    @if (string.IsNullOrEmpty(Model.DocUrl) && !(Model.Message.Contains("pdf") || Model.Message.Contains("doc") || Model.Message.Contains("xls") || Model.Message.Contains("ppt") || Model.Message.Contains(".mp4") || Model.Message.Contains(".wmv") || Model.Message.Contains(".webm") || Model.Message.Contains(".avi")))
+    {
+        <div class="ca-send">
+            <div class="ca-send__msg-group">
+                <div class="ca-send__msgwrapper">
+                    <div class="ca-msg-actions">
+                        <div class="iconbox-dropdown dropdown">
+                            <div class="iconbox btn-hovered-light" id="dropdownMenuButtons1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButtons1">
+
+                                <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#newForwardMsgModal" onclick="ForwardMessage('@Model.ConversationID')">
+                                    <span><i class="mdi mdi-share-outline"></i></span>
+                                    <span>Forward</span>
+                                </a>
+                                @*<a href="javascript:;"   data-mfb-label="New Chat" class="mfb-component__button--child">
+                                        <i class="mfb-component__child-icon mdi mdi-android-messages"></i>
+                                    </a>*@
+
+                                <a class="dropdown-item" href="javascript:;" onclick="copyToCliBoard('@Model.Message')">
+                                    <span><i class="mdi mdi-content-copy"></i></span>
+                                    <span>Copy</span>
+                                </a>
+                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@Model.ConversationID','true')">
+                                    <span><i class="mdi mdi-star-outline" id="@Model.ConversationID"></i></span>
+                                    <span id="txt_@Model.ConversationID">Add Star</span>
+                                </a>
+                                <a class="dropdown-item" data-ajax="true" method="post" asp-action="DeleteChatMessage" data-ajax-complete="getAllMessage" data-ajax-method="post" data-ajax-mode='replace' data-ajax-url="@Url.Action("DeleteChatMessage", "Chat", new { ConversationID = Model.ConversationID })">
+                                    <span><i class="mdi mdi-trash-can-outline"></i></span>
+                                    <input type="submit" value="Delete" data-dismiss="modal" style="background:white" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ca-send__msg">@Model.Message</div>
+                </div>
+                <div class="metadata">
+                    <span class="time">@Model.MessageTime</span>
+                    <span class="tick">
+                        <img src="~/lib/images/tick/tick-delivered.svg" alt="">
+                    </span>
+                </div>
+            </div>
+
+            <div class="user-avatar user-avatar-sm user-avatar-rounded online">
+                <img src="~/lib/images/user/500/@ProfileImage" alt="">
+            </div>
+        </div>
+    }
+    else if (Model.Message.Contains(".jpeg") || Model.Message.Contains(".jpg") || Model.Message.Contains(".png") || Model.Message.Contains(".gif"))
+    {
+        <div class="ca-send">
+            <div class="ca-send__msg-group">
+                <div class="ca-send__msgwrapper">
+                    <div class="ca-msg-actions">
+                        <div class="iconbox-dropdown dropdown">
+                            <div class="iconbox btn-hovered-light" id="dropdownMenuButtonsms1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsms1">
+                                @*<a class="dropdown-item" href="javascript:;">
+                                    <span>
+                                    <i class="mdi mdi-download-outline"></i>
+                                    </span>
+                                    <span>Download</span>
+                                    </a>*@
+                                <a class="dropdown-item" href="javascript:;">
+                                    <span><i class="mdi mdi-share-outline"></i></span>
+                                    <span>Forward</span>
+                                </a>
+                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@Model.ConversationID','true')">
+                                    <span><i class="mdi mdi-star-outline" id="@Model.ConversationID"></i></span>
+                                    <span id="txt_@Model.ConversationID">Add Star</span>
+                                </a>
+                                <a class="dropdown-item" href="javascript:;">
+                                    <span><i class="mdi mdi-trash-can-outline"></i></span>
+                                    <span>Delete</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ca-send__msg">
+                        <div class="ca-send__msg-media-group">
+                            <div class="ca-send__msg-media">
+                                <img src="@Model.DocUrl" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="metadata">
+                    <span class="time">@Model.MessageTime</span>
+                    <span class="tick">
+                        <img src="~/lib/images/tick/tick-delivered.svg" alt="">
+                    </span>
+                </div>
+            </div>
+            <div class="user-avatar user-avatar-sm user-avatar-rounded online">
+                <img src="~/lib/images/user/500/@ProfileImage" alt="">
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="ca-send">
+            <div class="ca-send__msg-group">
+                <div class="ca-send__msgwrapper">
+                    <div class="ca-msg-actions">
+                        <div class="iconbox-dropdown dropdown">
+                            <div class="iconbox btn-hovered-light" id="dropdownMenuButtons7" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButtons7">
+
+                                <a class="dropdown-item" href="@Url.Action("DownloadDocument", "Chat", new { filename = Model.Message })">
+                                    <span><i class="mdi mdi-download-outline"></i></span>
+                                    <span>Download</span>
+                                </a>
+                                <a class="dropdown-item" href="javascript:;">
+                                    <span><i class="mdi mdi-share-outline"></i></span>
+                                    <span>Forward</span>
+                                </a>
+                                <a class="dropdown-item" href="javascript:;" onclick="copyToCliBoard('@Model.Message')">
+                                    <span><i class="mdi mdi-content-copy"></i></span>
+                                    <span>Copy</span>
+                                </a> <a class="dropdown-item" href="javascript:;" onclick="AddStar('@Model.ConversationID','true')">
+                                    <span><i class="mdi mdi-star-outline" id="@Model.ConversationID"></i></span>
+                                    <span id="txt_@Model.ConversationID">Add Star</span>
+                                </a>
+                                <a class="dropdown-item" href="javascript:;">
+                                    <span><i class="mdi mdi-trash-can-outline"></i></span>
+                                    <span>Delete</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ca-send__msg">
+                        <div class="ca__file">
+                            <div class="ca__fileicon">
+                                @if (Model.Message.Contains("pdf"))
+                                {
+                                    <img src="/lib/images/svg/pdf.svg" alt="">
+                                }
+                                else if (Model.Message.Contains("doc"))
+                                {
+                                    <img src="/lib/images/svg/doc.svg" alt="">
+                                }
+                                else if (Model.Message.Contains("xls"))
+                                {
+                                    <img src="/lib/images/svg/xls.svg" alt="">
+                                }
+                                else if (Model.Message.Contains("ppt"))
+                                {
+                                    <img src="/lib/images/svg/ppt.svg" alt="">
+                                }
+                                else if (Model.Message.Contains(".mp4") || Model.Message.Contains(".wmv") || Model.Message.Contains(".webm") || Model.Message.Contains(".avi"))
+                                {
+                                    <img src="/lib/images/svg/mp4.svg" alt="">
+                                }
+                                else
+                                {
+                                    <img src="/lib/images/svg/happy.svg" alt="">
+                                }
+                            </div>
+                            <div class="ca__filename">
+                                <span class="ca__filename--title">@Model.Message</span>
+                                @*<span class="ca__filename--size">21Kb</span>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metadata">
+                    <span class="time">@Model.MessageTime</span>
+                    <span class="tick">
+                        <img src="~/lib/images/tick/tick-delivered.svg" alt="">
+                    </span>
+                </div>
+            </div>
+            <div class="user-avatar user-avatar-sm user-avatar-rounded online">
+                <img src="~/lib/images/user/500/@ProfileImage" alt="">
+            </div>
+        </div>
+    }
+}
+else
+{
+    if (string.IsNullOrEmpty(Model.DocUrl) && !(Model.Message.Contains("pdf") || Model.Message.Contains("doc") || Model.Message.Contains("xls") || Model.Message.Contains("ppt") || Model.Message.Contains(".mp4") || Model.Message.Contains(".wmv") || Model.Message.Contains(".webm") || Model.Message.Contains(".avi")))
+    {
+        <div class="ca-send">
+            <div class="ca-send__msg-group">
+                <div class="ca-send__msgwrapper">
+                    <div class="ca-msg-actions">
+                        <div class="iconbox-dropdown dropdown">
+                            <div class="iconbox btn-hovered-light" id="dropdownMenuButtonsSG1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButtonsSG1">
+
+                                <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#newForwardMsgModal" onclick="ForwardGroupMessage('@Model.GroupMsgID')">
+                                    <span><i class="mdi mdi-share-outline"></i></span>
+                                    <span>Forward</span>
+                                </a>
+                                @*<a class="dropdown-item" href="javascript:;">
+                                        <span><i class="mdi mdi-share-outline"></i></span>
+                                        <span>Forward</span>
+                                    </a>*@
+                                @*<a class="dropdown-item" href="javascript:;">
+                                        <span><i class="mdi mdi-content-copy"></i></span>
+                                        <span>Copy</span>
+                                    </a>*@
+                                <a class="dropdown-item" href="javascript:;" onclick="copyToCliBoard('@Model.Message')">
+                                    <span><i class="mdi mdi-content-copy"></i></span>
+                                    <span>Copy</span>
+                                </a>
+                                <a class="dropdown-item" href="javascript:;" onclick="AddGroupStar('@Model.GroupMsgID','true')">
+                                    <span><i class="mdi mdi-star-outline" id="@Model.GroupMsgID"></i></span>
+                                    <span id="txt_@Model.GroupMsgID">Add Star</span>
+                                </a>
+                                <a class="dropdown-item" href="javascript:;">
+                                    <span><i class="mdi mdi-trash-can-outline"></i></span>
+                                    <span>Delete</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ca-send__msg">@Model.Message</div>
+                </div>
+                <div class="metadata">
+                    <span class="time">@UserName, @Model.MessageTime</span>
+                </div>
+            </div>
+
+            <div class="user-avatar user-avatar-sm user-avatar-rounded online">
+                <img src="~/lib/images/user/500/@ProfileImage" alt="">
+            </div>
+        </div>
+    }
+    else if (Model.Message.Contains(".jpeg") || Model.Message.Contains(".jpg") || Model.Message.Contains(".png") || Model.Message.Contains(".gif"))
+    {
+        <div class="ca-send">
+            <div class="ca-send__msg-group">
+                <div class="ca-send__msgwrapper">
+                    <div class="ca-msg-actions">
+                        <div class="iconbox-dropdown dropdown">
+                            <div class="iconbox btn-hovered-light" id="dropdownMenuButtonsms1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                            </div>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsms1">
+                                @*<a class="dropdown-item" href="javascript:;">
+                                        <span>
+                                            <i class="mdi mdi-download-outline"></i>
+                                        </span>
+                                        <span>Download</span>
+                                    </a>*@
+                                <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#newForwardMsgModal" onclick="ForwardGroupMessage('@Model.GroupMsgID')">
+                                    <span><i class="mdi mdi-share-outline"></i></span>
+                                    <span>Forward</span>
+                                </a>
+                                <a class="dropdown-item" href="javascript:;" onclick="copyToCliBoard('@Model.Message')">
+                                    <span><i class="mdi mdi-content-copy"></i></span>
+                                    <span>Copy</span>
+                                </a>
+                                <a class="dropdown-item" href="javascript:;" onclick="AddGroupStar('@Model.GroupMsgID','true')">
+                                    <span><i class="mdi mdi-star-outline" id="@Model.GroupMsgID"></i></span>
+                                    <span id="txt_@Model.GroupMsgID">Add Star</span>
+                                </a>
+                                <a class="dropdown-item" href="javascript:;">
+                                    <span><i class="mdi mdi-trash-can-outline"></i></span>
+                                    <span>Delete</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ca-send__msg">
+                        <div class="ca-send__msg-media-group">
+                            <div class="ca-send__msg-media">
+                                <img src="@Model.DocUrl" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="metadata">
+                    <span class="time">@UserName, @Model.MessageTime</span>
+                </div>
+            </div><div class="user-avatar user-avatar-sm user-avatar-rounded online">
+                <img src="~/lib/images/user/500/@ProfileImage" alt="">
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="ca-send">
+            <div class="ca-send__msg-group">
+                <div class="ca-send__msgwrapper">
+                    <div class="ca-msg-actions">
+                        <div class="iconbox-dropdown dropdown">
+                            <div class="iconbox btn-hovered-light" id="dropdownMenuButtons7" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                            </div>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButtons7">
+
+                                <a class="dropdown-item" href="@Url.Action("DownloadDocument","Chat",new { filename=Model.Message})">
+                                    <span><i class="mdi mdi-download-outline"></i></span>
+                                    <span>Download</span>
+                                </a>
+                                <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#newForwardMsgModal" onclick="ForwardGroupMessage('@Model.GroupMsgID')">
+                                    <span><i class="mdi mdi-share-outline"></i></span>
+                                    <span>Forward</span>
+                                </a>
+                                <a class="dropdown-item" href="javascript:;" onclick="copyToCliBoard('@Model.Message')">
+                                    <span><i class="mdi mdi-content-copy"></i></span>
+                                    <span>Copy</span>
+                                </a>
+                                <a class="dropdown-item" href="javascript:;" onclick="AddGroupStar('@Model.GroupMsgID','true')">
+                                    <span><i class="mdi mdi-star-outline" id="@Model.GroupMsgID"></i></span>
+                                    <span id="txt_@Model.GroupMsgID">Add Star</span>
+                                </a>
+                                <a class="dropdown-item" href="javascript:;">
+                                    <span><i class="mdi mdi-trash-can-outline"></i></span>
+                                    <span>Delete</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ca-send__msg">
+                        <div class="ca__file">
+                            <div class="ca__fileicon">
+                                @if (Model.Message.Contains("pdf"))
+                                {
+                                    <img src="~/lib/images/svg/pdf.svg" alt="">
+                                }
+                                else if (Model.Message.Contains("doc"))
+                                {
+                                    <img src="~/lib/images/svg/doc.svg" alt="">
+                                }
+                                else if (Model.Message.Contains("xls"))
+                                {
+                                    <img src="~/lib/images/svg/xls.svg" alt="">
+                                }
+                                else if (Model.Message.Contains("ppt"))
+                                {
+                                    <img src="~/lib/images/svg/ppt.svg" alt="">
+                                }
+                                else if (Model.Message.Contains(".mp4") || Model.Message.Contains(".wmv") || Model.Message.Contains(".webm") || Model.Message.Contains(".avi"))
+                                {
+                                    <img src="~/lib/images/svg/mp4.svg" alt="">
+                                }
+                                else
+                                {
+                                    <img src="~/lib/images/svg/happy.svg" alt="">
+                                }
+                            </div>
+                            <div class="ca__filename">
+                                <span class="ca__filename--title">@Model.Message</span>
+                                @*<span class="ca__filename--size">21Kb</span>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="metadata">
+                    <span class="time">@UserName, @Model.MessageTime</span>
+                </div>
+            </div>
+            <div class="user-avatar user-avatar-sm user-avatar-rounded online">
+                <img src="~/lib/images/user/500/@ProfileImage" alt="">
+            </div>
+        </div>
+    }
+}
