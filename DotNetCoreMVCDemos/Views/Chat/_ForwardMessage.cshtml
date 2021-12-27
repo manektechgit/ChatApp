@@ -1,8 +1,8 @@
 @model IEnumerable<DotNetCoreMVCDemos.Models.ForwardMessageChatModel>
 @inject IHttpContextAccessor HttpContextAccessor
 @using Microsoft.AspNetCore.Http;
-@{ Layout = "~/Views/Shared/_Layout.cshtml";
-}
+@*@{ Layout = "~/Views/Shared/_Layout.cshtml";
+}*@
 @{var UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");}
 <link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
@@ -47,7 +47,7 @@
                         }
                         else
                         {
-                            <div class="iconbox btn-solid-info setdisableicon_@count" onclick="SendForwardGroupMessage('@UserId', '@contact.GroupID','@contact.Name')" id="addGrpId_@contact.GroupID">
+                            <div class="iconbox btn-solid-info setdisableicon_@count" onclick="SendForwardGroupMessage('@UserId', '@contact.GroupID','@contact.Name')" id="addGrpId_@contact.GroupID" style="pointer-events: auto;">
                                 <i class="iconbox__icon mdi mdi-send seticon_@count" id="checkGrpMarkId_@contact.GroupID"></i>
                             </div>
                         }
@@ -137,9 +137,9 @@
     }
 </script> -->
 
-<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
+@*<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
 <script src="~/lib/bootstrap.bundle.min.js"></script>
 <script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
 <script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
-<script src="~/lib/js/app.js"></script>
+<script src="~/lib/js/app.js"></script>*@

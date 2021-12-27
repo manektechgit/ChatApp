@@ -1,13 +1,19 @@
 ﻿@model IEnumerable<DotNetCoreMVCDemos.Models.GroupChatModel>
 @inject IHttpContextAccessor HttpContextAccessor
 @using Microsoft.AspNetCore.Http;
-@{
+@*@{
 
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+}*@
 @{
     var UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
 }
+<link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
+<link rel="stylesheet" href="~/lib/bootstrap.min.css">
+<link rel="stylesheet" href="~/lib/css/app.css">
+<link rel="stylesheet" href="~/lib/css/theme/default.css">
 <div class="tab-pane fade show active" id="groups-chat" role="tabpanel" aria-labelledby="groups-chat-tab">
     <div class="sidebar-userlist">
         <ul class="list-unstyled userSearchList">
