@@ -41,7 +41,7 @@
                                     @*<span class="tick">
                                             <img src="~/lib/images/tick/tick-delivered.svg" alt="">
                                         </span>*@
-                                    @chat.LastMessage
+                                    @Html.Raw(chat.LastMessage)
                                 </div>
                                 @*<span><i class="mdi mdi-pin"></i></span>*@
                                 @if (@chat.MessageCount > 0)

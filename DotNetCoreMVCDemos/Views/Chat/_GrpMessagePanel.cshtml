@@ -2,8 +2,8 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @using Microsoft.AspNetCore.Http;
 @*@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}*@
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }*@
 
 <link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
@@ -63,7 +63,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="ca-send__msg">@message.Message</div>
+                                <div class="ca-send__msg">
+                                    <span style="white-space:pre-wrap">@Html.Raw(message.Message)</span>
+                                </div>
                             </div>
                             <div class="metadata">
                                 <span class="time">@message.Name, @message.MessageTime</span>
@@ -87,11 +89,11 @@
                                         </div>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsms1">
                                             @*<a class="dropdown-item" href="javascript:;">
-            <span>
-                <i class="mdi mdi-download-outline"></i>
-            </span>
-            <span>Download</span>
-        </a>*@
+                                                    <span>
+                                                        <i class="mdi mdi-download-outline"></i>
+                                                    </span>
+                                                    <span>Download</span>
+                                                </a>*@
                                             <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#newForwardMsgModal" onclick="ForwardGroupMessage('@message.GroupMsgID')">
                                                 <span><i class="mdi mdi-share-outline"></i></span>
                                                 <span>Forward</span>
@@ -130,7 +132,7 @@
                                 </div>
                             </div>
                             <div class="metadata">
-                                <span class="time">@message.Name, @message.MessageTime</span>                                
+                                <span class="time">@message.Name, @message.MessageTime</span>
                             </div>
                         </div><div class="user-avatar user-avatar-sm user-avatar-rounded online">
                             <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
@@ -219,7 +221,7 @@
                             </div>
 
                             <div class="metadata">
-                                <span class="time">@message.Name, @message.MessageTime</span>                                
+                                <span class="time">@message.Name, @message.MessageTime</span>
                             </div>
                         </div>
                         <div class="user-avatar user-avatar-sm user-avatar-rounded online">
@@ -487,9 +489,9 @@
 
 
 @*<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
-<script src="~/lib/bootstrap.bundle.min.js"></script>
-<script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
-<script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-<script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
-<script src="~/lib/js/app.js"></script>*@
+    <script src="~/lib/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
+    <script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
+    <script src="~/lib/js/app.js"></script>*@
 

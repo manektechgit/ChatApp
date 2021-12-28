@@ -1,14 +1,3 @@
-using ClosedXML.Excel;
-using DotNetCoreMVCDemos.Hubs;
-using DotNetCoreMVCDemos.Models;
-using DotNetCoreMVCDemos.Repository;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.FileProviders;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,6 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using DotNetCoreMVCDemos.Hubs;
+using DotNetCoreMVCDemos.Models;
+using DotNetCoreMVCDemos.Repository;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.FileProviders;
 
 namespace DotNetCoreMVCDemos.Controllers
 {

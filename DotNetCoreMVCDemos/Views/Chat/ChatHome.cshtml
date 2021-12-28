@@ -3143,9 +3143,9 @@
         //}
 
         function copyToCliBoard(that) {
-            var inp = document.createElement('input');
+            var inp = document.createElement('textarea');
             document.body.appendChild(inp)
-            inp.value = that
+            inp.value = that.replaceAll('<br />', '\n');
             inp.select();
             document.execCommand('copy', false);
             inp.remove();

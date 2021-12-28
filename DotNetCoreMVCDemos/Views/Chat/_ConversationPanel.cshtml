@@ -137,8 +137,8 @@
                                                                     <span>Forward</span>
                                                                 </a>
                                                                 @*<a href="javascript:;"   data-mfb-label="New Chat" class="mfb-component__button--child">
-                                                                        <i class="mfb-component__child-icon mdi mdi-android-messages"></i>
-                                                                    </a>*@
+                                                <i class="mfb-component__child-icon mdi mdi-android-messages"></i>
+                                            </a>*@
 
                                                                 <a class="dropdown-item" href="javascript:;" onclick="copyToCliBoard('@message.Message')">
                                                                     <span><i class="mdi mdi-content-copy"></i></span>
@@ -164,18 +164,20 @@
                                                                     <input type="submit" value="Delete" data-dismiss="modal" style="background:white" />
                                                                 </a>
                                                                 <!-- <a class="dropdown-item" href="javascript:;">
-                                                                    <span><i class="mdi mdi-trash-can-outline"></i></span>
-                                                                    <span>Delete</span>
-                                                                </a> -->
+                                            <span><i class="mdi mdi-trash-can-outline"></i></span>
+                                            <span>Delete</span>
+                                        </a> -->
                                                                 <!-- @using (Html.BeginForm("DeleteChatMessage", "Chat", new { ConversationID = message.ConversationID }))
-                                                                {
-                                                                                            <span style="margin-left:25px;"><i class="mdi mdi-trash-can-outline"></i></span>
-                                                                                            <input type="submit"  value="Delete" style="background:white" />
-                                                                } -->
+                                        {
+                                                                    <span style="margin-left:25px;"><i class="mdi mdi-trash-can-outline"></i></span>
+                                                                    <input type="submit"  value="Delete" style="background:white" />
+                                        } -->
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="ca-send__msg">@message.Message</div>
+                                                    <div class="ca-send__msg">
+                                                        <span style="white-space: pre-wrap">@Html.Raw(message.Message)</span>
+                                                    </div>
                                                 </div>
                                                 <div class="metadata">
                                                     <span class="time">@message.MessageTime</span>
@@ -211,19 +213,19 @@
                                                             </div>
                                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsms1">
                                                                 @*<a class="dropdown-item" href="javascript:;">
-                                                                    <span>
-                                                                    <i class="mdi mdi-download-outline"></i>
-                                                                    </span>
-                                                                    <span>Download</span>
-                                                                    </a>*@
+                                            <span>
+                                            <i class="mdi mdi-download-outline"></i>
+                                            </span>
+                                            <span>Download</span>
+                                            </a>*@
                                                                 <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#newForwardMsgModal" onclick="ForwardMessage('@message.ConversationID')">
                                                                     <span><i class="mdi mdi-share-outline"></i></span>
                                                                     <span>Forward</span>
                                                                 </a>
                                                                 @*<a class="dropdown-item" href="javascript:;" onclick="copyToCliBoard('@message.Message')">
-                                                                        <span><i class="mdi mdi-content-copy"></i></span>
-                                                                        <span>Copy</span>
-                                                                    </a>*@
+                                                <span><i class="mdi mdi-content-copy"></i></span>
+                                                <span>Copy</span>
+                                            </a>*@
                                                                 @if (@message.IsStar)
                                                                 {
                                                                     <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','false')">
@@ -421,14 +423,14 @@
                                                                     <input type="submit" value="Delete" data-dismiss="modal" style="background:white" />
                                                                 </a>
                                                                 <!-- <a class="dropdown-item" href="javascript:;">
-                                                                    <span><i class="mdi mdi-trash-can-outline"></i></span>
-                                                                    <span>Delete</span>
-                                                                </a> -->
+                                            <span><i class="mdi mdi-trash-can-outline"></i></span>
+                                            <span>Delete</span>
+                                        </a> -->
                                                                 <!-- @using (Html.BeginForm("DeleteChatMessage", "Chat", new { ConversationID = message.ConversationID }))
-                                                                {
-                                                                                             <span style="margin-left:25px;"><i class="mdi mdi-trash-can-outline"></i></span>
-                                                                                             <input type="submit" value="Delete" style="background:white" />
-                                                                } -->
+                                        {
+                                                                     <span style="margin-left:25px;"><i class="mdi mdi-trash-can-outline"></i></span>
+                                                                     <input type="submit" value="Delete" style="background:white" />
+                                        } -->
                                                             </div>
                                                         </div>
                                                     </div>
@@ -470,9 +472,9 @@
                                                                     <span>Forward</span>
                                                                 </a>
                                                                 @*<a class="dropdown-item" href="javascript:;" onclick="copyToCliBoard('@message.Message')">
-                                                                        <span><i class="mdi mdi-content-copy"></i></span>
-                                                                        <span>Copy</span>
-                                                                    </a>*@
+                                                <span><i class="mdi mdi-content-copy"></i></span>
+                                                <span>Copy</span>
+                                            </a>*@
                                                                 @if (@message.IsStar)
                                                                 {
                                                                     <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','false')">
@@ -593,7 +595,7 @@
                                 }
 
                             }
-
+                            
                             <div class="ca-received" id="msgTypingId" style="display:none;">
                                 <div class="user-avatar user-avatar-sm user-avatar-rounded online">
                                     <img src="~/lib/images/user/250/01.jpg" alt="">
@@ -978,18 +980,18 @@
             });
         });
 
-        var elem = document.getElementById("txtMessageId");
-        elem.onkeyup = function (e) {
-            if (e.keyCode == 13) {
-                SendMessage();
-            }
-        }
+        //var elem = document.getElementById("txtMessageId");
+        //elem.onkeyup = function (e) {
+        //    if (e.keyCode == 13) {
+        //        SendMessage();
+        //    }
+        //}
 
         function SendMessage() {
             var userID = $('#hdnUserId').val();
             var chatUserID = $('#hdnChatUserId').val();
             var ProfileImage = $('#hdnProfileImage').val();
-            var message = $('#txtMessageId').val();
+            var message = $("#txtMessageId").val().replaceAll('\n','<br />');
             var chatUserName = $('#hdnChatUserName').val();
             var lastseen = $('#hdnLastseen').val();
             var msgCount = $('#hdnMsgCount').val();

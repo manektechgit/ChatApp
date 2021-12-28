@@ -2,8 +2,8 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @using Microsoft.AspNetCore.Http;
 @*@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}*@
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }*@
 
 @*<link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,600,700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
@@ -156,7 +156,9 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="ca-send__msg">@message.Message</div>
+                                                            <div class="ca-send__msg">
+                                                                <span style="white-space:pre-wrap">@Html.Raw(message.Message)</span>
+                                                            </div>
                                                         </div>
                                                         <div class="metadata">
                                                             <span class="time">@message.Name, @message.MessageTime</span>
@@ -562,6 +564,7 @@
                                     <div class="row col-10 images">
 
                                     </div>
+
                                     <textarea class="form-control" rows="1" onkeydown="GrpUserTyping()" id="txtGrpMessageId" placeholder="Type a message..."></textarea>
 
                                     <div class="composer__middle--microphone">
@@ -896,20 +899,20 @@
         });
     });
 
-    var elem = document.getElementById("txtGrpMessageId");
-    elem.onkeyup = function (e) {
-        if (e.keyCode == 13) {
-            SendGrpMessage();
-        }
-    }
+    //var elem = document.getElementById("txtGrpMessageId");
+    //elem.onkeyup = function (e) {
+    //    if (e.keyCode == 13) {
+    //        SendGrpMessage();
+    //    }
+    //}
 
     function SendGrpMessage() {
         var userID = $('#hdnUserId').val();
         var GroupID = $('#hdnGrpId').val();
-        var message = $('#txtGrpMessageId').val();
+        var message = $('#txtGrpMessageId').val().replaceAll('\n', '<br />');
         var GroupName = $('#hdnGrpName').val();
         var ProfileImage = $('#hdnProfileImage').val();
-        
+
         var images = $('.images .photo')
         var imageArr = [];
         var docData = new Object();
@@ -1028,7 +1031,7 @@
 
     function AddMember(ContactUserId) {
         var GroupID = $('#hdnGrpId').val();
-        debugger
+        //debugger
         $.ajax({
             url: "../Chat/AddMember?GroupID=" + GroupID + "&ContactUserId=" + ContactUserId + "",
             type: "GET",
@@ -1064,9 +1067,9 @@
 </script>
 
 @*<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
-<script src="~/lib/bootstrap.bundle.min.js"></script>
-<script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
-<script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>*@
+    <script src="~/lib/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
+    <script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>*@
 <script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
 <script src="~/lib/js/app.js"></script>
 
