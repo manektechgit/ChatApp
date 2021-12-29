@@ -74,7 +74,34 @@ namespace DotNetCoreMVCDemos.Controllers
                 return View(LoginUser);
             }
         }
-
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ForgotPassword(ForgotPassword forgotPassword)
+        {
+            int code = -1;
+            if (!ModelState.IsValid)
+            {
+                return View(forgotPassword);
+            }
+            code = repo.ForgotPassword(forgotPassword);
+            if (code == 0)
+            {
+                TempData["Success"] = "User registration successfully";
+                return RedirectToAction("Login");
+            }
+            else if (code == 2)
+            {
+                ViewData["Failed"] = "Please Enter Valid Email Id";
+            }
+            else
+            {
+                TempData["Success"] = null;
+            }
+            return View(forgotPassword);
+        }
         [HttpPost]
         public ActionResult Register(UserRegister Register)
         {
