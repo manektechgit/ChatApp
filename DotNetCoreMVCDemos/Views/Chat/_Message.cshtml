@@ -42,7 +42,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="ca-send__msg">@Model.Message</div>
+                    <div class="ca-send__msg">
+                        <span style="white-space:pre-wrap">@Html.Raw(Model.Message)</span>
+                    </div>
                 </div>
                 <div class="metadata">
                     <span class="time">@Model.MessageTime</span>
@@ -233,7 +235,9 @@ else
                             </div>
                         </div>
                     </div>
-                    <div class="ca-send__msg">@Model.Message</div>
+                    <div class="ca-send__msg">
+                        <span style="white-space:pre-wrap">@Html.Raw(Model.Message)</span>
+                    </div>
                 </div>
                 <div class="metadata">
                     <span class="time">@UserName, @Model.MessageTime</span>

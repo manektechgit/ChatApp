@@ -1,9 +1,9 @@
 @model IEnumerable<DotNetCoreMVCDemos.Models.StarredMessage>
 @inject IHttpContextAccessor HttpContextAccessor
 @using Microsoft.AspNetCore.Http;
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+@*@{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }*@
 @*<link href="https://fonts.googleapis.com/css?family=Rubik:400,400i,500,500i,600,700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
@@ -20,376 +20,380 @@
 <link rel="stylesheet" href="~/lib/bootstrap.min.css">
 <link rel="stylesheet" href="~/lib/css/app.css">
 <link rel="stylesheet" href="~/lib/css/theme/default.css">
-<div class="ca-content__chatstab">
-    <div class="ca-content__chatstab--personal">
-        <div class="conversation-wrapper">
-            <div class="conversation-panel">
-                <div class="conversation-panel__head">
-                    <div class="conversation-panel__back-button ">
-                        <i class="mdi mdi-arrow-left"></i>
-                    </div>
-                    <div class="conversation-panel__avatar personalinfo-panel-opener">
-                        @*<div class="user-avatar user-avatar-rounded">
-                                <img src="~/lib/images/user/500/@Model.ProfileImage" alt="">
-                            </div>*@
-                        <div class="conversation__name">
-                            <div class="conversation__name--title">Starred Messages</div>
+<div class="tab-pane" id="starred-Message" role="tabpanel" aria-labelledby="starred-message-tab">
+    <div class="ca-content__chatstab">
+        <div class="ca-content__chatstab--personal">
+            <div class="conversation-wrapper">
+                <div class="conversation-panel">
+                    <div class="conversation-panel__head">
+                        <div class="conversation-panel__back-button ">
+                            <i class="mdi mdi-arrow-left"></i>
                         </div>
-                    </div>
-                    <div class="conversation__actions">                        
-                        <div class="iconbox-dropdown dropdown">
-                            <div class="iconbox btn-hovered-light" role="button" id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="iconbox__icon mdi mdi-dots-vertical"></i>
+                        <div class="conversation-panel__avatar personalinfo-panel-opener">
+                            @*<div class="user-avatar user-avatar-rounded">
+                                    <img src="~/lib/images/user/500/@Model.ProfileImage" alt="">
+                                </div>*@
+                            <div class="conversation__name">
+                                <div class="conversation__name--title">Starred Messages</div>
+                            </div>
+                        </div>
+                        <div class="conversation__actions">
+                            <div class="iconbox-dropdown dropdown">
+                                <div class="iconbox btn-hovered-light" role="button" id="dropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="iconbox__icon mdi mdi-dots-vertical"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div id="htmlMessageBody" class="conversation-panel__body">
-                    <div class="container">
-                        <div id="htmlMessageId" class="chatstyle-01">
-                            @*<div class="chat-date"><span>Monday 16 May</span></div>*@
-                            @foreach (var message in Model)
-                            {
-                                if (string.IsNullOrEmpty(@message.DocUrl) && !(@message.Message.Contains("pdf") || @message.Message.Contains("doc") || @message.Message.Contains("xls") || @message.Message.Contains("ppt") || @message.Message.Contains(".mp4") || @message.Message.Contains(".wmv") || @message.Message.Contains(".webm") || @message.Message.Contains(".avi")))
+                    <div id="htmlMessageBody" class="conversation-panel__body">
+                        <div class="container">
+                            <div id="htmlMessageId" class="chatstyle-01">
+                                @*<div class="chat-date"><span>Monday 16 May</span></div>*@
+                                @foreach (var message in Model)
                                 {
-                                    <div class="ca-received">
-                                        @*<div class="user-avatar user-avatar-sm user-avatar-rounded online">
-                                            <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
-                                        </div>*@
-                                        <div class="ca-received__msg-group">
-                                            <div class="ca-received__msgwrapper">
-                                                <div class="ca-received__msg">@message.Message</div>
-                                                <div class="ca-msg-actions">
-                                                    <div class="iconbox-dropdown dropdown">
-                                                        <div class="iconbox btn-hovered-light" id="dropdownMenuButtonsr1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
-                                                        </div>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsr1">                                                            
-                                                            <a class="dropdown-item" href="javascript:;" onclick="copyToCliBoard('@message.Message')">
-                                                                <span><i class="mdi mdi-content-copy"></i></span>
-                                                                <span>Copy</span>
-                                                            </a>                                                     
-                                                        </div>
+                                    if (string.IsNullOrEmpty(@message.DocUrl) && !(@message.Message.Contains("pdf") || @message.Message.Contains("doc") || @message.Message.Contains("xls") || @message.Message.Contains("ppt") || @message.Message.Contains(".mp4") || @message.Message.Contains(".wmv") || @message.Message.Contains(".webm") || @message.Message.Contains(".avi")))
+                                    {
+                                        <div class="ca-received">
+                                            @*<div class="user-avatar user-avatar-sm user-avatar-rounded online">
+                                                    <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
+                                                </div>*@
+                                            <div class="ca-received__msg-group">
+                                                <div class="ca-received__msgwrapper">
+                                                    <div class="ca-received__msg">
+                                                        <span style="white-space:pre-wrap">@Html.Raw(message.Message)</span>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="metadata">
-                                                <span class="time">@message.MessageTime</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                else if (@message.Message.Contains(".jpeg") || @message.Message.Contains(".jpg") || @message.Message.Contains(".png") || @message.Message.Contains(".gif"))
-                                {
-                                    <div class="ca-received">
-                                        @*<div class="user-avatar user-avatar-sm user-avatar-rounded online">
-                                            <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
-                                        </div>*@
-                                        <div class="ca-received__msg-group">
-                                            <div class="ca-received__msgwrapper">
-                                                <div class="ca-received__msg">
-                                                    <div class="ca-received__msg-media-group">
-                                                        <div class="ca-received__msg-media">
-                                                            <img src="@message.DocUrl" alt="">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="ca-msg-actions">
-                                                    <div class="iconbox-dropdown dropdown">
-                                                        <div class="iconbox btn-hovered-light" id="dropdownMenuButtonsr6" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
-                                                        </div>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsr6">
-                                                            @*<a class="dropdown-item" href="javascript:;">
-                                                                <span><i class="mdi mdi-download-outline"></i></span>
-                                                                <span>Download</span>
-                                                            </a>*@
-                                                            @*<a class="dropdown-item" href="javascript:;">
-                                                                <span><i class="mdi mdi-share-outline"></i></span>
-                                                                <span>Forward</span>
-                                                            </a>*@
-                                                            @*<a class="dropdown-item" href="javascript:;" onclick="copyToCliBoard('@message.Message')">
+                                                    <div class="ca-msg-actions">
+                                                        <div class="iconbox-dropdown dropdown">
+                                                            <div class="iconbox btn-hovered-light" id="dropdownMenuButtonsr1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                                                            </div>
+                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsr1">
+                                                                <a class="dropdown-item" href="javascript:;" onclick="copyToCliBoard('@message.Message')">
                                                                     <span><i class="mdi mdi-content-copy"></i></span>
                                                                     <span>Copy</span>
-                                                                </a>*@
-                                                            @*@if (@message.IsStar)
-                                                            {
-                                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','false')">
-                                                                    <span><i class="mdi mdi-star-face" id="@message.ConversationID"></i></span>
-                                                                    <span id="txt_@message.ConversationID">Remove Star</span>
                                                                 </a>
-                                                            }
-                                                            else
-                                                            {
-                                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','true')">
-                                                                    <span><i class="mdi mdi-star-outline" id="@message.ConversationID"></i></span>
-                                                                    <span id="txt_@message.ConversationID">Add Star</span>
-                                                                </a>
-                                                            }*@
-                                                            @*<a class="dropdown-item" href="javascript:;">
-                                                                <span><i class="mdi mdi-trash-can-outline"></i></span>
-                                                                <span>Delete</span>
-                                                            </a>*@
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="metadata">
-                                                <span class="time">@message.MessageTime</span>
+                                                <div class="metadata">
+                                                    <span class="time">@message.MessageTime</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="ca-received">
-                                        @*<div class="user-avatar user-avatar-sm user-avatar-rounded online">
-                                            <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
-                                        </div>*@
-                                        <div class="ca-received__msg-group">
-                                            <div class="ca-received__msgwrapper">
-                                                <div class="ca-received__msg">
-                                                    <div class="ca__file">
-                                                        <div class="ca__fileicon">
-                                                            @if (@message.Message.Contains("pdf"))
-                                                            {
-                                                                <img src="/lib/images/svg/pdf.svg" alt="">
-                                                            }
-                                                            else if (@message.Message.Contains("doc"))
-                                                            {
-                                                                <img src="/lib/images/svg/doc.svg" alt="">
-                                                            }
-                                                            else if (@message.Message.Contains("xls"))
-                                                            {
-                                                                <img src="/lib/images/svg/xls.svg" alt="">
-                                                            }
-                                                            else if (@message.Message.Contains("ppt"))
-                                                            {
-                                                                <img src="/lib/images/svg/ppt.svg" alt="">
-                                                            }
-                                                            else if (@message.Message.Contains(".mp4") || @message.Message.Contains(".wmv") || @message.Message.Contains(".webm") || @message.Message.Contains(".avi"))
-                                                            {
-                                                                <img src="/lib/images/svg/mp4.svg" alt="">
-                                                            }
-                                                            else
-                                                            {
-                                                                <img src="/lib/images/svg/happy.svg" alt="">
-                                                            }
-                                                        </div>
-                                                        <div class="ca__filename">
-                                                            <span class="ca__filename--title">@message.Message</span>
-                                                            @*<span class="ca__filename--size">21Kb</span>*@
+                                    }
+                                    else if (@message.Message.Contains(".jpeg") || @message.Message.Contains(".jpg") || @message.Message.Contains(".png") || @message.Message.Contains(".gif"))
+                                    {
+                                        <div class="ca-received">
+                                            @*<div class="user-avatar user-avatar-sm user-avatar-rounded online">
+                                                    <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
+                                                </div>*@
+                                            <div class="ca-received__msg-group">
+                                                <div class="ca-received__msgwrapper">
+                                                    <div class="ca-received__msg">
+                                                        <div class="ca-received__msg-media-group">
+                                                            <div class="ca-received__msg-media">
+                                                                <img src="@message.DocUrl" alt="">
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <div class="ca-msg-actions">
+                                                        <div class="iconbox-dropdown dropdown">
+                                                            <div class="iconbox btn-hovered-light" id="dropdownMenuButtonsr6" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                                                            </div>
+                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsr6">
+                                                                @*<a class="dropdown-item" href="javascript:;">
+                                                                        <span><i class="mdi mdi-download-outline"></i></span>
+                                                                        <span>Download</span>
+                                                                    </a>*@
+                                                                @*<a class="dropdown-item" href="javascript:;">
+                                                                        <span><i class="mdi mdi-share-outline"></i></span>
+                                                                        <span>Forward</span>
+                                                                    </a>*@
+                                                                @*<a class="dropdown-item" href="javascript:;" onclick="copyToCliBoard('@message.Message')">
+                                                                        <span><i class="mdi mdi-content-copy"></i></span>
+                                                                        <span>Copy</span>
+                                                                    </a>*@
+                                                                @*@if (@message.IsStar)
+                                                                    {
+                                                                        <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','false')">
+                                                                            <span><i class="mdi mdi-star-face" id="@message.ConversationID"></i></span>
+                                                                            <span id="txt_@message.ConversationID">Remove Star</span>
+                                                                        </a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','true')">
+                                                                            <span><i class="mdi mdi-star-outline" id="@message.ConversationID"></i></span>
+                                                                            <span id="txt_@message.ConversationID">Add Star</span>
+                                                                        </a>
+                                                                    }*@
+                                                                @*<a class="dropdown-item" href="javascript:;">
+                                                                        <span><i class="mdi mdi-trash-can-outline"></i></span>
+                                                                        <span>Delete</span>
+                                                                    </a>*@
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="metadata">
+                                                    <span class="time">@message.MessageTime</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="ca-received">
+                                            @*<div class="user-avatar user-avatar-sm user-avatar-rounded online">
+                                                    <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
+                                                </div>*@
+                                            <div class="ca-received__msg-group">
+                                                <div class="ca-received__msgwrapper">
+                                                    <div class="ca-received__msg">
+                                                        <div class="ca__file">
+                                                            <div class="ca__fileicon">
+                                                                @if (@message.Message.Contains("pdf"))
+                                                                {
+                                                                    <img src="/lib/images/svg/pdf.svg" alt="">
+                                                                }
+                                                                else if (@message.Message.Contains("doc"))
+                                                                {
+                                                                    <img src="/lib/images/svg/doc.svg" alt="">
+                                                                }
+                                                                else if (@message.Message.Contains("xls"))
+                                                                {
+                                                                    <img src="/lib/images/svg/xls.svg" alt="">
+                                                                }
+                                                                else if (@message.Message.Contains("ppt"))
+                                                                {
+                                                                    <img src="/lib/images/svg/ppt.svg" alt="">
+                                                                }
+                                                                else if (@message.Message.Contains(".mp4") || @message.Message.Contains(".wmv") || @message.Message.Contains(".webm") || @message.Message.Contains(".avi"))
+                                                                {
+                                                                    <img src="/lib/images/svg/mp4.svg" alt="">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src="/lib/images/svg/happy.svg" alt="">
+                                                                }
+                                                            </div>
+                                                            <div class="ca__filename">
+                                                                <span class="ca__filename--title">@message.Message</span>
+                                                                @*<span class="ca__filename--size">21Kb</span>*@
+                                                            </div>
+                                                        </div>
 
-                                                </div>
-                                                <div class="ca-msg-actions">
-                                                    <div class="iconbox-dropdown dropdown">
-                                                        <div class="iconbox btn-hovered-light" id="dropdownMenuButtonsr7" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
-                                                        </div>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsr7" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
-                                                            @*<a class="dropdown-item" href="@Url.Action("DownloadDocument","Chat",new { filename=@message.Message})">
-                                                                <span><i class="mdi mdi-download-outline"></i></span>
-                                                                <span>Download</span>
-                                                            </a>
-                                                            <a class="dropdown-item" href="javascript:;">
-                                                                <span><i class="mdi mdi-share-outline"></i></span>
-                                                                <span>Forward</span>
-                                                            </a>*@
-                                                            <a class="dropdown-item" href="javascript:;" onclick="copyToCliBoard('@message.Message')">
-                                                                <span><i class="mdi mdi-content-copy"></i></span>
-                                                                <span>Copy</span>
-                                                            </a>
-                                                            @*@if (@message.IsStar)
-                                                            {
-                                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','false')">
-                                                                    <span><i class="mdi mdi-star-face" id="@message.ConversationID"></i></span>
-                                                                    <span id="txt_@message.ConversationID">Remove Star</span>
+                                                    </div>
+                                                    <div class="ca-msg-actions">
+                                                        <div class="iconbox-dropdown dropdown">
+                                                            <div class="iconbox btn-hovered-light" id="dropdownMenuButtonsr7" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                                <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                                                            </div>
+                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsr7" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
+                                                                @*<a class="dropdown-item" href="@Url.Action("DownloadDocument","Chat",new { filename=@message.Message})">
+                                                                        <span><i class="mdi mdi-download-outline"></i></span>
+                                                                        <span>Download</span>
+                                                                    </a>
+                                                                    <a class="dropdown-item" href="javascript:;">
+                                                                        <span><i class="mdi mdi-share-outline"></i></span>
+                                                                        <span>Forward</span>
+                                                                    </a>*@
+                                                                <a class="dropdown-item" href="javascript:;" onclick="copyToCliBoard('@message.Message')">
+                                                                    <span><i class="mdi mdi-content-copy"></i></span>
+                                                                    <span>Copy</span>
                                                                 </a>
-                                                            }
-                                                            else
-                                                            {
-                                                                <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','true')">
-                                                                    <span><i class="mdi mdi-star-outline" id="@message.ConversationID"></i></span>
-                                                                    <span id="txt_@message.ConversationID">Add Star</span>
-                                                                </a>
-                                                            }*@
-                                                            @*<a class="dropdown-item" href="javascript:;">
-                                                                <span><i class="mdi mdi-trash-can-outline"></i></span>
-                                                                <span>Delete</span>
-                                                            </a>*@
+                                                                @*@if (@message.IsStar)
+                                                                    {
+                                                                        <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','false')">
+                                                                            <span><i class="mdi mdi-star-face" id="@message.ConversationID"></i></span>
+                                                                            <span id="txt_@message.ConversationID">Remove Star</span>
+                                                                        </a>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','true')">
+                                                                            <span><i class="mdi mdi-star-outline" id="@message.ConversationID"></i></span>
+                                                                            <span id="txt_@message.ConversationID">Add Star</span>
+                                                                        </a>
+                                                                    }*@
+                                                                @*<a class="dropdown-item" href="javascript:;">
+                                                                        <span><i class="mdi mdi-trash-can-outline"></i></span>
+                                                                        <span>Delete</span>
+                                                                    </a>*@
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="metadata">
-                                                <span class="time">@message.MessageTime</span>
+                                                <div class="metadata">
+                                                    <span class="time">@message.MessageTime</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    }
                                 }
-                            }
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="ca-content__contactstab">
-    <div class="container">
-        <div class="conversation-panel__back-button back2contacts">
-            <i class="mdi mdi-arrow-left"></i>
-            <span>Back</span>
-        </div>
-        <div class="ca-profile-thumb" style="background-image: url(Content/images/media/07.jpg);">
-
-            <div class="ca-profile-info">
-                <div class="ca-profile-pic"><img class="img-fluid" src="~/lib/images/user/500/09.jpg" alt=""></div>
+    <div class="ca-content__contactstab">
+        <div class="container">
+            <div class="conversation-panel__back-button back2contacts">
+                <i class="mdi mdi-arrow-left"></i>
+                <span>Back</span>
             </div>
-            <div class="ca-profile-actions">
-                <div class="iconbox-group">
-                    <div class="iconbox btn-hovered-light">
-                        <i class="iconbox__icon mdi mdi-star-outline"></i>
-                    </div>
-                    <div class="iconbox btn-hovered-light">
-                        <i class="iconbox__icon mdi mdi-pencil-outline"></i>
-                    </div>
-                    <div class="iconbox btn-hovered-light">
-                        <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+            <div class="ca-profile-thumb" style="background-image: url(Content/images/media/07.jpg);">
+
+                <div class="ca-profile-info">
+                    <div class="ca-profile-pic"><img class="img-fluid" src="~/lib/images/user/500/09.jpg" alt=""></div>
+                </div>
+                <div class="ca-profile-actions">
+                    <div class="iconbox-group">
+                        <div class="iconbox btn-hovered-light">
+                            <i class="iconbox__icon mdi mdi-star-outline"></i>
+                        </div>
+                        <div class="iconbox btn-hovered-light">
+                            <i class="iconbox__icon mdi mdi-pencil-outline"></i>
+                        </div>
+                        <div class="iconbox btn-hovered-light">
+                            <i class="iconbox__icon mdi mdi-dots-horizontal"></i>
+                        </div>
                     </div>
                 </div>
+
+                <div class="ca-overlay"></div>
             </div>
 
-            <div class="ca-overlay"></div>
-        </div>
-
-        <div class="profile-settings-list border mb-5">
-            <div class="ca-profile-title">
-                <h2 class="ca-profile-name">Pearl Villarreal</h2>
-                <div class="ca-profile-tag">
-                    <span>Co-Workers</span>
-                </div>
-                <div class="ca-contcat-profile__calling-buttons pt-2">
-
-                    <div class="iconbox iconbox-pill btn-outline-light">
-                        <i class="iconbox__icon mdi mdi-message-text-outline"></i>
-                        <span>Message</span>
+            <div class="profile-settings-list border mb-5">
+                <div class="ca-profile-title">
+                    <h2 class="ca-profile-name">Pearl Villarreal</h2>
+                    <div class="ca-profile-tag">
+                        <span>Co-Workers</span>
                     </div>
-                    <div class="iconbox iconbox-pill btn-outline-light">
-                        <i class="iconbox__icon mdi mdi-phone"></i>
-                        <span>Voice Call</span>
-                    </div>
-                    <div class="iconbox iconbox-pill btn-outline-light">
-                        <i class="iconbox__icon mdi mdi-video-outline"></i>
-                        <span>Video Call</span>
+                    <div class="ca-contcat-profile__calling-buttons pt-2">
+
+                        <div class="iconbox iconbox-pill btn-outline-light">
+                            <i class="iconbox__icon mdi mdi-message-text-outline"></i>
+                            <span>Message</span>
+                        </div>
+                        <div class="iconbox iconbox-pill btn-outline-light">
+                            <i class="iconbox__icon mdi mdi-phone"></i>
+                            <span>Voice Call</span>
+                        </div>
+                        <div class="iconbox iconbox-pill btn-outline-light">
+                            <i class="iconbox__icon mdi mdi-video-outline"></i>
+                            <span>Video Call</span>
+                        </div>
                     </div>
                 </div>
+
+                <div class="setting-sunheading  setting-sunheading-style01  my-3">Personal & Contact Information</div>
+                <ul class="list-unstyled">
+                    <li>
+                        <div class="ps-list">
+                            <div class="ps-list__left">
+                                <div class="ps-list__left--icon"><i class="mdi mdi-account-heart-outline"></i></div>
+                                <div class="ps-list__left--name">Nick name</div>
+                            </div>
+                            <div class="ps-list__right">Eva</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="ps-list">
+                            <div class="ps-list__left">
+                                <div class="ps-list__left--icon"><i class="mdi mdi-gender-male-female"></i></div>
+                                <div class="ps-list__left--name">Gender</div>
+                            </div>
+                            <div class="ps-list__right">Female</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="ps-list">
+                            <div class="ps-list__left">
+                                <div class="ps-list__left--icon"><i class="mdi mdi-cake"></i></div>
+                                <div class="ps-list__left--name">Birth date</div>
+                            </div>
+                            <div class="ps-list__right">20/12/2016</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="ps-list">
+                            <div class="ps-list__left">
+                                <div class="ps-list__left--icon"><i class="mdi mdi-cellphone-android"></i></div>
+                                <div class="ps-list__left--name">Mobile number</div>
+                            </div>
+                            <div class="ps-list__right">+01 369 2015</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="ps-list">
+                            <div class="ps-list__left">
+                                <div class="ps-list__left--icon"><i class="mdi mdi-email-outline"></i></div>
+                                <div class="ps-list__left--name">Email</div>
+                            </div>
+                            <div class="ps-list__right">earnest.clements@email.com</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="ps-list border-bottom-0">
+                            <div class="ps-list__left">
+                                <div class="ps-list__left--icon"><i class="mdi mdi-at"></i></div>
+                                <div class="ps-list__left--name">Website</div>
+                            </div>
+                            <div class="ps-list__right">www.earnestclements.com</div>
+                        </div>
+                    </li>
+                </ul>
+
+
+                <div class="setting-sunheading setting-sunheading-style01 my-4">Social Network</div>
+
+
+                <ul class="list-unstyled">
+                    <li>
+                        <div class="ps-list">
+                            <div class="ps-list__left">
+                                <div class="ps-list__left--icon"><i class="mdi mdi-facebook"></i></div>
+                                <div class="ps-list__left--name">Facebook</div>
+                            </div>
+                            <div class="ps-list__right">earnest.clements</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="ps-list">
+                            <div class="ps-list__left">
+                                <div class="ps-list__left--icon"><i class="mdi mdi-instagram"></i></div>
+                                <div class="ps-list__left--name">Instagram</div>
+                            </div>
+                            <div class="ps-list__right">earnest_clements</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="ps-list">
+                            <div class="ps-list__left">
+                                <div class="ps-list__left--icon"><i class="mdi mdi-snapchat"></i></div>
+                                <div class="ps-list__left--name">Snapchat</div>
+                            </div>
+                            <div class="ps-list__right">earnestclements212</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="ps-list border-bottom-0">
+                            <div class="ps-list__left">
+                                <div class="ps-list__left--icon"><i class="mdi mdi-twitter"></i></div>
+                                <div class="ps-list__left--name">Twitter</div>
+                            </div>
+                            <div class="ps-list__right">iamearnest</div>
+                        </div>
+                    </li>
+
+                </ul>
             </div>
-
-            <div class="setting-sunheading  setting-sunheading-style01  my-3">Personal & Contact Information</div>
-            <ul class="list-unstyled">
-                <li>
-                    <div class="ps-list">
-                        <div class="ps-list__left">
-                            <div class="ps-list__left--icon"><i class="mdi mdi-account-heart-outline"></i></div>
-                            <div class="ps-list__left--name">Nick name</div>
-                        </div>
-                        <div class="ps-list__right">Eva</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="ps-list">
-                        <div class="ps-list__left">
-                            <div class="ps-list__left--icon"><i class="mdi mdi-gender-male-female"></i></div>
-                            <div class="ps-list__left--name">Gender</div>
-                        </div>
-                        <div class="ps-list__right">Female</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="ps-list">
-                        <div class="ps-list__left">
-                            <div class="ps-list__left--icon"><i class="mdi mdi-cake"></i></div>
-                            <div class="ps-list__left--name">Birth date</div>
-                        </div>
-                        <div class="ps-list__right">20/12/2016</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="ps-list">
-                        <div class="ps-list__left">
-                            <div class="ps-list__left--icon"><i class="mdi mdi-cellphone-android"></i></div>
-                            <div class="ps-list__left--name">Mobile number</div>
-                        </div>
-                        <div class="ps-list__right">+01 369 2015</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="ps-list">
-                        <div class="ps-list__left">
-                            <div class="ps-list__left--icon"><i class="mdi mdi-email-outline"></i></div>
-                            <div class="ps-list__left--name">Email</div>
-                        </div>
-                        <div class="ps-list__right">earnest.clements@email.com</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="ps-list border-bottom-0">
-                        <div class="ps-list__left">
-                            <div class="ps-list__left--icon"><i class="mdi mdi-at"></i></div>
-                            <div class="ps-list__left--name">Website</div>
-                        </div>
-                        <div class="ps-list__right">www.earnestclements.com</div>
-                    </div>
-                </li>
-            </ul>
-
-
-            <div class="setting-sunheading setting-sunheading-style01 my-4">Social Network</div>
-
-
-            <ul class="list-unstyled">
-                <li>
-                    <div class="ps-list">
-                        <div class="ps-list__left">
-                            <div class="ps-list__left--icon"><i class="mdi mdi-facebook"></i></div>
-                            <div class="ps-list__left--name">Facebook</div>
-                        </div>
-                        <div class="ps-list__right">earnest.clements</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="ps-list">
-                        <div class="ps-list__left">
-                            <div class="ps-list__left--icon"><i class="mdi mdi-instagram"></i></div>
-                            <div class="ps-list__left--name">Instagram</div>
-                        </div>
-                        <div class="ps-list__right">earnest_clements</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="ps-list">
-                        <div class="ps-list__left">
-                            <div class="ps-list__left--icon"><i class="mdi mdi-snapchat"></i></div>
-                            <div class="ps-list__left--name">Snapchat</div>
-                        </div>
-                        <div class="ps-list__right">earnestclements212</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="ps-list border-bottom-0">
-                        <div class="ps-list__left">
-                            <div class="ps-list__left--icon"><i class="mdi mdi-twitter"></i></div>
-                            <div class="ps-list__left--name">Twitter</div>
-                        </div>
-                        <div class="ps-list__right">iamearnest</div>
-                    </div>
-                </li>
-
-            </ul>
         </div>
     </div>
 </div>
@@ -902,10 +906,10 @@
         });*@
 </script>
 
-<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
-<script src="~/lib/bootstrap.bundle.min.js"></script>
-<script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
-<script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-<script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
-<script src="~/lib/js/app.js"></script>
+@*<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
+    <script src="~/lib/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
+    <script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
+    <script src="~/lib/js/app.js"></script>*@
 

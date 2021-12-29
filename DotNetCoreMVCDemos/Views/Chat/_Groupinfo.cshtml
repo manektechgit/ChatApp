@@ -1,10 +1,10 @@
 ﻿@model DotNetCoreMVCDemos.Models.GroupContactInfo
 @inject IHttpContextAccessor HttpContextAccessor
 @using Microsoft.AspNetCore.Http;
-@{
+@*@{
 
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+}*@
 <link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
 <link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
@@ -230,8 +230,8 @@
                                             <img class="img-fluid" src="~/lib/images/user/500/@member.ProfileImage" alt="">
                                         </div>
                                         <div class="membertitle">
-                                            <div class="membername">@member</div>
-                                            <div class="membersubtext">California</div>
+                                            <div class="membername">@member.Name</div>
+                                            @*<div class="membersubtext">California</div>*@
                                         </div>
 
                                         <div class="memberlist-action">
@@ -265,9 +265,9 @@
 
 
 
-<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
+@*<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
 <script src="~/lib/bootstrap.bundle.min.js"></script>
 <script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
 <script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
-<script src="~/lib/js/app.js"></script>
+<script src="~/lib/js/app.js"></script>*@

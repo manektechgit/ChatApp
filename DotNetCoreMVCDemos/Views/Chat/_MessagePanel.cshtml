@@ -1,9 +1,9 @@
 @model DotNetCoreMVCDemos.Models.ChatConversation
 @inject IHttpContextAccessor HttpContextAccessor
 @using Microsoft.AspNetCore.Http;
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+@*@{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }*@
 
 <link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
@@ -21,7 +21,7 @@
         {
             if (message.UserID == UserId)
             {
-                if (string.IsNullOrEmpty(@message.DocUrl) && !(@message.Message.Contains("pdf") || @message.Message.Contains("doc") || @message.Message.Contains("xls") || @message.Message.Contains("ppt")|| @message.Message.Contains(".mp4") || @message.Message.Contains(".wmv") || @message.Message.Contains(".webm") || @message.Message.Contains(".avi")))
+                if (string.IsNullOrEmpty(@message.DocUrl) && !(@message.Message.Contains("pdf") || @message.Message.Contains("doc") || @message.Message.Contains("xls") || @message.Message.Contains("ppt") || @message.Message.Contains(".mp4") || @message.Message.Contains(".wmv") || @message.Message.Contains(".webm") || @message.Message.Contains(".avi")))
                 {
                     <div class="ca-send">
                         <div class="ca-send__msg-group">
@@ -62,7 +62,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="ca-send__msg">@message.Message</div>
+                                <div class="ca-send__msg">
+                                    <span style="white-space:pre-wrap">@Html.Raw(message.Message)</span>
+                                </div>
                             </div>
                             <div class="metadata">
                                 <span class="time">@message.MessageTime</span>
@@ -82,7 +84,7 @@
                         </div>
 
                         <div class="user-avatar user-avatar-sm user-avatar-rounded online">
-                           <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
+                            <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
                         </div>
                     </div>
                 }
@@ -98,19 +100,19 @@
                                         </div>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButtonsms1">
                                             @*<a class="dropdown-item" href="javascript:;">
-            <span>
-                <i class="mdi mdi-download-outline"></i>
-            </span>
-            <span>Download</span>
-        </a>*@
+                                                    <span>
+                                                        <i class="mdi mdi-download-outline"></i>
+                                                    </span>
+                                                    <span>Download</span>
+                                                </a>*@
                                             <a class="dropdown-item" href="javascript:;" data-toggle="modal" data-target="#newForwardMsgModal" onclick="ForwardMessage('@message.ConversationID')">
                                                 <span><i class="mdi mdi-share-outline"></i></span>
                                                 <span>Forward</span>
                                             </a>
                                             @*<a class="dropdown-item" href="javascript:;">
-            <span><i class="mdi mdi-content-copy"></i></span>
-            <span>Copy</span>
-        </a>*@
+                                                    <span><i class="mdi mdi-content-copy"></i></span>
+                                                    <span>Copy</span>
+                                                </a>*@
                                             @if (@message.IsStar)
                                             {
                                                 <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','false')">
@@ -156,7 +158,7 @@
                                 }
                             </div>
                         </div><div class="user-avatar user-avatar-sm user-avatar-rounded online">
-                            <img src="/lib/images/user/250/02.jpg" alt="">
+                            <img src="~/lib/images/user/500/@message.ProfileImage" alt="">
                         </div>
                     </div>
                 }
@@ -265,7 +267,7 @@
             }
             else
             {
-                if (string.IsNullOrEmpty(@message.DocUrl) && !(@message.Message.Contains("pdf") || @message.Message.Contains("doc") || @message.Message.Contains("xls") || @message.Message.Contains("ppt")|| @message.Message.Contains(".mp4") || @message.Message.Contains(".wmv") || @message.Message.Contains(".webm") || @message.Message.Contains(".avi")))
+                if (string.IsNullOrEmpty(@message.DocUrl) && !(@message.Message.Contains("pdf") || @message.Message.Contains("doc") || @message.Message.Contains("xls") || @message.Message.Contains("ppt") || @message.Message.Contains(".mp4") || @message.Message.Contains(".wmv") || @message.Message.Contains(".webm") || @message.Message.Contains(".avi")))
                 {
                     <div class="ca-received">
                         <div class="user-avatar user-avatar-sm user-avatar-rounded online">
@@ -273,7 +275,9 @@
                         </div>
                         <div class="ca-received__msg-group">
                             <div class="ca-received__msgwrapper">
-                                <div class="ca-received__msg">@message.Message</div>
+                                <div class="ca-received__msg">
+                                    <span style="white-space:pre-wrap">@Html.Raw(message.Message)</span>
+                                </div>
                                 <div class="ca-msg-actions">
                                     <div class="iconbox-dropdown dropdown">
                                         <div class="iconbox btn-hovered-light" id="dropdownMenuButtonsr1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -347,9 +351,9 @@
                                                 <span>Forward</span>
                                             </a>
                                             @*<a class="dropdown-item" href="javascript:;">
-            <span><i class="mdi mdi-content-copy"></i></span>
-            <span>Copy</span>
-        </a>*@
+                                                    <span><i class="mdi mdi-content-copy"></i></span>
+                                                    <span>Copy</span>
+                                                </a>*@
                                             @if (@message.IsStar)
                                             {
                                                 <a class="dropdown-item" href="javascript:;" onclick="AddStar('@message.ConversationID','false')">
@@ -539,10 +543,10 @@
 </script>
 
 
-<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
-<script src="~/lib/bootstrap.bundle.min.js"></script>
-<script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
-<script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-<script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
-<script src="~/lib/js/app.js"></script>
+@*<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
+    <script src="~/lib/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
+    <script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
+    <script src="~/lib/js/app.js"></script>*@
 

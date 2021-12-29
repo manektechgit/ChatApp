@@ -170,6 +170,7 @@
 <div class="ca-main-conatiner">
     <input type="hidden" id="hdnUserId" value="@UserId" />
     <input type="hidden" id="hdnUserTheme" value="@Theme" />
+    <input type="hidden" id="hdnProfileImage" value="@ProfileImage" />
     <div class="ca-main-wrapper">
         <div class="ca-sidebar-wrapper">
             <div class="ca-sidebar">
@@ -385,7 +386,7 @@
 
                         <ul id="mfbMenu" class="mfb-component--br mfb-slidein" data-mfb-toggle="click">
                             <li class="mfb-component__wrap">
-                                <a href="#" class="mfb-component__button--main">
+                                <a href="javascript:;" class="mfb-component__button--main">
                                     <i class="mfb-component__main-icon--resting mdi mdi-plus ion-plus-round"></i>
                                     <i class="mfb-component__main-icon--active mdi mdi-close ion-close-round"></i>
                                 </a>
@@ -3142,9 +3143,9 @@
         //}
 
         function copyToCliBoard(that) {
-            var inp = document.createElement('input');
+            var inp = document.createElement('textarea');
             document.body.appendChild(inp)
-            inp.value = that
+            inp.value = that.replaceAll('<br />', '\n');
             inp.select();
             document.execCommand('copy', false);
             inp.remove();
