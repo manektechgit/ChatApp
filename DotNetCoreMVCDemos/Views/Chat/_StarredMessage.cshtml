@@ -60,7 +60,9 @@
                                                 </div>*@
                                             <div class="ca-received__msg-group">
                                                 <div class="ca-received__msgwrapper">
-                                                    <div class="ca-received__msg">@message.Message</div>
+                                                    <div class="ca-received__msg">
+                                                        <span style="white-space:pre-wrap">@Html.Raw(message.Message)</span>
+                                                    </div>
                                                     <div class="ca-msg-actions">
                                                         <div class="iconbox-dropdown dropdown">
                                                             <div class="iconbox btn-hovered-light" id="dropdownMenuButtonsr1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

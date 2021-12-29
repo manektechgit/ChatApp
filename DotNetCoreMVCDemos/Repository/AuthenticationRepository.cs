@@ -39,7 +39,33 @@ namespace DotNetCoreMVCDemos.Repository
 
             
         }
+        public int ForgotPassword(ForgotPassword forgotPassword)
+        {
+            ForgotPassword objforgotPassword = new Models.ForgotPassword();
+            DataTable dtUser = new DataTable();
+            int ResultCode = -1;
+            SqlParameter[] objParameter = new SqlParameter[2];
+            objParameter[0] = new SqlParameter("@Email", forgotPassword.Email);
+            
+            string HashPassword = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(forgotPassword.ConfirmPassword));
+            objParameter[1] = new SqlParameter("@Password", HashPassword);
 
+            Common.SqlHelper.Fill(dtUser, "[ForgotPassword]", objParameter);
+            if (dtUser != null && dtUser.Rows.Count > 0)
+            {
+                foreach (DataRow row in dtUser.Rows)
+                {
+                    ResultCode = Convert.ToInt32(row["ResultCode"]);
+                }
+                return ResultCode;
+            }
+            else
+            {
+                return ResultCode;
+            }
+
+
+        }
 
         public UserLogin UserLogin(string Email, string Password)
         {
