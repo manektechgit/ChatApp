@@ -10,5 +10,6 @@ namespace DotNetCoreMVCDemos.Models
         public string UserName { get; set; }
         public string UserContactID { get; set; }
         public string ProfileImage { get; set; }
+        public string Lastseen { get; set; }
     }
 }
