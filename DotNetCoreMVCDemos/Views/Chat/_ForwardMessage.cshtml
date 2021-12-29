@@ -15,7 +15,7 @@
     <input type="hidden" id="hdnFwdConversationID" value="" />
     <input type="hidden" id="hdnFwdGroupMsgID" value="" />
 
-    <ul class="list-unstyled userSearchList">
+    <ul class="list-unstyled forwardMessageSearchList">
         @*<li>
                 <div class="contactlist-heading">
                     <span>All Contacts</span>
@@ -97,22 +97,22 @@
 <script>
     $(document).ready(function () {
     });
-    function LoadConversationPanel(contactUserId, ChatUserName, UserProfilePic) {
-        var chatUserID = $('#hdnContactUserId').val();
-        var userID = $('#hdnUserId').val();
-        var model = $('#rdrConversationId');
-        $.ajax({
-            //url: "http://50.21.182.225/aspdontnetcoredemo/Chat/ConversationPanel?UserId=" + userID + "&ChatUserId=" + chatUserID + "&ChatUserName=" + chatUserName + "&Lastseen=" + lastseen + "&Message=" + message + "&imageArr=" + imageArr + "",
-            url: "../Chat/ConversationPanel?UserId=" + userID + "&ChatUserId=" + contactUserId + "&ChatUserName=" + ChatUserName + "&ProfileImage=" + UserProfilePic + "",
-            contentType: 'application/html; charset=utf-8',
-            type: "GET",
-            dataType: 'html',
-            success: function (result) {
-                model.empty().append(result);
-                console.log(result);
-            }
-        });
-    }
+    //function LoadConversationPanel(contactUserId, ChatUserName, UserProfilePic) {
+    //    var chatUserID = $('#hdnContactUserId').val();
+    //    var userID = $('#hdnUserId').val();
+    //    var model = $('#rdrConversationId');
+    //    console.log('forwad msg: ' + UserProfilePic);
+    //    $.ajax({
+    //        url: "../Chat/ConversationPanel?UserId=" + userID + "&ChatUserId=" + contactUserId + "&ChatUserName=" + ChatUserName + "&ProfileImage=" + UserProfilePic + "",
+    //        contentType: 'application/html; charset=utf-8',
+    //        type: "GET",
+    //        dataType: 'html',
+    //        success: function (result) {
+    //            model.empty().append(result);
+    //            console.log(result);
+    //        }
+    //    });
+    //}
 </script>
 
 <!-- <script>
