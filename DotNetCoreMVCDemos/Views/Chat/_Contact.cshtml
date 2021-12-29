@@ -2,7 +2,7 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @using Microsoft.AspNetCore.Http;
 @*@{ Layout = "~/Views/Shared/_Layout.cshtml";
-}*@
+    }*@
 @{ var UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
 }
 <link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="~/lib/css/theme/default.css">
 @*<div class="tab-pane fade position-relative" id="caContacts" role="tabpanel" aria-labelledby="caContactsTab">*@
 <div class="sidebar-contactlist">
-    <ul class="list-unstyled userSearchList">
+    <ul class="list-unstyled @ViewBag.UserListName">
         <li>
             <div class="contactlist-heading">
                 <span>All Contacts</span>
@@ -24,7 +24,7 @@
         {
             @*<li id="liConversationId_@count" onclick="LoadContactsDetails('@contact.UserContactID')">*@
             <!-- <li id="liConversationId_@count" onclick="LoadConversationPanel('@contact.UserContactID', '@contact.UserName')"> -->
-            <li id="liConversationId_@count" onclick="LoadConversationPanel('@contact.UserContactID', '@contact.UserName', '@contact.ProfileImage')">
+            <li id="liConversationId_@count" onclick="LoadConversationPanel('@contact.UserContactID', '@contact.UserName','@contact.Lastseen', '@contact.ProfileImage')">
                 @*<a data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace"
                     data-ajax-update="#rdrConversationId"
                     href="@Url.Action("GetContactDetails","Chat",new {UserId=contact.UserContactID})"
@@ -95,13 +95,14 @@
 <script>
     $(document).ready(function () {
     });
-    function LoadConversationPanel(contactUserId, ChatUserName, UserProfilePic) {
+    function LoadConversationPanel(contactUserId, ChatUserName, Lastseen, UserProfilePic) {
         var chatUserID = $('#hdnContactUserId').val();
         var userID = $('#hdnUserId').val();
         var model = $('#rdrConversationId');
+        console.log('contact6: ' + Lastseen);
         $.ajax({
             //url: "http://50.21.182.225/aspdontnetcoredemo/Chat/ConversationPanel?UserId=" + userID + "&ChatUserId=" + chatUserID + "&ChatUserName=" + chatUserName + "&Lastseen=" + lastseen + "&Message=" + message + "&imageArr=" + imageArr + "",
-            url: "../Chat/ConversationPanel?UserId=" + userID + "&ChatUserId=" + contactUserId + "&ChatUserName=" + ChatUserName + "&ProfileImage=" + UserProfilePic + "",
+            url: "../Chat/ConversationPanel?UserId=" + userID + "&ChatUserId=" + contactUserId + "&ChatUserName=" + ChatUserName + "&Lastseen=" + Lastseen + "&ProfileImage=" + UserProfilePic + "",
             contentType: 'application/html; charset=utf-8',
             type: "GET",
             dataType: 'html',
@@ -134,10 +135,9 @@
         });
     }
 </script> -->
-
 @*<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
-<script src="~/lib/bootstrap.bundle.min.js"></script>
-<script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
-<script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-<script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
-<script src="~/lib/js/app.js"></script>*@
+    <script src="~/lib/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
+    <script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
+    <script src="~/lib/js/app.js"></script>*@
