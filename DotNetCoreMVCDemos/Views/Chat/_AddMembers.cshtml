@@ -18,13 +18,13 @@
         </div>
         <div class="modal-body">
 
-            @*<div class="searchbar">
+            <div class="searchbar">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+                    <input type="text" class="form-control" placeholder="Search" aria-label="Search" id="addMemberGroupSearch" autofocus>
                 </div>
-            </div>*@
+            </div>
             <div class="modal-contact-list">
-                <ul class="list-unstyled">
+                <ul class="list-unstyled addMemberGroupSearchList">
                     @foreach (var contact in Model)
                     {
                         <li>

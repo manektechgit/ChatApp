@@ -580,13 +580,19 @@ namespace DotNetCoreMVCDemos.Controllers
 
         }
 
-        public PartialViewResult GetAllUsers(string UserId)
+        public PartialViewResult GetAllUsers(string UserId, string UserListName = "")
         {
             UserId = string.IsNullOrEmpty(UserId) ? session.GetString("UserId") : UserId;
             if (!string.IsNullOrEmpty(session.GetString("Email")) && !string.IsNullOrEmpty(UserId))
             {
                 List<AllUsersModel> users = new List<AllUsersModel>();
                 users = ChatRepo.GetAllUsers(UserId);
+                
+                if (!string.IsNullOrEmpty(UserListName))
+                    ViewBag.UserListName = UserListName;
+                else
+                    ViewBag.UserListName = "userSearchList";
+
                 return PartialView("_Contact", users);
             }
             return PartialView("_Logout");
