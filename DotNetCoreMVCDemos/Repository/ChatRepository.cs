@@ -43,6 +43,34 @@ namespace DotNetCoreMVCDemos.Repository
             }
             return personalChat;
         }
+        public int EditProfile(ProfileInfo userLogin)
+        {
+            ProfileInfo objUsers = new Models.ProfileInfo();
+            DataTable dtUser = new DataTable();
+            int ResultCode = 1;
+            SqlParameter[] objParameter = new SqlParameter[5];
+            objParameter[0] = new SqlParameter("@UserID", userLogin.UserId);
+            objParameter[1] = new SqlParameter("@Gender", userLogin.Gender);
+            objParameter[2] = new SqlParameter("@BirthDate", userLogin.BirthDate);
+            objParameter[3] = new SqlParameter("@Mobile", userLogin.MobileNumber);
+
+            objParameter[4] = new SqlParameter("@Email", userLogin.Email);
+
+            Common.SqlHelper.Fill(dtUser, "[EditProfile]", objParameter);
+
+            if (dtUser != null && dtUser.Rows.Count > 0)
+            {
+                foreach (DataRow row in dtUser.Rows)
+                {
+                    ResultCode = Convert.ToInt32(row["ResultCode"]);
+                }
+                return ResultCode;
+            }
+            else
+            {
+                return ResultCode;
+            }
+        }
         public int SaveUserInfo(ProfileInfo userLogin)
         {
             ProfileInfo objUsers = new Models.ProfileInfo();

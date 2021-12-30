@@ -86,7 +86,9 @@ namespace DotNetCoreMVCDemos.Repository
                     objUsers.Email = Convert.ToString(row["Email"]);
                     objUsers.UserName = Convert.ToString(row["UserName"]);
                     objUsers.Password = Convert.ToString(row["Password"]);
+                    objUsers.BirthDate =Convert.ToDateTime(row["BirthDate"]);
                     objUsers.MobileNumber = Convert.ToString(row["Mobile"]);
+                    objUsers.Gender = Convert.ToString(row["Gender"]);
                     objUsers.Facebook = row["Facebook"] is DBNull?"": Convert.ToString(row["Facebook"]);
                     objUsers.Twitter = row["Twitter"] is DBNull ? "" : Convert.ToString(row["Twitter"]);
                     objUsers.Instagram = row["Instagram"] is DBNull ? "" : Convert.ToString(row["Instagram"]);
@@ -97,6 +99,7 @@ namespace DotNetCoreMVCDemos.Repository
             }
             return objUsers;
         }
+        
         public int UserLogout(string UserId)
         {
             DataTable dtUser = new DataTable(); int ResultCode = -1;

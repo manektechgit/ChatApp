@@ -317,7 +317,20 @@ namespace DotNetCoreMVCDemos.Controllers
             }
             return PartialView("_MessagePanel", chat);
         }
+        public class Gender
+        {
+            public string Name { get; set; }
+        }
+        public List<Gender> getGenderList()
+        {
+            List<Gender> genderList = new List<Gender>() 
+            { 
+                new Gender{Name = "Male" },
+                new Gender{Name = "Female" },
+            };
+            return genderList;
 
+        }
         public PartialViewResult ProfileView(string UserId)
         {
             UserId = string.IsNullOrEmpty(UserId) ? session.GetString("UserId") : UserId;
@@ -327,6 +340,11 @@ namespace DotNetCoreMVCDemos.Controllers
                 profileInfo.Email = session.GetString("Email");
                 profileInfo.UserName = session.GetString("UserName");
                 profileInfo.MobileNumber = session.GetString("Mobile");
+                
+                var BirthDate = Convert.ToDateTime(session.GetString("BirthDate")).ToShortDateString();
+                profileInfo.BirthDate =Convert.ToDateTime(BirthDate);
+                profileInfo.Gender = session.GetString("Gender");
+                ViewBag.Gender = getGenderList();
                 profileInfo.ProfileImage = session.GetString("ProfileImage");
                 profileInfo.Facebook = session.GetString("Facebook");
                 profileInfo.Instagram = session.GetString("Instagram");
@@ -335,6 +353,17 @@ namespace DotNetCoreMVCDemos.Controllers
                 return PartialView("_ProfileModal", profileInfo);
             }
             return PartialView("_Logout");
+        }
+        [HttpPost]
+        public IActionResult EditProfile(ProfileInfo profileInfo)
+        {
+                int code = -1;
+                if (ModelState.IsValid)
+                {
+                    code = ChatRepo.EditProfile(profileInfo);
+                }
+            //ViewBag.Gender = getGenderList();
+            return RedirectToAction(nameof(ProfileView), new { isSuccess = true, name = profileInfo.UserName });
         }
         public PartialViewResult GetContactInfo(string ChatUserId, string UserId)
         {

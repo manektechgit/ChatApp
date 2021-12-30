@@ -3,14 +3,15 @@
 @using Microsoft.AspNetCore.Http;
 @*@{
 
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}*@
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }*@
 @*<link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
-<link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
-<link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
-<link rel="stylesheet" href="~/lib/bootstrap.min.css">
-<link rel="stylesheet" href="~/lib/css/app.css">
-<link rel="stylesheet" href="~/lib/css/theme/default.css">*@
+    <link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
+    <link rel="stylesheet" href="~/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="~/lib/css/app.css">
+    <link rel="stylesheet" href="~/lib/css/theme/default.css">*@
+
 @{
     var UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
 }
@@ -51,74 +52,81 @@
                             <form method="post" enctype="multipart/form-data" asp-controller="Chat" asp-action="UpdateProfilePicture">
                                 @Html.HiddenFor(m => m.UserId)
                                 <div class="form-group">
-                                    <div class="col-md-10">                                        
+                                    <div class="col-md-10">
                                         <input type="file" name="files" multiple id="FUserProfile" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-md-10">
-                                        <input class="btn-Save-Cancel" type="submit" value="Upload" id="sbmtUserProfile"/>
+                                        <input class="btn-Save-Cancel" type="submit" value="Upload" id="sbmtUserProfile" />
                                     </div>
                                 </div>
                             </form>
                             <i class="mdi mdi-close" id="icnCancelimgUpld"></i>
-                            
+
                         </div>
                     </div>
                     <div class="ca-overlay"></div>
                 </div>
 
                 <div class="profile-settings-list">
-                    <div class="setting-sunheading pl-2">Personal & Contact Information</div>
-                    <ul class="list-unstyled">
-                        <li>
-                            <div class="ps-list">
-                                <div class="ps-list__left">
-                                    <div class="ps-list__left--icon"><i class="mdi mdi-gender-male-female"></i></div>
-                                    <div class="ps-list__left--name">Gender</div>
+                    <form method="post" data-ajax="true" data-ajax-complete="editComplete" data-ajax-success="editSuccess" data-ajax-failure="editFail" asp-action="EditProfile" asp-controller="Chat">
+                        <div class="setting-sunheading pl-2">Personal Information&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" class="btn-Save-Cancel" value="Save Changes" id="btnEditProfile" /></div>
+
+                        @Html.HiddenFor(m => m.UserId)
+                        <ul class="list-unstyled">
+                            <li>
+                                <div class="ps-list">
+                                    <div class="ps-list__left">
+                                        <div class="ps-list__left--icon"><i class="mdi mdi-gender-male-female"></i></div>
+                                        <div class="ps-list__left--name">Gender</div>
+                                    </div>
+                                    <div class="ps-list__right">
+                                        <span>@Html.DropDownListFor(x => x.Gender, new SelectList(ViewBag.Gender, "Name", "Name", Model.Gender), "--Select Gender--", new { @class = "form-control" })</span>
+                                    </div>
                                 </div>
-                                <div class="ps-list__right">
-                                    <span>Female</span>
+                            </li>
+                            <li>
+                                <div class="ps-list">
+                                    <div class="ps-list__left">
+                                        <div class="ps-list__left--icon"><i class="mdi mdi-cake"></i></div>
+                                        <div class="ps-list__left--name">Birth date</div>
+                                    </div>
+                                    @{ var BirthDate = Convert.ToDateTime(Model.BirthDate).ToString("mm/dd/yyyy"); }
+                                    <div class="ps-list__right">@Html.TextBoxFor(modelitem => modelitem.BirthDate)</div>
                                 </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="ps-list">
-                                <div class="ps-list__left">
-                                    <div class="ps-list__left--icon"><i class="mdi mdi-cake"></i></div>
-                                    <div class="ps-list__left--name">Birth date</div>
+                            </li>
+                            <li>
+                                <div class="ps-list">
+                                    <div class="ps-list__left">
+                                        <div class="ps-list__left--icon"><i class="mdi mdi-cellphone-android"></i></div>
+                                        <div class="ps-list__left--name">Mobile number</div>
+                                    </div>
+                                    <div class="ps-list__right">+@Html.TextBoxFor(modelitem => modelitem.MobileNumber)</div>
                                 </div>
-                                <div class="ps-list__right">20/12/2016</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="ps-list">
-                                <div class="ps-list__left">
-                                    <div class="ps-list__left--icon"><i class="mdi mdi-cellphone-android"></i></div>
-                                    <div class="ps-list__left--name">Mobile number</div>
+                            </li>
+                            <li>
+                                <div class="ps-list">
+                                    <div class="ps-list__left">
+                                        <div class="ps-list__left--icon"><i class="mdi mdi-email-outline"></i></div>
+                                        <div class="ps-list__left--name">Email</div>
+                                    </div>
+                                    <div class="ps-list__right">@Html.TextBoxFor(modelitem => modelitem.Email)</div>
                                 </div>
-                                <div class="ps-list__right">+@Html.DisplayFor(modelitem => modelitem.MobileNumber)</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="ps-list">
-                                <div class="ps-list__left">
-                                    <div class="ps-list__left--icon"><i class="mdi mdi-email-outline"></i></div>
-                                    <div class="ps-list__left--name">Email</div>
+                            </li>
+                            <li>
+                                <div class="ps-list">
+                                    <div class="ps-list__left">
+                                        <div class="ps-list__left--icon"><i class="mdi mdi-at"></i></div>
+                                        <div class="ps-list__left--name">Website</div>
+                                    </div>
+                                    <div class="ps-list__right">www.demo.com</div>
                                 </div>
-                                <div class="ps-list__right">@Html.DisplayFor(modelitem => modelitem.Email)</div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="ps-list">
-                                <div class="ps-list__left">
-                                    <div class="ps-list__left--icon"><i class="mdi mdi-at"></i></div>
-                                    <div class="ps-list__left--name">Website</div>
-                                </div>
-                                <div class="ps-list__right">www.demo.com</div>
-                            </div>
-                        </li>
-                    </ul>
+                            </li>
+
+                        </ul>
+
+                    </form>
                     @using (Html.BeginForm("ChatHome", "Chat", FormMethod.Post))
                     {
                         <div class="setting-sunheading pl-2 py-4">
@@ -167,7 +175,7 @@
                                     </div>
                                     <div class="ps-list__right">@Html.TextBoxFor(e => e.Twitter, new { @class = "form-control", id = "txtUserTWR" })<span id="spnUserTWR">@Html.DisplayFor(modelitem => modelitem.Twitter)</span></div>
                                 </div>
-                            </li>   
+                            </li>
 
                         </ul>
                     }
@@ -176,65 +184,86 @@
         </div>
     </div>
 </div>
+<script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#BirthDate").datepicker({ dateFormat: 'mm/dd/yy' });
+        $("#BirthDate").datepicker();
+        $("#Email").attr("disabled", "disabled")
+    });
+    
+    function editComplete() {
+        /*alert("Profile Updated Successfully!");*/
+    }
+    function editSuccess(data) {
+        alert("Profile Updated Successfully!");
+    }
+    function editFail(data) {
+        alert("Hey " + data + ", OOPS! Something Went wrong");
+    }
+</script>
 
 <script>
-    $(document).ready(function () {
+    $("#btnSave").hide();
+    $("#btnCancel").hide();
+
+    $("#txtUserFB").hide();
+    $("#txtUserIG").hide();
+    $("#txtUserSC").hide();
+    $("#txtUserTWR").hide();
+
+    $("#iconEdit").click(function () {
+        $("#btnSave").show();
+        $("#btnCancel").show();
+        $("#iconEdit").hide();
+
+        $("#spnUserFB").hide();
+        $("#spnUserIG").hide();
+        $("#spnUserSC").hide();
+        $("#spnUserTWR").hide();
+
+        $("#txtUserFB").show();
+        $("#txtUserIG").show();
+        $("#txtUserSC").show();
+        $("#txtUserTWR").show();
+    });
+
+    $("#btnCancel").click(function () {
         $("#btnSave").hide();
         $("#btnCancel").hide();
+        $("#iconEdit").show();
+
+        $("#spnUserFB").show();
+        $("#spnUserIG").show();
+        $("#spnUserSC").show();
+        $("#spnUserTWR").show();
 
         $("#txtUserFB").hide();
         $("#txtUserIG").hide();
         $("#txtUserSC").hide();
         $("#txtUserTWR").hide();
+    });
 
-        $("#iconEdit").click(function() {
-            $("#btnSave").show();
-            $("#btnCancel").show();
-            $("#iconEdit").hide();
+    $("#FUserProfile").hide();
+    $("#icnCancelimgUpld").hide();
+    $("#sbmtUserProfile").hide();
+    $("#imgUserProfileEdit").click(function () {
+        $("#imgUserProfileEdit").hide();
+        $("#FUserProfile").show();
+        $("#icnCancelimgUpld").show();
+        $("#sbmtUserProfile").show();
+    });
 
-            $("#spnUserFB").hide();
-            $("#spnUserIG").hide();
-            $("#spnUserSC").hide();
-            $("#spnUserTWR").hide();
-
-            $("#txtUserFB").show();
-            $("#txtUserIG").show();
-            $("#txtUserSC").show();
-            $("#txtUserTWR").show();
-        });
-
-        $("#btnCancel").click(function () {
-            $("#btnSave").hide();
-            $("#btnCancel").hide();            
-            $("#iconEdit").show();
-
-            $("#spnUserFB").show();
-            $("#spnUserIG").show();
-            $("#spnUserSC").show();
-            $("#spnUserTWR").show();
-
-            $("#txtUserFB").hide();
-            $("#txtUserIG").hide();
-            $("#txtUserSC").hide();
-            $("#txtUserTWR").hide();
-        });
-
+    $("#icnCancelimgUpld").click(function () {
+        $("#imgUserProfileEdit").show();
         $("#FUserProfile").hide();
         $("#icnCancelimgUpld").hide();
         $("#sbmtUserProfile").hide();
-        $("#imgUserProfileEdit").click(function () {
-            $("#imgUserProfileEdit").hide();
-            $("#FUserProfile").show();
-            $("#icnCancelimgUpld").show();
-            $("#sbmtUserProfile").show();
-        });
-
-        $("#icnCancelimgUpld").click(function () {
-            $("#imgUserProfileEdit").show();
-            $("#FUserProfile").hide();
-            $("#icnCancelimgUpld").hide();
-            $("#sbmtUserProfile").hide();
-        });
+    });
     });
 </script>
 
@@ -246,6 +275,7 @@
         padding: 3px 6px;
         border: 0px;
     }
+
         .btn-Save-Cancel:hover {
             background-color: #4cacff;
         }
@@ -254,13 +284,13 @@
         border-top-style: hidden;
         border-right-style: hidden;
         border-left-style: hidden;
-        border-bottom-style: hidden;        
-      }
+        border-bottom-style: hidden;
+    }
 </style>
 
 @*<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
-<script src="~/lib/bootstrap.bundle.min.js"></script>
-<script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
-<script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-<script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
-<script src="~/lib/js/app.js"></script>*@
+    <script src="~/lib/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/vendors/material-floating-button/dist/mfb.min.js"></script>
+    <script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
+    <script src="~/lib/js/app.js"></script>*@

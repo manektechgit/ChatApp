@@ -53,6 +53,8 @@ namespace DotNetCoreMVCDemos.Controllers
                 session.SetString("UserId", LoginUser.UserId.ToString());
                 session.SetString("UserName", LoginUser.UserName);
                 session.SetString("Mobile", LoginUser.MobileNumber);
+                session.SetString("BirthDate",Convert.ToDateTime(LoginUser.BirthDate).ToString());
+                session.SetString("Gender", LoginUser.Gender);
                 session.SetString("Facebook", LoginUser.Facebook);
                 session.SetString("Instagram", LoginUser.Instagram);
                 session.SetString("Twitter", LoginUser.Twitter);

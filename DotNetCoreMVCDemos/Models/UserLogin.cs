@@ -22,6 +22,8 @@ namespace DotNetCoreMVCDemos.Models
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string MobileNumber { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public string Gender { get; set; }
         public string ProfileImage { get; set; }
         public string Facebook { get; set; }
         public string Snapchat { get; set; }
@@ -42,7 +44,6 @@ namespace DotNetCoreMVCDemos.Models
         public string ConnectionId { get; set; }
         public bool InCall { get; set; }
     }
-
     public class UserCall
     {
         public List<User> Users { get; set; }

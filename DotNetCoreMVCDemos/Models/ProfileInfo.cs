@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
+using System.ComponentModel.DataAnnotations;
 
 namespace DotNetCoreMVCDemos.Models
 {
@@ -15,7 +16,11 @@ namespace DotNetCoreMVCDemos.Models
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string MobileNumber { get; set; }
-                
+
+        [DataType(DataType.DateTime)]
+        public DateTime? BirthDate { get; set; }
+        public string Gender { get; set; }
+
         public string ProfileImage { get; set; }
         public string Facebook { get; set; }
         public string Snapchat { get; set; }
