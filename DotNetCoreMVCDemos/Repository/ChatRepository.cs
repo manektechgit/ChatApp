@@ -537,7 +537,8 @@ namespace DotNetCoreMVCDemos.Repository
                     {
                         UserContactID = Convert.ToString(row["UserContactID"]),
                         UserName = Convert.ToString(row["UserName"]),
-                        ProfileImage = Convert.ToString(row["ProfileImage"])
+                        ProfileImage = Convert.ToString(row["ProfileImage"]),
+                        Lastseen = Convert.ToString(row["Lastseen"])
                     };
                     users.Add(chat);
                 }

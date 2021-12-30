@@ -7,6 +7,7 @@
 @{
     var UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
     var ProfileImage = @HttpContextAccessor.HttpContext.Session.GetString("ProfileImage");
+    var UserName = @HttpContextAccessor.HttpContext.Session.GetString("UserName");
     var Theme = @HttpContextAccessor.HttpContext.Session.GetString("Theme");
 }
 <link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
@@ -178,6 +179,9 @@
                     <div class="ca-userprofile" data-toggle="modal" data-target="#viewProfileModal">
                         <a href="javascript:;" target="_self" class="user-avatar user-avatar-rounded">
                             <img src="~/lib/images/user/500/@ProfileImage" alt="">
+                            @*<div class="contactlist__details ml-2">@UserName</div>*@
+                            <div class="conversation__name--title ml-2 mt-3">@UserName</div>
+
                             @*<div class="user-avatar user-avatar-rounded avatar-info">
                                     <span>EH</span>
                                 </div>*@
@@ -240,12 +244,12 @@
 
                     <div class="iconbox-searchbar">
                         <form>
-                            <input type="text" class="form-control" id="userSearch" placeholder="Search here..." autofocus>
+                            <input type="text" class="form-control" id="userSearch" placeholder="Search here..." onkeyup="onSearchKeyup(this.id, 'userSearchList')">
 
-                            <button class="search-submit" type="submit">
-                                <i class="mdi mdi-magnify"></i>
-                            </button>
-                            <a href="javascript:void(0)" class="search-close">
+                            @*<button class="search-submit" type="submit">
+                                    <i class="mdi mdi-magnify"></i>
+                                </button>*@
+                            <a href="javascript:void(0)" class="search-close" onclick="clearUserSearch();">
                                 <i class="mdi mdi-arrow-left"></i>
                             </a>
                         </form>
@@ -1207,124 +1211,124 @@
                         <div class="modal-body">
                             <div class="searchbar">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search" aria-label="Search">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text dialpad-opener"><i class="mdi mdi-dialpad"></i></span>
-                                    </div>
+                                    <input type="text" class="form-control" placeholder="Search" aria-label="Search" id="newMessageSearch" onkeyup="onSearchKeyup(this.id, 'newMessageSearchList')">
+                                    @*<div class="input-group-append">
+                                            <span class="input-group-text dialpad-opener"><i class="mdi mdi-dialpad"></i></span>
+                                        </div>*@
                                 </div>
                             </div>
                             <div class="modal-contact-list">
-                                @Html.RenderAction("GetAllUsers", "Chat", new { UserId = UserId })
+                                @Html.RenderAction("GetAllUsers", "Chat", new { UserId = UserId, UserListName = "newMessageSearchList" })
                             </div>
-                            <div class="modal-dialpad">
-                                <div class="dial-pad-wrap">
-                                    <div class="dial-pad">
-                                        <div class="dial-screen">+01-(363)-2612</div>
-                                        <div class="dial-table">
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="1">
-                                                        <div class="dial-key">1</div>
-                                                        <div class="dial-sub-key">&nbsp;</div>
+                            @*<div class="modal-dialpad">
+                                    <div class="dial-pad-wrap">
+                                        <div class="dial-pad">
+                                            <div class="dial-screen">+01-(363)-2612</div>
+                                            <div class="dial-table">
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="1">
+                                                            <div class="dial-key">1</div>
+                                                            <div class="dial-sub-key">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="2">
+                                                            <div class="dial-key">2</div>
+                                                            <div class="dial-sub-key">abc</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="3">
+                                                            <div class="dial-key">3</div>
+                                                            <div class="dial-sub-key">def</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="2">
-                                                        <div class="dial-key">2</div>
-                                                        <div class="dial-sub-key">abc</div>
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="4">
+                                                            <div class="dial-key">4</div>
+                                                            <div class="dial-sub-key">ghi</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="5">
+                                                            <div class="dial-key">5</div>
+                                                            <div class="dial-sub-key">jkl</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="6">
+                                                            <div class="dial-key">6</div>
+                                                            <div class="dial-sub-key">mno</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="3">
-                                                        <div class="dial-key">3</div>
-                                                        <div class="dial-sub-key">def</div>
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="7">
+                                                            <div class="dial-key">7</div>
+                                                            <div class="dial-sub-key">pqrs</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="8">
+                                                            <div class="dial-key">8</div>
+                                                            <div class="dial-sub-key">tuv</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="9">
+                                                            <div class="dial-key">9</div>
+                                                            <div class="dial-sub-key">wxyz</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="4">
-                                                        <div class="dial-key">4</div>
-                                                        <div class="dial-sub-key">ghi</div>
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="*">
+                                                            <div class="dial-key">*</div>
+                                                            <div class="dial-sub-key">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="0">
+                                                            <div class="dial-key">0</div>
+                                                            <div class="dial-sub-key">+</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="#">
+                                                            <div class="dial-key">#</div>
+                                                            <div class="dial-sub-key">&nbsp;</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="5">
-                                                        <div class="dial-key">5</div>
-                                                        <div class="dial-sub-key">jkl</div>
+                                                <div class="dial-table-row no-sub-key">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="save-contact">
+                                                            <div class="dial-key"><i class="mdi mdi-account-plus-outline"></i></div>
+                                                            <div class="dial-sub-key">Call</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="6">
-                                                        <div class="dial-key">6</div>
-                                                        <div class="dial-sub-key">mno</div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="call">
+                                                            <div class="dial-key"><i class="mdi mdi-message-text-outline"></i></div>
+                                                            <div class="dial-sub-key">Call</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="7">
-                                                        <div class="dial-key">7</div>
-                                                        <div class="dial-sub-key">pqrs</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="8">
-                                                        <div class="dial-key">8</div>
-                                                        <div class="dial-sub-key">tuv</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="9">
-                                                        <div class="dial-key">9</div>
-                                                        <div class="dial-sub-key">wxyz</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="*">
-                                                        <div class="dial-key">*</div>
-                                                        <div class="dial-sub-key">&nbsp;</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="0">
-                                                        <div class="dial-key">0</div>
-                                                        <div class="dial-sub-key">+</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="#">
-                                                        <div class="dial-key">#</div>
-                                                        <div class="dial-sub-key">&nbsp;</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="dial-table-row no-sub-key">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="save-contact">
-                                                        <div class="dial-key"><i class="mdi mdi-account-plus-outline"></i></div>
-                                                        <div class="dial-sub-key">Call</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="call">
-                                                        <div class="dial-key"><i class="mdi mdi-message-text-outline"></i></div>
-                                                        <div class="dial-sub-key">Call</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="back">
-                                                        <div class="dial-key"><i class="mdi mdi-arrow-left"></i></div>
-                                                        <div class="dial-sub-key">Back</div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="back">
+                                                            <div class="dial-key"><i class="mdi mdi-arrow-left"></i></div>
+                                                            <div class="dial-sub-key">Back</div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                </div>*@
                         </div>
                     </div>
                 </div>
@@ -1342,14 +1346,15 @@
                         <div class="modal-body">
                             <div class="searchbar">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search" aria-label="Search">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text dialpad-opener"><i class="mdi mdi-dialpad"></i></span>
-                                    </div>
+                                    <input type="text" class="form-control" placeholder="Search" aria-label="Search"
+                                           id="newCallSearch" onkeyup="onSearchKeyup(this.id, 'newCallSearchList')">
+                                    @*<div class="input-group-append">
+                                            <span class="input-group-text dialpad-opener"><i class="mdi mdi-dialpad"></i></span>
+                                        </div>*@
                                 </div>
                             </div>
                             <div class="modal-contact-list">
-                                <ul class="list-unstyled">
+                                <ul class="list-unstyled newCallSearchList">
                                     <li>
                                         <div class="contactlist">
                                             <div class="user-avatar user-avatar-rounded">
@@ -1697,116 +1702,116 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="modal-dialpad">
-                                <div class="dial-pad-wrap">
-                                    <div class="dial-pad">
-                                        <div class="dial-screen">+01-(363)-2612</div>
-                                        <div class="dial-table">
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="1">
-                                                        <div class="dial-key">1</div>
-                                                        <div class="dial-sub-key">&nbsp;</div>
+                            @*<div class="modal-dialpad">
+                                    <div class="dial-pad-wrap">
+                                        <div class="dial-pad">
+                                            <div class="dial-screen">+01-(363)-2612</div>
+                                            <div class="dial-table">
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="1">
+                                                            <div class="dial-key">1</div>
+                                                            <div class="dial-sub-key">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="2">
+                                                            <div class="dial-key">2</div>
+                                                            <div class="dial-sub-key">abc</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="3">
+                                                            <div class="dial-key">3</div>
+                                                            <div class="dial-sub-key">def</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="2">
-                                                        <div class="dial-key">2</div>
-                                                        <div class="dial-sub-key">abc</div>
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="4">
+                                                            <div class="dial-key">4</div>
+                                                            <div class="dial-sub-key">ghi</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="5">
+                                                            <div class="dial-key">5</div>
+                                                            <div class="dial-sub-key">jkl</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="6">
+                                                            <div class="dial-key">6</div>
+                                                            <div class="dial-sub-key">mno</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="3">
-                                                        <div class="dial-key">3</div>
-                                                        <div class="dial-sub-key">def</div>
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="7">
+                                                            <div class="dial-key">7</div>
+                                                            <div class="dial-sub-key">pqrs</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="8">
+                                                            <div class="dial-key">8</div>
+                                                            <div class="dial-sub-key">tuv</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="9">
+                                                            <div class="dial-key">9</div>
+                                                            <div class="dial-sub-key">wxyz</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="4">
-                                                        <div class="dial-key">4</div>
-                                                        <div class="dial-sub-key">ghi</div>
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="*">
+                                                            <div class="dial-key">*</div>
+                                                            <div class="dial-sub-key">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="0">
+                                                            <div class="dial-key">0</div>
+                                                            <div class="dial-sub-key">+</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="#">
+                                                            <div class="dial-key">#</div>
+                                                            <div class="dial-sub-key">&nbsp;</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="5">
-                                                        <div class="dial-key">5</div>
-                                                        <div class="dial-sub-key">jkl</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="6">
-                                                        <div class="dial-key">6</div>
-                                                        <div class="dial-sub-key">mno</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="7">
-                                                        <div class="dial-key">7</div>
-                                                        <div class="dial-sub-key">pqrs</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="8">
-                                                        <div class="dial-key">8</div>
-                                                        <div class="dial-sub-key">tuv</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="9">
-                                                        <div class="dial-key">9</div>
-                                                        <div class="dial-sub-key">wxyz</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="*">
-                                                        <div class="dial-key">*</div>
-                                                        <div class="dial-sub-key">&nbsp;</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="0">
-                                                        <div class="dial-key">0</div>
-                                                        <div class="dial-sub-key">+</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="#">
-                                                        <div class="dial-key">#</div>
-                                                        <div class="dial-sub-key">&nbsp;</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="dial-table-row no-sub-key">
-                                                <div class="dial-table-col">
+                                                <div class="dial-table-row no-sub-key">
+                                                    <div class="dial-table-col">
 
-                                                    <div class="dial-key-wrap" data-key="save-contact">
-                                                        <div class="dial-key"><i class="mdi mdi-account-plus-outline"></i></div>
-                                                        <div class="dial-sub-key">Call</div>
+                                                        <div class="dial-key-wrap" data-key="save-contact">
+                                                            <div class="dial-key"><i class="mdi mdi-account-plus-outline"></i></div>
+                                                            <div class="dial-sub-key">Call</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="call">
-                                                        <div class="dial-key"><i class="mdi mdi-phone"></i></div>
-                                                        <div class="dial-sub-key">Call</div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="call">
+                                                            <div class="dial-key"><i class="mdi mdi-phone"></i></div>
+                                                            <div class="dial-sub-key">Call</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="back">
-                                                        <div class="dial-key"><i class="mdi mdi-arrow-left"></i></div>
-                                                        <div class="dial-sub-key">Back</div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="back">
+                                                            <div class="dial-key"><i class="mdi mdi-arrow-left"></i></div>
+                                                            <div class="dial-sub-key">Back</div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                </div>*@
                         </div>
                     </div>
                 </div>
@@ -1839,432 +1844,433 @@
                 </div>
             </div>
             <!-- ADD MEMBER IN GROUP MODAL -->
-            <div class="modal new-group-dialog" id="addMemberModal" tabindex="-1" role="dialog" aria-labelledby="addMemberModal" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h6 class="modal-title" id="addMemberModalLabel">Add Members</h6>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
+            @*<div class="modal new-group-dialog" id="addMemberModal" tabindex="-1" role="dialog" aria-labelledby="addMemberModal" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title" id="addMemberModalLabel">Add Members</h6>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
 
-                            <div class="searchbar">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search" aria-label="Search">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text dialpad-opener"><i class="mdi mdi-dialpad"></i></span>
+                                <div class="searchbar">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text dialpad-opener"><i class="mdi mdi-dialpad"></i></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="modal-contact-list">
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <div class="contactlist">
-                                            <div class="user-avatar user-avatar-rounded">
-                                                <img src="~/lib/images/user/500/06.jpg" alt="">
-                                            </div>
-                                            <div class="contactlist__details">
-                                                <div class="contactlist__details--name">Chuck McCann</div>
-                                                <div class="calllist__details--info">
-                                                    <span><i class="mdi mdi-tag-outline"></i></span>
-                                                    <span>Friends</span>
+                                <div class="modal-contact-list">
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <div class="contactlist">
+                                                <div class="user-avatar user-avatar-rounded">
+                                                    <img src="~/lib/images/user/500/06.jpg" alt="">
                                                 </div>
-                                            </div>
-
-                                            <div class="contactlist__actions">
-                                                <div class="iconbox btn-solid-info">
-                                                    <i class="iconbox__icon mdi mdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="contactlist">
-                                            <div class="user-avatar user-avatar-rounded">
-                                                <img src="~/lib/images/user/500/01.jpg" alt="">
-                                            </div>
-                                            <div class="contactlist__details">
-                                                <div class="contactlist__details--name">Pearl Villarreal</div>
-                                                <div class="calllist__details--info">
-                                                    <span><i class="mdi mdi-tag-outline"></i></span>
-                                                    <span>Friends</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="contactlist__actions">
-                                                <div class="iconbox btn-solid-info">
-                                                    <i class="iconbox__icon mdi mdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="contactlist">
-                                            <div class="user-avatar user-avatar-rounded">
-                                                <img src="~/lib/images/user/500/03.jpg" alt="">
-                                            </div>
-                                            <div class="contactlist__details">
-                                                <div class="contactlist__details--name">Sheila Hawkins</div>
-                                                <div class="calllist__details--info">
-                                                    <span><i class="mdi mdi-tag-outline"></i></span>
-                                                    <span>Friends</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="contactlist__actions">
-                                                <div class="iconbox btn-solid-info">
-                                                    <i class="iconbox__icon mdi mdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="contactlist">
-                                            <div class="user-avatar user-avatar-rounded">
-                                                <img src="~/lib/images/user/500/04.jpg" alt="">
-                                            </div>
-                                            <div class="contactlist__details">
-                                                <div class="contactlist__details--name">Amanda Sinquefield</div>
-                                                <div class="calllist__details--info">
-                                                    <span><i class="mdi mdi-tag-outline"></i></span>
-                                                    <span>Friends</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="contactlist__actions">
-                                                <div class="iconbox btn-solid-info">
-                                                    <i class="iconbox__icon mdi mdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="contactlist">
-                                            <div class="user-avatar user-avatar-rounded">
-                                                <img src="~/lib/images/user/500/04.jpg" alt="">
-                                            </div>
-                                            <div class="contactlist__details">
-                                                <div class="contactlist__details--name">Amanda Sinquefield</div>
-                                                <div class="calllist__details--info">
-                                                    <span><i class="mdi mdi-tag-outline"></i></span>
-                                                    <span>Friends</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="contactlist__actions">
-                                                <div class="iconbox btn-solid-info">
-                                                    <i class="iconbox__icon mdi mdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="contactlist">
-                                            <div class="user-avatar user-avatar-rounded">
-                                                <img src="~/lib/images/user/500/04.jpg" alt="">
-                                            </div>
-                                            <div class="contactlist__details">
-                                                <div class="contactlist__details--name">Amanda Sinquefield</div>
-                                                <div class="calllist__details--info">
-                                                    <span><i class="mdi mdi-tag-outline"></i></span>
-                                                    <span>Friends</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="contactlist__actions">
-                                                <div class="iconbox btn-solid-info">
-                                                    <i class="iconbox__icon mdi mdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="contactlist">
-                                            <div class="user-avatar user-avatar-rounded">
-                                                <img src="~/lib/images/user/500/04.jpg" alt="">
-                                            </div>
-                                            <div class="contactlist__details">
-                                                <div class="contactlist__details--name">Amanda Sinquefield</div>
-                                                <div class="calllist__details--info">
-                                                    <span><i class="mdi mdi-tag-outline"></i></span>
-                                                    <span>Friends</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="contactlist__actions">
-                                                <div class="iconbox btn-solid-info">
-                                                    <i class="iconbox__icon mdi mdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="contactlist">
-                                            <div class="user-avatar user-avatar-rounded">
-                                                <img src="~/lib/images/user/500/04.jpg" alt="">
-                                            </div>
-                                            <div class="contactlist__details">
-                                                <div class="contactlist__details--name">Amanda Sinquefield</div>
-                                                <div class="calllist__details--info">
-                                                    <span><i class="mdi mdi-tag-outline"></i></span>
-                                                    <span>Friends</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="contactlist__actions">
-                                                <div class="iconbox btn-solid-info">
-                                                    <i class="iconbox__icon mdi mdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="contactlist">
-                                            <div class="user-avatar user-avatar-rounded">
-                                                <img src="~/lib/images/user/500/04.jpg" alt="">
-                                            </div>
-                                            <div class="contactlist__details">
-                                                <div class="contactlist__details--name">Amanda Sinquefield</div>
-                                                <div class="calllist__details--info">
-                                                    <span><i class="mdi mdi-tag-outline"></i></span>
-                                                    <span>Friends</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="contactlist__actions">
-                                                <div class="iconbox btn-solid-info">
-                                                    <i class="iconbox__icon mdi mdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="contactlist">
-                                            <div class="user-avatar user-avatar-rounded">
-                                                <img src="~/lib/images/user/500/04.jpg" alt="">
-                                            </div>
-                                            <div class="contactlist__details">
-                                                <div class="contactlist__details--name">Amanda Sinquefield</div>
-                                                <div class="calllist__details--info">
-                                                    <span><i class="mdi mdi-tag-outline"></i></span>
-                                                    <span>Friends</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="contactlist__actions">
-                                                <div class="iconbox btn-solid-info">
-                                                    <i class="iconbox__icon mdi mdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="contactlist">
-                                            <div class="user-avatar user-avatar-rounded">
-                                                <img src="~/lib/images/user/500/04.jpg" alt="">
-                                            </div>
-                                            <div class="contactlist__details">
-                                                <div class="contactlist__details--name">Amanda Sinquefield</div>
-                                                <div class="calllist__details--info">
-                                                    <span><i class="mdi mdi-tag-outline"></i></span>
-                                                    <span>Friends</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="contactlist__actions">
-                                                <div class="iconbox btn-solid-info">
-                                                    <i class="iconbox__icon mdi mdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="contactlist">
-                                            <div class="user-avatar user-avatar-rounded">
-                                                <img src="~/lib/images/user/500/04.jpg" alt="">
-                                            </div>
-                                            <div class="contactlist__details">
-                                                <div class="contactlist__details--name">Amanda Sinquefield</div>
-                                                <div class="calllist__details--info">
-                                                    <span><i class="mdi mdi-tag-outline"></i></span>
-                                                    <span>Friends</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="contactlist__actions">
-                                                <div class="iconbox btn-solid-info">
-                                                    <i class="iconbox__icon mdi mdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="contactlist">
-                                            <div class="user-avatar user-avatar-rounded">
-                                                <img src="~/lib/images/user/500/04.jpg" alt="">
-                                            </div>
-                                            <div class="contactlist__details">
-                                                <div class="contactlist__details--name">Amanda Sinquefield</div>
-                                                <div class="calllist__details--info">
-                                                    <span><i class="mdi mdi-tag-outline"></i></span>
-                                                    <span>Friends</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="contactlist__actions">
-                                                <div class="iconbox btn-solid-info">
-                                                    <i class="iconbox__icon mdi mdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="contactlist">
-                                            <div class="user-avatar user-avatar-rounded">
-                                                <img src="~/lib/images/user/500/04.jpg" alt="">
-                                            </div>
-                                            <div class="contactlist__details">
-                                                <div class="contactlist__details--name">Amanda Sinquefield</div>
-                                                <div class="calllist__details--info">
-                                                    <span><i class="mdi mdi-tag-outline"></i></span>
-                                                    <span>Friends</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="contactlist__actions">
-                                                <div class="iconbox btn-solid-info">
-                                                    <i class="iconbox__icon mdi mdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="contactlist border-bottom-0">
-                                            <div class="user-avatar user-avatar-rounded">
-                                                <img src="~/lib/images/user/500/04.jpg" alt="">
-                                            </div>
-                                            <div class="contactlist__details">
-                                                <div class="contactlist__details--name">Amanda Sinquefield</div>
-                                                <div class="calllist__details--info">
-                                                    <span><i class="mdi mdi-tag-outline"></i></span>
-                                                    <span>Friends</span>
-                                                </div>
-                                            </div>
-
-                                            <div class="contactlist__actions">
-                                                <div class="iconbox btn-solid-info">
-                                                    <i class="iconbox__icon mdi mdi-plus"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="modal-dialpad">
-                                <div class="dial-pad-wrap">
-                                    <div class="dial-pad">
-                                        <div class="dial-screen">+01-(363)-2612</div>
-                                        <div class="dial-table">
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="1">
-                                                        <div class="dial-key">1</div>
-                                                        <div class="dial-sub-key">&nbsp;</div>
+                                                <div class="contactlist__details">
+                                                    <div class="contactlist__details--name">Chuck McCann</div>
+                                                    <div class="calllist__details--info">
+                                                        <span><i class="mdi mdi-tag-outline"></i></span>
+                                                        <span>Friends</span>
                                                     </div>
                                                 </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="2">
-                                                        <div class="dial-key">2</div>
-                                                        <div class="dial-sub-key">abc</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="3">
-                                                        <div class="dial-key">3</div>
-                                                        <div class="dial-sub-key">def</div>
+
+                                                <div class="contactlist__actions">
+                                                    <div class="iconbox btn-solid-info">
+                                                        <i class="iconbox__icon mdi mdi-plus"></i>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="4">
-                                                        <div class="dial-key">4</div>
-                                                        <div class="dial-sub-key">ghi</div>
+                                        </li>
+                                        <li>
+                                            <div class="contactlist">
+                                                <div class="user-avatar user-avatar-rounded">
+                                                    <img src="~/lib/images/user/500/01.jpg" alt="">
+                                                </div>
+                                                <div class="contactlist__details">
+                                                    <div class="contactlist__details--name">Pearl Villarreal</div>
+                                                    <div class="calllist__details--info">
+                                                        <span><i class="mdi mdi-tag-outline"></i></span>
+                                                        <span>Friends</span>
                                                     </div>
                                                 </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="5">
-                                                        <div class="dial-key">5</div>
-                                                        <div class="dial-sub-key">jkl</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="6">
-                                                        <div class="dial-key">6</div>
-                                                        <div class="dial-sub-key">mno</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="7">
-                                                        <div class="dial-key">7</div>
-                                                        <div class="dial-sub-key">pqrs</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="8">
-                                                        <div class="dial-key">8</div>
-                                                        <div class="dial-sub-key">tuv</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="9">
-                                                        <div class="dial-key">9</div>
-                                                        <div class="dial-sub-key">wxyz</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="*">
-                                                        <div class="dial-key">*</div>
-                                                        <div class="dial-sub-key">&nbsp;</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="0">
-                                                        <div class="dial-key">0</div>
-                                                        <div class="dial-sub-key">+</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="#">
-                                                        <div class="dial-key">#</div>
-                                                        <div class="dial-sub-key">&nbsp;</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="dial-table-row no-sub-key">
-                                                <div class="dial-table-col">
 
-                                                    <div class="dial-key-wrap" data-key="save-contact">
-                                                        <div class="dial-key"><i class="mdi mdi-account-plus-outline"></i></div>
-                                                        <div class="dial-sub-key">Call</div>
+                                                <div class="contactlist__actions">
+                                                    <div class="iconbox btn-solid-info">
+                                                        <i class="iconbox__icon mdi mdi-plus"></i>
                                                     </div>
                                                 </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="call">
-                                                        <div class="dial-key"><i class="mdi mdi-plus-circle-outline"></i></div>
-                                                        <div class="dial-sub-key">Call</div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="contactlist">
+                                                <div class="user-avatar user-avatar-rounded">
+                                                    <img src="~/lib/images/user/500/03.jpg" alt="">
+                                                </div>
+                                                <div class="contactlist__details">
+                                                    <div class="contactlist__details--name">Sheila Hawkins</div>
+                                                    <div class="calllist__details--info">
+                                                        <span><i class="mdi mdi-tag-outline"></i></span>
+                                                        <span>Friends</span>
                                                     </div>
                                                 </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="back">
-                                                        <div class="dial-key"><i class="mdi mdi-arrow-left"></i></div>
-                                                        <div class="dial-sub-key">Back</div>
+
+                                                <div class="contactlist__actions">
+                                                    <div class="iconbox btn-solid-info">
+                                                        <i class="iconbox__icon mdi mdi-plus"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="contactlist">
+                                                <div class="user-avatar user-avatar-rounded">
+                                                    <img src="~/lib/images/user/500/04.jpg" alt="">
+                                                </div>
+                                                <div class="contactlist__details">
+                                                    <div class="contactlist__details--name">Amanda Sinquefield</div>
+                                                    <div class="calllist__details--info">
+                                                        <span><i class="mdi mdi-tag-outline"></i></span>
+                                                        <span>Friends</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="contactlist__actions">
+                                                    <div class="iconbox btn-solid-info">
+                                                        <i class="iconbox__icon mdi mdi-plus"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="contactlist">
+                                                <div class="user-avatar user-avatar-rounded">
+                                                    <img src="~/lib/images/user/500/04.jpg" alt="">
+                                                </div>
+                                                <div class="contactlist__details">
+                                                    <div class="contactlist__details--name">Amanda Sinquefield</div>
+                                                    <div class="calllist__details--info">
+                                                        <span><i class="mdi mdi-tag-outline"></i></span>
+                                                        <span>Friends</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="contactlist__actions">
+                                                    <div class="iconbox btn-solid-info">
+                                                        <i class="iconbox__icon mdi mdi-plus"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="contactlist">
+                                                <div class="user-avatar user-avatar-rounded">
+                                                    <img src="~/lib/images/user/500/04.jpg" alt="">
+                                                </div>
+                                                <div class="contactlist__details">
+                                                    <div class="contactlist__details--name">Amanda Sinquefield</div>
+                                                    <div class="calllist__details--info">
+                                                        <span><i class="mdi mdi-tag-outline"></i></span>
+                                                        <span>Friends</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="contactlist__actions">
+                                                    <div class="iconbox btn-solid-info">
+                                                        <i class="iconbox__icon mdi mdi-plus"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="contactlist">
+                                                <div class="user-avatar user-avatar-rounded">
+                                                    <img src="~/lib/images/user/500/04.jpg" alt="">
+                                                </div>
+                                                <div class="contactlist__details">
+                                                    <div class="contactlist__details--name">Amanda Sinquefield</div>
+                                                    <div class="calllist__details--info">
+                                                        <span><i class="mdi mdi-tag-outline"></i></span>
+                                                        <span>Friends</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="contactlist__actions">
+                                                    <div class="iconbox btn-solid-info">
+                                                        <i class="iconbox__icon mdi mdi-plus"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="contactlist">
+                                                <div class="user-avatar user-avatar-rounded">
+                                                    <img src="~/lib/images/user/500/04.jpg" alt="">
+                                                </div>
+                                                <div class="contactlist__details">
+                                                    <div class="contactlist__details--name">Amanda Sinquefield</div>
+                                                    <div class="calllist__details--info">
+                                                        <span><i class="mdi mdi-tag-outline"></i></span>
+                                                        <span>Friends</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="contactlist__actions">
+                                                    <div class="iconbox btn-solid-info">
+                                                        <i class="iconbox__icon mdi mdi-plus"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="contactlist">
+                                                <div class="user-avatar user-avatar-rounded">
+                                                    <img src="~/lib/images/user/500/04.jpg" alt="">
+                                                </div>
+                                                <div class="contactlist__details">
+                                                    <div class="contactlist__details--name">Amanda Sinquefield</div>
+                                                    <div class="calllist__details--info">
+                                                        <span><i class="mdi mdi-tag-outline"></i></span>
+                                                        <span>Friends</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="contactlist__actions">
+                                                    <div class="iconbox btn-solid-info">
+                                                        <i class="iconbox__icon mdi mdi-plus"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="contactlist">
+                                                <div class="user-avatar user-avatar-rounded">
+                                                    <img src="~/lib/images/user/500/04.jpg" alt="">
+                                                </div>
+                                                <div class="contactlist__details">
+                                                    <div class="contactlist__details--name">Amanda Sinquefield</div>
+                                                    <div class="calllist__details--info">
+                                                        <span><i class="mdi mdi-tag-outline"></i></span>
+                                                        <span>Friends</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="contactlist__actions">
+                                                    <div class="iconbox btn-solid-info">
+                                                        <i class="iconbox__icon mdi mdi-plus"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="contactlist">
+                                                <div class="user-avatar user-avatar-rounded">
+                                                    <img src="~/lib/images/user/500/04.jpg" alt="">
+                                                </div>
+                                                <div class="contactlist__details">
+                                                    <div class="contactlist__details--name">Amanda Sinquefield</div>
+                                                    <div class="calllist__details--info">
+                                                        <span><i class="mdi mdi-tag-outline"></i></span>
+                                                        <span>Friends</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="contactlist__actions">
+                                                    <div class="iconbox btn-solid-info">
+                                                        <i class="iconbox__icon mdi mdi-plus"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="contactlist">
+                                                <div class="user-avatar user-avatar-rounded">
+                                                    <img src="~/lib/images/user/500/04.jpg" alt="">
+                                                </div>
+                                                <div class="contactlist__details">
+                                                    <div class="contactlist__details--name">Amanda Sinquefield</div>
+                                                    <div class="calllist__details--info">
+                                                        <span><i class="mdi mdi-tag-outline"></i></span>
+                                                        <span>Friends</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="contactlist__actions">
+                                                    <div class="iconbox btn-solid-info">
+                                                        <i class="iconbox__icon mdi mdi-plus"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="contactlist">
+                                                <div class="user-avatar user-avatar-rounded">
+                                                    <img src="~/lib/images/user/500/04.jpg" alt="">
+                                                </div>
+                                                <div class="contactlist__details">
+                                                    <div class="contactlist__details--name">Amanda Sinquefield</div>
+                                                    <div class="calllist__details--info">
+                                                        <span><i class="mdi mdi-tag-outline"></i></span>
+                                                        <span>Friends</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="contactlist__actions">
+                                                    <div class="iconbox btn-solid-info">
+                                                        <i class="iconbox__icon mdi mdi-plus"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="contactlist">
+                                                <div class="user-avatar user-avatar-rounded">
+                                                    <img src="~/lib/images/user/500/04.jpg" alt="">
+                                                </div>
+                                                <div class="contactlist__details">
+                                                    <div class="contactlist__details--name">Amanda Sinquefield</div>
+                                                    <div class="calllist__details--info">
+                                                        <span><i class="mdi mdi-tag-outline"></i></span>
+                                                        <span>Friends</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="contactlist__actions">
+                                                    <div class="iconbox btn-solid-info">
+                                                        <i class="iconbox__icon mdi mdi-plus"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="contactlist border-bottom-0">
+                                                <div class="user-avatar user-avatar-rounded">
+                                                    <img src="~/lib/images/user/500/04.jpg" alt="">
+                                                </div>
+                                                <div class="contactlist__details">
+                                                    <div class="contactlist__details--name">Amanda Sinquefield</div>
+                                                    <div class="calllist__details--info">
+                                                        <span><i class="mdi mdi-tag-outline"></i></span>
+                                                        <span>Friends</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="contactlist__actions">
+                                                    <div class="iconbox btn-solid-info">
+                                                        <i class="iconbox__icon mdi mdi-plus"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="modal-dialpad">
+                                    <div class="dial-pad-wrap">
+                                        <div class="dial-pad">
+                                            <div class="dial-screen">+01-(363)-2612</div>
+                                            <div class="dial-table">
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="1">
+                                                            <div class="dial-key">1</div>
+                                                            <div class="dial-sub-key">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="2">
+                                                            <div class="dial-key">2</div>
+                                                            <div class="dial-sub-key">abc</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="3">
+                                                            <div class="dial-key">3</div>
+                                                            <div class="dial-sub-key">def</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="4">
+                                                            <div class="dial-key">4</div>
+                                                            <div class="dial-sub-key">ghi</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="5">
+                                                            <div class="dial-key">5</div>
+                                                            <div class="dial-sub-key">jkl</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="6">
+                                                            <div class="dial-key">6</div>
+                                                            <div class="dial-sub-key">mno</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="7">
+                                                            <div class="dial-key">7</div>
+                                                            <div class="dial-sub-key">pqrs</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="8">
+                                                            <div class="dial-key">8</div>
+                                                            <div class="dial-sub-key">tuv</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="9">
+                                                            <div class="dial-key">9</div>
+                                                            <div class="dial-sub-key">wxyz</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="*">
+                                                            <div class="dial-key">*</div>
+                                                            <div class="dial-sub-key">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="0">
+                                                            <div class="dial-key">0</div>
+                                                            <div class="dial-sub-key">+</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="#">
+                                                            <div class="dial-key">#</div>
+                                                            <div class="dial-sub-key">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="dial-table-row no-sub-key">
+                                                    <div class="dial-table-col">
+
+                                                        <div class="dial-key-wrap" data-key="save-contact">
+                                                            <div class="dial-key"><i class="mdi mdi-account-plus-outline"></i></div>
+                                                            <div class="dial-sub-key">Call</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="call">
+                                                            <div class="dial-key"><i class="mdi mdi-plus-circle-outline"></i></div>
+                                                            <div class="dial-sub-key">Call</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="back">
+                                                            <div class="dial-key"><i class="mdi mdi-arrow-left"></i></div>
+                                                            <div class="dial-sub-key">Back</div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -2274,8 +2280,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </div>*@
             <!-- INVITE PEOPLE -->
             <div class="modal new-group-dialog" id="invitePeopleModal" tabindex="-1" role="dialog" aria-labelledby="invitePeopleModal" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -2290,14 +2295,14 @@
 
                             <div class="searchbar">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search" aria-label="Search">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text dialpad-opener"><i class="mdi mdi-dialpad"></i></span>
-                                    </div>
+                                    <input type="text" class="form-control" placeholder="Search" aria-label="Search" id="inviteMemberSearch" onkeyup="onSearchKeyup(this.id, 'inviteMemberSearchList')">
+                                    @*<div class="input-group-append">
+                                            <span class="input-group-text dialpad-opener"><i class="mdi mdi-dialpad"></i></span>
+                                        </div>*@
                                 </div>
                             </div>
                             <div class="modal-contact-list">
-                                <ul class="list-unstyled">
+                                <ul class="list-unstyled inviteMemberSearchList">
                                     <li>
                                         <div class="contactlist">
                                             <div class="user-avatar user-avatar-rounded">
@@ -2600,116 +2605,116 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="modal-dialpad">
-                                <div class="dial-pad-wrap">
-                                    <div class="dial-pad">
-                                        <div class="dial-screen">+01-(363)-2612</div>
-                                        <div class="dial-table">
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="1">
-                                                        <div class="dial-key">1</div>
-                                                        <div class="dial-sub-key">&nbsp;</div>
+                            @*<div class="modal-dialpad">
+                                    <div class="dial-pad-wrap">
+                                        <div class="dial-pad">
+                                            <div class="dial-screen">+01-(363)-2612</div>
+                                            <div class="dial-table">
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="1">
+                                                            <div class="dial-key">1</div>
+                                                            <div class="dial-sub-key">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="2">
+                                                            <div class="dial-key">2</div>
+                                                            <div class="dial-sub-key">abc</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="3">
+                                                            <div class="dial-key">3</div>
+                                                            <div class="dial-sub-key">def</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="2">
-                                                        <div class="dial-key">2</div>
-                                                        <div class="dial-sub-key">abc</div>
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="4">
+                                                            <div class="dial-key">4</div>
+                                                            <div class="dial-sub-key">ghi</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="5">
+                                                            <div class="dial-key">5</div>
+                                                            <div class="dial-sub-key">jkl</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="6">
+                                                            <div class="dial-key">6</div>
+                                                            <div class="dial-sub-key">mno</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="3">
-                                                        <div class="dial-key">3</div>
-                                                        <div class="dial-sub-key">def</div>
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="7">
+                                                            <div class="dial-key">7</div>
+                                                            <div class="dial-sub-key">pqrs</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="8">
+                                                            <div class="dial-key">8</div>
+                                                            <div class="dial-sub-key">tuv</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="9">
+                                                            <div class="dial-key">9</div>
+                                                            <div class="dial-sub-key">wxyz</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="4">
-                                                        <div class="dial-key">4</div>
-                                                        <div class="dial-sub-key">ghi</div>
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="*">
+                                                            <div class="dial-key">*</div>
+                                                            <div class="dial-sub-key">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="0">
+                                                            <div class="dial-key">0</div>
+                                                            <div class="dial-sub-key">+</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="#">
+                                                            <div class="dial-key">#</div>
+                                                            <div class="dial-sub-key">&nbsp;</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="5">
-                                                        <div class="dial-key">5</div>
-                                                        <div class="dial-sub-key">jkl</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="6">
-                                                        <div class="dial-key">6</div>
-                                                        <div class="dial-sub-key">mno</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="7">
-                                                        <div class="dial-key">7</div>
-                                                        <div class="dial-sub-key">pqrs</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="8">
-                                                        <div class="dial-key">8</div>
-                                                        <div class="dial-sub-key">tuv</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="9">
-                                                        <div class="dial-key">9</div>
-                                                        <div class="dial-sub-key">wxyz</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="*">
-                                                        <div class="dial-key">*</div>
-                                                        <div class="dial-sub-key">&nbsp;</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="0">
-                                                        <div class="dial-key">0</div>
-                                                        <div class="dial-sub-key">+</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="#">
-                                                        <div class="dial-key">#</div>
-                                                        <div class="dial-sub-key">&nbsp;</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="dial-table-row no-sub-key">
-                                                <div class="dial-table-col">
+                                                <div class="dial-table-row no-sub-key">
+                                                    <div class="dial-table-col">
 
-                                                    <div class="dial-key-wrap" data-key="save-contact">
-                                                        <div class="dial-key"><i class="mdi mdi-account-plus-outline"></i></div>
-                                                        <div class="dial-sub-key">Call</div>
+                                                        <div class="dial-key-wrap" data-key="save-contact">
+                                                            <div class="dial-key"><i class="mdi mdi-account-plus-outline"></i></div>
+                                                            <div class="dial-sub-key">Call</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="call">
-                                                        <div class="dial-key"><i class="mdi mdi-plus-circle-outline"></i></div>
-                                                        <div class="dial-sub-key">Call</div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="call">
+                                                            <div class="dial-key"><i class="mdi mdi-plus-circle-outline"></i></div>
+                                                            <div class="dial-sub-key">Call</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="back">
-                                                        <div class="dial-key"><i class="mdi mdi-arrow-left"></i></div>
-                                                        <div class="dial-sub-key">Back</div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="back">
+                                                            <div class="dial-key"><i class="mdi mdi-arrow-left"></i></div>
+                                                            <div class="dial-sub-key">Back</div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                </div>*@
                         </div>
                     </div>
                 </div>
@@ -2727,127 +2732,127 @@
                         <div class="modal-body">
                             <div class="searchbar">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="userSearch" placeholder="Search" aria-label="Search">
+                                    <input type="text" class="form-control" id="forwardMessageSearch" placeholder="Search" aria-label="Search" onkeyup="onSearchKeyup(this.id, 'forwardMessageSearchList')">
                                     @*<div class="input-group-append">
                                             <span class="input-group-text dialpad-opener"><i class="mdi mdi-dialpad"></i></span>
                                         </div>*@
-                                    <div class="iconbox iconbox-search btn-hovered-light">
-                                        <i class="iconbox__icon mdi mdi-magnify"></i>
-                                    </div>
+                                    @*<div class="iconbox iconbox-search btn-hovered-light">
+                                            <i class="iconbox__icon mdi mdi-magnify"></i>
+                                        </div>*@
                                 </div>
                             </div>
                             <div class="modal-contact-list" id="hdnForwardMessageModel">
                                 @Html.RenderAction("GetForwardMessageChat", "Chat", new { UserId = UserId })
                             </div>
-                            <div class="modal-dialpad">
-                                <div class="dial-pad-wrap">
-                                    <div class="dial-pad">
-                                        <div class="dial-screen">+01-(363)-2612</div>
-                                        <div class="dial-table">
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="1">
-                                                        <div class="dial-key">1</div>
-                                                        <div class="dial-sub-key">&nbsp;</div>
+                            @*<div class="modal-dialpad">
+                                    <div class="dial-pad-wrap">
+                                        <div class="dial-pad">
+                                            <div class="dial-screen">+01-(363)-2612</div>
+                                            <div class="dial-table">
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="1">
+                                                            <div class="dial-key">1</div>
+                                                            <div class="dial-sub-key">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="2">
+                                                            <div class="dial-key">2</div>
+                                                            <div class="dial-sub-key">abc</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="3">
+                                                            <div class="dial-key">3</div>
+                                                            <div class="dial-sub-key">def</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="2">
-                                                        <div class="dial-key">2</div>
-                                                        <div class="dial-sub-key">abc</div>
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="4">
+                                                            <div class="dial-key">4</div>
+                                                            <div class="dial-sub-key">ghi</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="5">
+                                                            <div class="dial-key">5</div>
+                                                            <div class="dial-sub-key">jkl</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="6">
+                                                            <div class="dial-key">6</div>
+                                                            <div class="dial-sub-key">mno</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="3">
-                                                        <div class="dial-key">3</div>
-                                                        <div class="dial-sub-key">def</div>
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="7">
+                                                            <div class="dial-key">7</div>
+                                                            <div class="dial-sub-key">pqrs</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="8">
+                                                            <div class="dial-key">8</div>
+                                                            <div class="dial-sub-key">tuv</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="9">
+                                                            <div class="dial-key">9</div>
+                                                            <div class="dial-sub-key">wxyz</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="4">
-                                                        <div class="dial-key">4</div>
-                                                        <div class="dial-sub-key">ghi</div>
+                                                <div class="dial-table-row">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="*">
+                                                            <div class="dial-key">*</div>
+                                                            <div class="dial-sub-key">&nbsp;</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="0">
+                                                            <div class="dial-key">0</div>
+                                                            <div class="dial-sub-key">+</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="#">
+                                                            <div class="dial-key">#</div>
+                                                            <div class="dial-sub-key">&nbsp;</div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="5">
-                                                        <div class="dial-key">5</div>
-                                                        <div class="dial-sub-key">jkl</div>
+                                                <div class="dial-table-row no-sub-key">
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="save-contact">
+                                                            <div class="dial-key"><i class="mdi mdi-account-plus-outline"></i></div>
+                                                            <div class="dial-sub-key">Call</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="6">
-                                                        <div class="dial-key">6</div>
-                                                        <div class="dial-sub-key">mno</div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="call">
+                                                            <div class="dial-key"><i class="mdi mdi-message-text-outline"></i></div>
+                                                            <div class="dial-sub-key">Call</div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="7">
-                                                        <div class="dial-key">7</div>
-                                                        <div class="dial-sub-key">pqrs</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="8">
-                                                        <div class="dial-key">8</div>
-                                                        <div class="dial-sub-key">tuv</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="9">
-                                                        <div class="dial-key">9</div>
-                                                        <div class="dial-sub-key">wxyz</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="dial-table-row">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="*">
-                                                        <div class="dial-key">*</div>
-                                                        <div class="dial-sub-key">&nbsp;</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="0">
-                                                        <div class="dial-key">0</div>
-                                                        <div class="dial-sub-key">+</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="#">
-                                                        <div class="dial-key">#</div>
-                                                        <div class="dial-sub-key">&nbsp;</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="dial-table-row no-sub-key">
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="save-contact">
-                                                        <div class="dial-key"><i class="mdi mdi-account-plus-outline"></i></div>
-                                                        <div class="dial-sub-key">Call</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="call">
-                                                        <div class="dial-key"><i class="mdi mdi-message-text-outline"></i></div>
-                                                        <div class="dial-sub-key">Call</div>
-                                                    </div>
-                                                </div>
-                                                <div class="dial-table-col">
-                                                    <div class="dial-key-wrap" data-key="back">
-                                                        <div class="dial-key"><i class="mdi mdi-arrow-left"></i></div>
-                                                        <div class="dial-sub-key">Back</div>
+                                                    <div class="dial-table-col">
+                                                        <div class="dial-key-wrap" data-key="back">
+                                                            <div class="dial-key"><i class="mdi mdi-arrow-left"></i></div>
+                                                            <div class="dial-sub-key">Back</div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
+                                </div>*@
                         </div>
                     </div>
                 </div>
@@ -3075,13 +3080,13 @@
             });
 
             // for group chat related signalr connection
-            connection.on("SendMessageToGrp", function (GroupName) {
-                console.log('home new grp name calling: ' + GroupName);
-                console.log('home old grp name calling: ' + $('#hdnGrpName').val());
+            connection.on("SendMessageToGrp", function (GroupName) {                
                 if (GroupName == $('#hdnGrpName').val()) {
-                    console.log('home i am called....');
                     getAllGrpMessage();
                 }
+                //if (GroupName == $('#hdnGrpName').val() && parseInt(userId) != parseInt($('#hdnUserId').val())) {
+                //    getAllGrpMessage();
+                //}
                 getGrpAll();
             });
 
@@ -3391,6 +3396,33 @@
                 }
             });
         }
+
+        function clearUserSearch() {
+            $("#userSearch").val('');
+            $(".userSearchList li").each(function (index, value) {
+                currentName = $(value).text()
+                if (currentName.toUpperCase().indexOf($("#userSearch").val().toUpperCase()) > -1) {
+                    $(value).show();
+                } else {
+                    $(value).hide();
+                }
+            });
+        }
+
+        function onSearchKeyup(searchId, searchListName) {
+            $('#' + searchId).bind('keyup', function () {
+                var searchString = $(this).val();
+                $("." + searchListName + " li").each(function (index, value) {
+                    currentName = $(value).text()
+                    if (currentName.toUpperCase().indexOf(searchString.toUpperCase()) > -1) {
+                        $(value).show();
+                    } else {
+                        $(value).hide();
+                    }
+                });
+            });
+        }
+
     </script>
 }
 

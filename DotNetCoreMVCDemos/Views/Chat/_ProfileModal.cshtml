@@ -3,15 +3,14 @@
 @using Microsoft.AspNetCore.Http;
 @*@{
 
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }*@
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}*@
 @*<link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
-    <link rel="stylesheet" href="~/lib/bootstrap.min.css">
-    <link rel="stylesheet" href="~/lib/css/app.css">
-    <link rel="stylesheet" href="~/lib/css/theme/default.css">*@
-
+<link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
+<link rel="stylesheet" href="~/lib/bootstrap.min.css">
+<link rel="stylesheet" href="~/lib/css/app.css">
+<link rel="stylesheet" href="~/lib/css/theme/default.css">*@
 @{
     var UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
 }
@@ -43,11 +42,9 @@
                     <div class="ca-profile-actions" style="padding-right: 10px; padding-top: 3px;">
                         <div class="iconbox-group">
                             <div class="iconbox btn-hovered-light">
-
                                 <img id="imgUserProfileEdit" class="img-fluid image" src="~/lib/images/icon/icons8-camera-20.png" alt="">
                                 @*<i class="iconbox__icon mdi mdi-pencil-outline" id="UserProfileEdit"></i>*@
                                 @*<input type="file" name="Files" id="FUserProfile" />*@
-
                             </div>
                             <form method="post" enctype="multipart/form-data" asp-controller="Chat" asp-action="UpdateProfilePicture">
                                 @Html.HiddenFor(m => m.UserId)
@@ -63,7 +60,7 @@
                                 </div>
                             </form>
                             <i class="mdi mdi-close" id="icnCancelimgUpld"></i>
-
+                            
                         </div>
                     </div>
                     <div class="ca-overlay"></div>

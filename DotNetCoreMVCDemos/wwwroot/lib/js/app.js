@@ -271,19 +271,19 @@ $(document).ready(function () {
    /*--------------------------------------------------------------
   SEARCH START
   --------------------------------------------------------------*/
-  $('#userSearch').bind('keyup', function() {
-    var searchString = $(this).val();
-    $(".userSearchList li").each(function(index, value) {
-        currentName = $(value).text()
-        if( currentName.toUpperCase().indexOf(searchString.toUpperCase()) > -1) {
-            $(value).show();
-        } else {
-            $(value).hide();
-        }
+
+    //Add Member In Group Modal Search
+    $('#addMemberGroupSearch').bind('keyup', function () {
+        var searchString = $(this).val();
+        $(".addMemberGroupSearchList li").each(function (index, value) {
+            currentName = $(value).text()
+            if (currentName.toUpperCase().indexOf(searchString.toUpperCase()) > -1) {
+                $(value).show();
+            } else {
+                $(value).hide();
+            }
+        });
     });
-  });
-
-
 
   // $('.search-close').click(function(){
   //     $('#userSearch').val(null)
