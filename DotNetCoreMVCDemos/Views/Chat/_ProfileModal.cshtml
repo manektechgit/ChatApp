@@ -3,14 +3,22 @@
 @using Microsoft.AspNetCore.Http;
 @*@{
 
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}*@
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }*@
 @*<link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
-<link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
-<link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
-<link rel="stylesheet" href="~/lib/bootstrap.min.css">
-<link rel="stylesheet" href="~/lib/css/app.css">
-<link rel="stylesheet" href="~/lib/css/theme/default.css">*@
+    <link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
+    <link rel="stylesheet" href="~/lib/bootstrap.min.css">
+    <link rel="stylesheet" href="~/lib/css/app.css">
+    <link rel="stylesheet" href="~/lib/css/theme/default.css">*@
+
+<script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+<link href="~/lib/jquery-ui-1.13.0.custom/jquery-ui.min.css" rel="stylesheet" />
+<script src="~/lib/jquery-ui-1.13.0.custom/jquery-ui.min.js"></script>
 @{
     var UserId = @HttpContextAccessor.HttpContext.Session.GetString("UserId");
 }
@@ -30,6 +38,7 @@
                 <div class="ca-profile-thumb" style="background-image: url(Content/images/media/07.jpg); height:210px;">
                     <div class="ca-profile-info">
                         <div class="ca-profile-pic">
+
                             @*<img class="img-fluid image" src="~/lib/images/user/500/05.jpg" alt="">*@
                             <img class="img-fluid image" src="~/lib/images/user/500/@Html.DisplayFor(modelitem=>modelitem.ProfileImage)" alt="">
                             @*<div class="middle"> Edit</div>*@
@@ -60,7 +69,7 @@
                                 </div>
                             </form>
                             <i class="mdi mdi-close" id="icnCancelimgUpld"></i>
-                            
+
                         </div>
                     </div>
                     <div class="ca-overlay"></div>
@@ -70,7 +79,8 @@
                     <form method="post" data-ajax="true" data-ajax-complete="editComplete" data-ajax-success="editSuccess" data-ajax-failure="editFail" asp-action="EditProfile" asp-controller="Chat">
                         <div class="setting-sunheading pl-2">Personal Information&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" class="btn-Save-Cancel" value="Save Changes" id="btnEditProfile" /></div>
 
-                        @Html.HiddenFor(m => m.UserId)
+                        @Html.HiddenFor(model => model.UserId)
+                        @Html.HiddenFor(model => model.Email)
                         <ul class="list-unstyled">
                             <li>
                                 <div class="ps-list">
@@ -79,9 +89,33 @@
                                         <div class="ps-list__left--name">Gender</div>
                                     </div>
                                     <div class="ps-list__right">
-                                        <span>@Html.DropDownListFor(x => x.Gender, new SelectList(ViewBag.Gender, "Name", "Name", Model.Gender), "--Select Gender--", new { @class = "form-control" })</span>
+                                        @if (Model.Gender == "Female")
+                                        {
+                                            <label class="radio-inline">
+                                                @Html.RadioButtonFor(model => model.Gender, "Male", new { @name = "gender", @checked = "false" })
+                                                Male
+                                            </label>
+
+                                            <label class="radio-inline">
+                                                @Html.RadioButtonFor(model => model.Gender, "Female", new { @name = "gender", @checked = "true" })
+                                                Female
+                                            </label>
+                                        }
+                                        else
+                                        {
+                                    <label class="radio-inline">
+                                        @Html.RadioButtonFor(model => model.Gender, "Male", new { @name = "gender", @checked = "true" })
+                                        Male
+                                    </label>
+
+                                    <label class="radio-inline">
+                                        @Html.RadioButtonFor(model => model.Gender, "Female", new { @name = "gender", @checked = "false" })
+                                        Female
+                                    </label>
+                                        }
                                     </div>
                                 </div>
+
                             </li>
                             <li>
                                 <div class="ps-list">
@@ -90,7 +124,7 @@
                                         <div class="ps-list__left--name">Birth date</div>
                                     </div>
                                     @{ var BirthDate = Convert.ToDateTime(Model.BirthDate).ToString("mm/dd/yyyy"); }
-                                    <div class="ps-list__right">@Html.TextBoxFor(modelitem => modelitem.BirthDate)</div>
+                                    <div class="ps-list__right">@Html.TextBoxFor(modelitem => modelitem.BirthDate, new { @class = "datepicker form-control" })</div>
                                 </div>
                             </li>
                             <li>
@@ -99,7 +133,7 @@
                                         <div class="ps-list__left--icon"><i class="mdi mdi-cellphone-android"></i></div>
                                         <div class="ps-list__left--name">Mobile number</div>
                                     </div>
-                                    <div class="ps-list__right">+@Html.TextBoxFor(modelitem => modelitem.MobileNumber)</div>
+                                    <div class="ps-list__right">@Html.TextBoxFor(modelitem => modelitem.MobileNumber, new { @class = "form-control" })</div>
                                 </div>
                             </li>
                             <li>
@@ -108,7 +142,7 @@
                                         <div class="ps-list__left--icon"><i class="mdi mdi-email-outline"></i></div>
                                         <div class="ps-list__left--name">Email</div>
                                     </div>
-                                    <div class="ps-list__right">@Html.TextBoxFor(modelitem => modelitem.Email)</div>
+                                    <div class="ps-list__right">@Html.DisplayFor(modelitem => modelitem.Email, new { @class = "form-control" })</div>
                                 </div>
                             </li>
                             <li>
@@ -181,18 +215,8 @@
         </div>
     </div>
 </div>
-<script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-<script src="~/lib/jquery/dist/jquery.js"></script>
-<script>
 
-    $(document).ready(function () {
-        $("#BirthDate").datepicker({ dateFormat: 'mm/dd/yy' });
-        $("#BirthDate").datepicker();
-        $("#Email").attr("disabled", "disabled")
-    });
-    
+<script>
     function editComplete() {
         /*alert("Profile Updated Successfully!");*/
     }
@@ -205,62 +229,66 @@
 </script>
 
 <script>
-    $("#btnSave").hide();
-    $("#btnCancel").hide();
+    $(document).ready(function () {
+        $('.datepicker').datepicker();
 
-    $("#txtUserFB").hide();
-    $("#txtUserIG").hide();
-    $("#txtUserSC").hide();
-    $("#txtUserTWR").hide();
-
-    $("#iconEdit").click(function () {
-        $("#btnSave").show();
-        $("#btnCancel").show();
-        $("#iconEdit").hide();
-
-        $("#spnUserFB").hide();
-        $("#spnUserIG").hide();
-        $("#spnUserSC").hide();
-        $("#spnUserTWR").hide();
-
-        $("#txtUserFB").show();
-        $("#txtUserIG").show();
-        $("#txtUserSC").show();
-        $("#txtUserTWR").show();
-    });
-
-    $("#btnCancel").click(function () {
+        $("#BirthDate").datepicker();
         $("#btnSave").hide();
         $("#btnCancel").hide();
-        $("#iconEdit").show();
-
-        $("#spnUserFB").show();
-        $("#spnUserIG").show();
-        $("#spnUserSC").show();
-        $("#spnUserTWR").show();
 
         $("#txtUserFB").hide();
         $("#txtUserIG").hide();
         $("#txtUserSC").hide();
         $("#txtUserTWR").hide();
-    });
 
-    $("#FUserProfile").hide();
-    $("#icnCancelimgUpld").hide();
-    $("#sbmtUserProfile").hide();
-    $("#imgUserProfileEdit").click(function () {
-        $("#imgUserProfileEdit").hide();
-        $("#FUserProfile").show();
-        $("#icnCancelimgUpld").show();
-        $("#sbmtUserProfile").show();
-    });
+        $("#iconEdit").click(function () {
+            $("#btnSave").show();
+            $("#btnCancel").show();
+            $("#iconEdit").hide();
 
-    $("#icnCancelimgUpld").click(function () {
-        $("#imgUserProfileEdit").show();
+            $("#spnUserFB").hide();
+            $("#spnUserIG").hide();
+            $("#spnUserSC").hide();
+            $("#spnUserTWR").hide();
+
+            $("#txtUserFB").show();
+            $("#txtUserIG").show();
+            $("#txtUserSC").show();
+            $("#txtUserTWR").show();
+        });
+
+        $("#btnCancel").click(function () {
+            $("#btnSave").hide();
+            $("#btnCancel").hide();
+            $("#iconEdit").show();
+
+            $("#spnUserFB").show();
+            $("#spnUserIG").show();
+            $("#spnUserSC").show();
+            $("#spnUserTWR").show();
+
+            $("#txtUserFB").hide();
+            $("#txtUserIG").hide();
+            $("#txtUserSC").hide();
+            $("#txtUserTWR").hide();
+        });
+
         $("#FUserProfile").hide();
         $("#icnCancelimgUpld").hide();
         $("#sbmtUserProfile").hide();
-    });
+        $("#imgUserProfileEdit").click(function () {
+            $("#imgUserProfileEdit").hide();
+            $("#FUserProfile").show();
+            $("#icnCancelimgUpld").show();
+            $("#sbmtUserProfile").show();
+        });
+
+        $("#icnCancelimgUpld").click(function () {
+            $("#imgUserProfileEdit").show();
+            $("#FUserProfile").hide();
+            $("#icnCancelimgUpld").hide();
+            $("#sbmtUserProfile").hide();
+        });
     });
 </script>
 
