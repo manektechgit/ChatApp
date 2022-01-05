@@ -98,15 +98,15 @@
     color: #6a7a8b
 }
 
-.light-default-theme .composer__left--sticker {
+/*.light-default-theme .composer__left--sticker {
     background: #e6f2ff
 }
 
     .light-default-theme .composer__left--sticker i:before {
         color: #007bff
-    }
+    }*/
 
-@media only screen and (max-width:576px) {
+/*@media only screen and (max-width:576px) {
     .light-default-theme .composer__left--sticker {
         background: transparent
     }
@@ -114,9 +114,9 @@
         .light-default-theme .composer__left--sticker i:before {
             color: inherit
         }
-}
+}*/
 
-.light-default-theme .composer__left--emoticon i:hover, .light-default-theme .composer__middle--attachment i:hover, .light-default-theme .composer__middle--microphone i:hover, .light-default-theme .composer__middle--photo i:hover {
+.light-default-theme .composer__left--sticker i:hover, .light-default-theme .composer__left--emoticon i:hover, .light-default-theme .composer__middle--attachment i:hover, .light-default-theme .composer__middle--microphone i:hover, .light-default-theme .composer__middle--photo i:hover {
     color: #007bff
 }
 
@@ -764,7 +764,7 @@
     color: #6a7a8b
 }
 
-.light-purple-theme .composer__left--sticker {
+/*.light-purple-theme .composer__left--sticker {
     background: #fff
 }
 
@@ -780,9 +780,9 @@
         .light-purple-theme .composer__left--sticker i:before {
             color: inherit
         }
-}
+}*/
 
-.light-purple-theme .composer__left--emoticon i:hover, .light-purple-theme .composer__middle--attachment i:hover, .light-purple-theme .composer__middle--microphone i:hover, .light-purple-theme .composer__middle--photo i:hover {
+.light-purple-theme .composer__left--sticker i:hover, .light-purple-theme .composer__left--emoticon i:hover, .light-purple-theme .composer__middle--attachment i:hover, .light-purple-theme .composer__middle--microphone i:hover, .light-purple-theme .composer__middle--photo i:hover {
     color: #ae6eea
 }
 
@@ -1430,7 +1430,7 @@
     color: #6a7a8b
 }
 
-.light-pink-theme .composer__left--sticker {
+/*.light-pink-theme .composer__left--sticker {
     background: #fdeff4
 }
 
@@ -1446,9 +1446,9 @@
         .light-pink-theme .composer__left--sticker i:before {
             color: inherit
         }
-}
+}*/
 
-.light-pink-theme .composer__left--emoticon i:hover, .light-pink-theme .composer__middle--attachment i:hover, .light-pink-theme .composer__middle--microphone i:hover, .light-pink-theme .composer__middle--photo i:hover {
+.light-pink-theme .composer__left--sticker i:hover, .light-pink-theme .composer__left--emoticon i:hover, .light-pink-theme .composer__middle--attachment i:hover, .light-pink-theme .composer__middle--microphone i:hover, .light-pink-theme .composer__middle--photo i:hover {
     color: #e91e63
 }
 
@@ -2095,7 +2095,7 @@
 .light-green-theme .chatstyle-01 .metadata .time {
     color: #6a7a8b
 }
-
+/*
 .light-green-theme .composer__left--sticker {
     background: #eaf6eb
 }
@@ -2112,9 +2112,9 @@
         .light-green-theme .composer__left--sticker i:before {
             color: inherit
         }
-}
+}*/
 
-.light-green-theme .composer__left--emoticon i:hover, .light-green-theme .composer__middle--attachment i:hover, .light-green-theme .composer__middle--microphone i:hover, .light-green-theme .composer__middle--photo i:hover {
+.light-green-theme .composer__left--sticker i:hover, .light-green-theme .composer__left--emoticon i:hover, .light-green-theme .composer__middle--attachment i:hover, .light-green-theme .composer__middle--microphone i:hover, .light-green-theme .composer__middle--photo i:hover {
     color: #4caf50
 }
 
@@ -2762,7 +2762,7 @@
     color: #6a7a8b
 }
 
-.light-red-theme .composer__left--sticker {
+/*.light-red-theme .composer__left--sticker {
     background: #fff
 }
 
@@ -2779,8 +2779,8 @@
             color: inherit
         }
 }
-
-.light-red-theme .composer__left--emoticon i:hover, .light-red-theme .composer__middle--attachment i:hover, .light-red-theme .composer__middle--microphone i:hover, .light-red-theme .composer__middle--photo i:hover {
+*/
+.light-red-theme .composer__left--sticker i:hover, .light-red-theme .composer__left--emoticon i:hover, .light-red-theme .composer__middle--attachment i:hover, .light-red-theme .composer__middle--microphone i:hover, .light-red-theme .composer__middle--photo i:hover {
     color: #f44336
 }
 
@@ -3428,7 +3428,7 @@
     color: #6a7a8b
 }
 
-.light-orange-theme .composer__left--sticker {
+/*.light-orange-theme .composer__left--sticker {
     background: #fff5e6
 }
 
@@ -3444,9 +3444,9 @@
         .light-orange-theme .composer__left--sticker i:before {
             color: inherit
         }
-}
+}*/
 
-.light-orange-theme .composer__left--emoticon i:hover, .light-orange-theme .composer__middle--attachment i:hover, .light-orange-theme .composer__middle--microphone i:hover, .light-orange-theme .composer__middle--photo i:hover {
+.light-orange-theme .composer__left--sticker i:hover, .light-orange-theme .composer__left--emoticon i:hover, .light-orange-theme .composer__middle--attachment i:hover, .light-orange-theme .composer__middle--microphone i:hover, .light-orange-theme .composer__middle--photo i:hover {
     color: #ff9800
 }
 
@@ -4094,7 +4094,7 @@
     color: #6a7a8b
 }
 
-.light-blue-theme .composer__left--sticker {
+/*.light-blue-theme .composer__left--sticker {
     background: #bbf7ff
 }
 
@@ -4110,9 +4110,9 @@
         .light-blue-theme .composer__left--sticker i:before {
             color: inherit
         }
-}
+}*/
 
-.light-blue-theme .composer__left--emoticon i:hover, .light-blue-theme .composer__middle--attachment i:hover, .light-blue-theme .composer__middle--microphone i:hover, .light-blue-theme .composer__middle--photo i:hover {
+.light-blue-theme .composer__left--sticker i:hover, .light-blue-theme .composer__left--emoticon i:hover, .light-blue-theme .composer__middle--attachment i:hover, .light-blue-theme .composer__middle--microphone i:hover, .light-blue-theme .composer__middle--photo i:hover {
     color: #00bcd4
 }
 
@@ -4760,7 +4760,7 @@
     color: #6a7a8b
 }
 
-.light-darkblue-theme .composer__left--sticker {
+/*.light-darkblue-theme .composer__left--sticker {
     background: #e4e7f6
 }
 
@@ -4776,9 +4776,9 @@
         .light-darkblue-theme .composer__left--sticker i:before {
             color: inherit
         }
-}
+}*/
 
-.light-darkblue-theme .composer__left--emoticon i:hover, .light-darkblue-theme .composer__middle--attachment i:hover, .light-darkblue-theme .composer__middle--microphone i:hover, .light-darkblue-theme .composer__middle--photo i:hover {
+.light-darkblue-theme .composer__left--sticker i:hover, .light-darkblue-theme .composer__left--emoticon i:hover, .light-darkblue-theme .composer__middle--attachment i:hover, .light-darkblue-theme .composer__middle--microphone i:hover, .light-darkblue-theme .composer__middle--photo i:hover {
     color: #3f51b5
 }
 
@@ -5426,7 +5426,7 @@
     color: #6a7a8b
 }
 
-.light-lightpink-theme .composer__left--sticker {
+/*.light-lightpink-theme .composer__left--sticker {
     background: #fff
 }
 
@@ -5442,9 +5442,9 @@
         .light-lightpink-theme .composer__left--sticker i:before {
             color: inherit
         }
-}
+}*/
 
-.light-lightpink-theme .composer__left--emoticon i:hover, .light-lightpink-theme .composer__middle--attachment i:hover, .light-lightpink-theme .composer__middle--microphone i:hover, .light-lightpink-theme .composer__middle--photo i:hover {
+.light-lightpink-theme .composer__left--sticker i:hover, .light-lightpink-theme .composer__left--emoticon i:hover, .light-lightpink-theme .composer__middle--attachment i:hover, .light-lightpink-theme .composer__middle--microphone i:hover, .light-lightpink-theme .composer__middle--photo i:hover {
     color: #f48fb1
 }
 
@@ -6092,7 +6092,7 @@
     color: #8da4bd
 }
 
-.dark-default-theme .composer__left--sticker {
+/*.dark-default-theme .composer__left--sticker {
     background: #e6f2ff
 }
 
@@ -6108,9 +6108,9 @@
         .dark-default-theme .composer__left--sticker i:before {
             color: inherit
         }
-}
+}*/
 
-.dark-default-theme .composer__left--emoticon i:hover, .dark-default-theme .composer__middle--attachment i:hover, .dark-default-theme .composer__middle--microphone i:hover, .dark-default-theme .composer__middle--photo i:hover {
+.dark-default-theme .composer__left--sticker i:hover, .dark-default-theme .composer__left--emoticon i:hover, .dark-default-theme .composer__middle--attachment i:hover, .dark-default-theme .composer__middle--microphone i:hover, .dark-default-theme .composer__middle--photo i:hover {
     color: #007bff
 }
 
@@ -6750,7 +6750,7 @@
     color: #8da4bd
 }
 
-.dark-purple-theme .composer__left--sticker {
+/*.dark-purple-theme .composer__left--sticker {
     background: #fff
 }
 
@@ -6766,9 +6766,9 @@
         .dark-purple-theme .composer__left--sticker i:before {
             color: inherit
         }
-}
+}*/
 
-.dark-purple-theme .composer__left--emoticon i:hover, .dark-purple-theme .composer__middle--attachment i:hover, .dark-purple-theme .composer__middle--microphone i:hover, .dark-purple-theme .composer__middle--photo i:hover {
+.dark-purple-theme .composer__left--sticker i:hover, .dark-purple-theme .composer__left--emoticon i:hover, .dark-purple-theme .composer__middle--attachment i:hover, .dark-purple-theme .composer__middle--microphone i:hover, .dark-purple-theme .composer__middle--photo i:hover {
     color: #ae6eea
 }
 
@@ -7408,7 +7408,7 @@
     color: #8da4bd
 }
 
-.dark-pink-theme .composer__left--sticker {
+/*.dark-pink-theme .composer__left--sticker {
     background: #fdeff4
 }
 
@@ -7424,9 +7424,9 @@
         .dark-pink-theme .composer__left--sticker i:before {
             color: inherit
         }
-}
+}*/
 
-.dark-pink-theme .composer__left--emoticon i:hover, .dark-pink-theme .composer__middle--attachment i:hover, .dark-pink-theme .composer__middle--microphone i:hover, .dark-pink-theme .composer__middle--photo i:hover {
+.dark-pink-theme .composer__left--sticker i:hover, .dark-pink-theme .composer__left--emoticon i:hover, .dark-pink-theme .composer__middle--attachment i:hover, .dark-pink-theme .composer__middle--microphone i:hover, .dark-pink-theme .composer__middle--photo i:hover {
     color: #e91e63
 }
 
@@ -8066,7 +8066,7 @@
     color: #8da4bd
 }
 
-.dark-green-theme .composer__left--sticker {
+/*.dark-green-theme .composer__left--sticker {
     background: #eaf6eb
 }
 
@@ -8082,9 +8082,9 @@
         .dark-green-theme .composer__left--sticker i:before {
             color: inherit
         }
-}
+}*/
 
-.dark-green-theme .composer__left--emoticon i:hover, .dark-green-theme .composer__middle--attachment i:hover, .dark-green-theme .composer__middle--microphone i:hover, .dark-green-theme .composer__middle--photo i:hover {
+.dark-green-theme .composer__left--sticker i:hover, .dark-green-theme .composer__left--emoticon i:hover, .dark-green-theme .composer__middle--attachment i:hover, .dark-green-theme .composer__middle--microphone i:hover, .dark-green-theme .composer__middle--photo i:hover {
     color: #4caf50
 }
 
@@ -8724,7 +8724,7 @@
     color: #8da4bd
 }
 
-.dark-red-theme .composer__left--sticker {
+/*.dark-red-theme .composer__left--sticker {
     background: #fff
 }
 
@@ -8740,9 +8740,9 @@
         .dark-red-theme .composer__left--sticker i:before {
             color: inherit
         }
-}
+}*/
 
-.dark-red-theme .composer__left--emoticon i:hover, .dark-red-theme .composer__middle--attachment i:hover, .dark-red-theme .composer__middle--microphone i:hover, .dark-red-theme .composer__middle--photo i:hover {
+.dark-red-theme .composer__left--sticker i:hover, .dark-red-theme .composer__left--emoticon i:hover, .dark-red-theme .composer__middle--attachment i:hover, .dark-red-theme .composer__middle--microphone i:hover, .dark-red-theme .composer__middle--photo i:hover {
     color: #f44336
 }
 
@@ -9382,7 +9382,7 @@
     color: #8da4bd
 }
 
-.dark-orange-theme .composer__left--sticker {
+/*.dark-orange-theme .composer__left--sticker {
     background: #fff5e6
 }
 
@@ -9398,9 +9398,9 @@
         .dark-orange-theme .composer__left--sticker i:before {
             color: inherit
         }
-}
+}*/
 
-.dark-orange-theme .composer__left--emoticon i:hover, .dark-orange-theme .composer__middle--attachment i:hover, .dark-orange-theme .composer__middle--microphone i:hover, .dark-orange-theme .composer__middle--photo i:hover {
+.dark-orange-theme .composer__left--sticker i:hover, .dark-orange-theme .composer__left--emoticon i:hover, .dark-orange-theme .composer__middle--attachment i:hover, .dark-orange-theme .composer__middle--microphone i:hover, .dark-orange-theme .composer__middle--photo i:hover {
     color: #ff9800
 }
 
@@ -10040,7 +10040,7 @@
     color: #8da4bd
 }
 
-.dark-blue-theme .composer__left--sticker {
+/*.dark-blue-theme .composer__left--sticker {
     background: #bbf7ff
 }
 
@@ -10056,9 +10056,9 @@
         .dark-blue-theme .composer__left--sticker i:before {
             color: inherit
         }
-}
+}*/
 
-.dark-blue-theme .composer__left--emoticon i:hover, .dark-blue-theme .composer__middle--attachment i:hover, .dark-blue-theme .composer__middle--microphone i:hover, .dark-blue-theme .composer__middle--photo i:hover {
+.dark-blue-theme .composer__left--sticker i:hover, .dark-blue-theme .composer__left--emoticon i:hover, .dark-blue-theme .composer__middle--attachment i:hover, .dark-blue-theme .composer__middle--microphone i:hover, .dark-blue-theme .composer__middle--photo i:hover {
     color: #00bcd4
 }
 
@@ -10698,7 +10698,7 @@
     color: #8da4bd
 }
 
-.dark-darkblue-theme .composer__left--sticker {
+/*.dark-darkblue-theme .composer__left--sticker {
     background: #e4e7f6
 }
 
@@ -10714,9 +10714,9 @@
         .dark-darkblue-theme .composer__left--sticker i:before {
             color: inherit
         }
-}
+}*/
 
-.dark-darkblue-theme .composer__left--emoticon i:hover, .dark-darkblue-theme .composer__middle--attachment i:hover, .dark-darkblue-theme .composer__middle--microphone i:hover, .dark-darkblue-theme .composer__middle--photo i:hover {
+.dark-darkblue-theme .composer__left--sticker i:hover, .dark-darkblue-theme .composer__left--emoticon i:hover, .dark-darkblue-theme .composer__middle--attachment i:hover, .dark-darkblue-theme .composer__middle--microphone i:hover, .dark-darkblue-theme .composer__middle--photo i:hover {
     color: #3f51b5
 }
 
@@ -11356,7 +11356,7 @@
     color: #8da4bd
 }
 
-.dark-lightpink-theme .composer__left--sticker {
+/*.dark-lightpink-theme .composer__left--sticker {
     background: #fff
 }
 
@@ -11372,9 +11372,9 @@
         .dark-lightpink-theme .composer__left--sticker i:before {
             color: inherit
         }
-}
+}*/ 
 
-.dark-lightpink-theme .composer__left--emoticon i:hover, .dark-lightpink-theme .composer__middle--attachment i:hover, .dark-lightpink-theme .composer__middle--microphone i:hover, .dark-lightpink-theme .composer__middle--photo i:hover {
+.dark-lightpink-theme .composer__left--sticker i:hover, .dark-lightpink-theme .composer__left--emoticon i:hover, .dark-lightpink-theme .composer__middle--attachment i:hover, .dark-lightpink-theme .composer__middle--microphone i:hover, .dark-lightpink-theme .composer__middle--photo i:hover {
     color: #f48fb1
 }
 
@@ -11935,7 +11935,7 @@ body.dark-blue-theme, body.dark-darkblue-theme, body.dark-default-theme, body.da
         color: #f4f4f4
     }
 
-    body.dark-blue-theme .ca-content__callstab .ca-call-details-card, body.dark-blue-theme .composer__left--sticker, body.dark-darkblue-theme .ca-content__callstab .ca-call-details-card, body.dark-darkblue-theme .composer__left--sticker, body.dark-default-theme .ca-content__callstab .ca-call-details-card, body.dark-default-theme .composer__left--sticker, body.dark-green-theme .ca-content__callstab .ca-call-details-card, body.dark-green-theme .composer__left--sticker, body.dark-lightpink-theme .ca-content__callstab .ca-call-details-card, body.dark-lightpink-theme .composer__left--sticker, body.dark-orange-theme .ca-content__callstab .ca-call-details-card, body.dark-orange-theme .composer__left--sticker, body.dark-pink-theme .ca-content__callstab .ca-call-details-card, body.dark-pink-theme .composer__left--sticker, body.dark-purple-theme .ca-content__callstab .ca-call-details-card, body.dark-purple-theme .composer__left--sticker, body.dark-red-theme .ca-content__callstab .ca-call-details-card, body.dark-red-theme .composer__left--sticker {
+    body.dark-blue-theme .ca-content__callstab .ca-call-details-card, body.dark-darkblue-theme .ca-content__callstab .ca-call-details-card, body.dark-default-theme .ca-content__callstab .ca-call-details-card, body.dark-green-theme .ca-content__callstab .ca-call-details-card, body.dark-lightpink-theme .ca-content__callstab .ca-call-details-card, body.dark-orange-theme .ca-content__callstab .ca-call-details-card, body.dark-pink-theme .ca-content__callstab .ca-call-details-card, body.dark-purple-theme .ca-content__callstab .ca-call-details-card, body.dark-red-theme .ca-content__callstab .ca-call-details-card {
         background: #37474f
     }
 

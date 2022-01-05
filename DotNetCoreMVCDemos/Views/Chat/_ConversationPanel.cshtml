@@ -16,12 +16,14 @@
 @{
     var UserId = HttpContextAccessor.HttpContext.Session.GetString("UserId");
 }
+
 <link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
 <link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
 <link rel="stylesheet" href="~/lib/bootstrap.min.css">
 <link rel="stylesheet" href="~/lib/css/app.css">
 <link rel="stylesheet" href="~/lib/css/theme/default.css">
+
 <div class="ca-content__chatstab">
     <div class="ca-content__chatstab--personal">
         <div class="conversation-wrapper">
@@ -629,6 +631,16 @@
                 <input type="hidden" id="hdnMsgCount" value="@Model.Messages.Count()" />
                 @*type and send message*@
                 <div class="conversation-panel__footer">
+                    <div class="emoticon-container d-none">
+                        <i>&#x1F604;</i>    <i>&#x1F605;</i>    <i>&#x1F602;</i>    <i>&#x1F60A;</i>
+                        <i>&#x1F60D;</i>    <i>&#x1F60B;</i>     <i>&#x1F61C;</i>    <i>&#x1F917;</i>
+                        <i>&#x1F914;</i>    <i>&#x2764;</i>     <i>&#x1F44B;</i>    <i>&#x1F44C;</i>
+                        <i>&#x2714;</i>     <i>&#x274C;</i>     <i>&#x1F36B;</i>    <i>&#x1F382;</i>
+                        <i>&#x1F918;</i>    <i>&#x1F919;</i>    <i>&#x1F44D;</i>    <i>&#x1F44F;</i>
+                        <i>&#x1F64F;</i>    <i>&#x1F467;</i>    <i>&#x1F466;</i>    <i>&#x1F471;</i>
+                        <i>&#x1F54A;</i>    <i>&#x1F425;</i>    <i>&#x1F42C;</i>    <i>&#x1F338;</i>
+                        <i>&#x1F33C;</i>    <i>&#x1F349;</i>    <i>&#x1F34F;</i>    <i>&#x1F9C0;</i>
+                    </div>
                     <div class="composer">
                         <div class="composer__left">
                             <div class="composer__left--sticker">
@@ -1016,7 +1028,10 @@
             var userID = $('#hdnUserId').val();
             var chatUserID = $('#hdnChatUserId').val();
             var ProfileImage = $('#hdnProfileImage').val();
-            var message = $("#txtMessageId").val().replaceAll('\n','<br />');
+            var message = $("#txtMessageId").val().replaceAll('\n', '<br />');
+            const rex = /[\u{1f300}-\u{1f5ff}\u{1f900}-\u{1f9ff}\u{1f600}-\u{1f64f}\u{1f680}-\u{1f6ff}\u{2600}-\u{26ff}\u{2700}-\u{27bf}\u{1f1e6}-\u{1f1ff}\u{1f191}-\u{1f251}\u{1f004}\u{1f0cf}\u{1f170}-\u{1f171}\u{1f17e}-\u{1f17f}\u{1f18e}\u{3030}\u{2b50}\u{2b55}\u{2934}-\u{2935}\u{2b05}-\u{2b07}\u{2b1b}-\u{2b1c}\u{3297}\u{3299}\u{303d}\u{00a9}\u{00ae}\u{2122}\u{23f3}\u{24c2}\u{23e9}-\u{23ef}\u{25b6}\u{23f8}-\u{23fa}]/ug;
+            message = message.replace(rex, match => `emoji-${match.codePointAt(0).toString(16)};`);
+
             var chatUserName = $('#hdnChatUserName').val();
             var lastseen = $('#hdnLastseen').val();
             var msgCount = $('#hdnMsgCount').val();
@@ -1058,7 +1073,7 @@
                     type: "GET",
                     dataType: 'html',
                     success: function (result) {
-                        $("#htmlMessageId").append(messageHtml);
+                        //$("#htmlMessageId").append(messageHtml);
                         $("#txtMessageId").val('');
                         getAllMessage();
                         $(document).ready(function () {
@@ -1127,6 +1142,9 @@
                 });
             }
 
+            if (!$(".emoticon-container").hasClass('d-none')) {
+                $(".emoticon-container").addClass('d-none');
+            }
         }
 
         function getAllMessage() {
@@ -1202,6 +1220,23 @@
         return console.error(err.toString());
         });
         });*@
+
+    $(".composer__left--emoticon").on("click", function () {
+        if ($(".emoticon-container").hasClass('d-none')) {
+            $(".emoticon-container").removeClass('d-none');
+        } else {
+            $(".emoticon-container").addClass('d-none');
+        }
+    });
+
+    $(".emoticon-container i").on("click", function () {
+        var cursorPos = $('#txtMessageId').prop('selectionStart');
+        var message = $('#txtMessageId').val();
+        var textBefore = message.substring(0, cursorPos);
+        var textAfter = message.substring(cursorPos, message.length);
+
+        $('#txtMessageId').val(textBefore + $(this)[0].innerText + textAfter);
+    });
 </script>
 
 @*<script src="~/lib/vendors/jquery/jquery-3.4.1.min.js"></script>
@@ -1210,4 +1245,3 @@
     <script src="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>*@
 <script src="~/lib/vendors/OwlCarousel2/owl.carousel.min.js"></script>
 <script src="~/lib/js/app.js"></script>
-

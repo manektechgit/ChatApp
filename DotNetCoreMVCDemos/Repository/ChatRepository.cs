@@ -1,12 +1,9 @@
-using DotNetCoreMVCDemos.Models;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
+using DotNetCoreMVCDemos.Models;
 
 namespace DotNetCoreMVCDemos.Repository
 {
@@ -178,6 +175,10 @@ namespace DotNetCoreMVCDemos.Repository
         {
             List<Messages> messages = new List<Messages>();
             DataTable dtChat = new DataTable();
+            
+            if (!string.IsNullOrEmpty(Message))
+                Message = Message.Replace("emoji-", "&#x");
+            
             SqlParameter[] objParameter = new SqlParameter[3];
             objParameter[0] = new SqlParameter("@UserId", UserId);
             objParameter[1] = new SqlParameter("@ChatUserId", ChatUserId);
@@ -360,6 +361,10 @@ namespace DotNetCoreMVCDemos.Repository
         public List<GroupMessages> GetGroupMessages(string GroupId, string UserId, string Message)
         {
             List<GroupMessages> messages = new List<GroupMessages>();
+
+            if (!string.IsNullOrEmpty(Message))
+                Message = Message.Replace("emoji-", "&#x");
+
             DataTable dtChat = new DataTable();
             SqlParameter[] objParameter = new SqlParameter[3];
             objParameter[0] = new SqlParameter("@GroupId", GroupId);
