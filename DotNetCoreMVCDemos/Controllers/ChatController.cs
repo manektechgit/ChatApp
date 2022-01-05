@@ -317,20 +317,6 @@ namespace DotNetCoreMVCDemos.Controllers
             }
             return PartialView("_MessagePanel", chat);
         }
-        public class Gender
-        {
-            public string Name { get; set; }
-        }
-        public List<Gender> getGenderList()
-        {
-            List<Gender> genderList = new List<Gender>() 
-            { 
-                new Gender{Name = "Male" },
-                new Gender{Name = "Female" },
-            };
-            return genderList;
-
-        }
         public PartialViewResult ProfileView(string UserId)
         {
             UserId = string.IsNullOrEmpty(UserId) ? session.GetString("UserId") : UserId;
@@ -344,7 +330,7 @@ namespace DotNetCoreMVCDemos.Controllers
                 var BirthDate = Convert.ToDateTime(session.GetString("BirthDate")).ToShortDateString();
                 profileInfo.BirthDate =Convert.ToDateTime(BirthDate);
                 profileInfo.Gender = session.GetString("Gender");
-                ViewBag.Gender = getGenderList();
+                //ViewBag.Gender = getGenderList();
                 profileInfo.ProfileImage = session.GetString("ProfileImage");
                 profileInfo.Facebook = session.GetString("Facebook");
                 profileInfo.Instagram = session.GetString("Instagram");
@@ -352,6 +338,7 @@ namespace DotNetCoreMVCDemos.Controllers
                 profileInfo.Snapchat = session.GetString("Snapchat");
                 return PartialView("_ProfileModal", profileInfo);
             }
+
             return PartialView("_Logout");
         }
         [HttpPost]
@@ -361,9 +348,13 @@ namespace DotNetCoreMVCDemos.Controllers
                 if (ModelState.IsValid)
                 {
                     code = ChatRepo.EditProfile(profileInfo);
+                if(code==0)
+                {
+                    return RedirectToAction(nameof(ProfileView), new { isSuccess = true, name = profileInfo.UserName });
                 }
+            }
             //ViewBag.Gender = getGenderList();
-            return RedirectToAction(nameof(ProfileView), new { isSuccess = true, name = profileInfo.UserName });
+            return RedirectToAction(nameof(ProfileView), new { isSuccess = false, name = profileInfo.UserName });
         }
         public PartialViewResult GetContactInfo(string ChatUserId, string UserId)
         {
