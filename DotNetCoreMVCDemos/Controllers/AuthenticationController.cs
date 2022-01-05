@@ -96,7 +96,7 @@ namespace DotNetCoreMVCDemos.Controllers
             }
             else if (code == 2)
             {
-                ViewData["Failed"] = "Please Enter Valid Email Id";
+                ViewData["Failed"] = "Email Id is not Exists.";
             }
             else
             {

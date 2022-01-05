@@ -14,7 +14,7 @@ namespace DotNetCoreMVCDemos.Models
         [Required(ErrorMessage = "Please enter an email")]
         public string Email { get; set; }
 
-        [StringLength(100, ErrorMessage = "Password must be at least 8 digits long.", MinimumLength = 8)]
+        //[StringLength(100, ErrorMessage = "Password must be at least 8 digits long.", MinimumLength = 8)]
         //[RegularExpression("^((?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])|(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^a-zA-Z0-9])|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])|(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^a-zA-Z0-9])).{8,}$", ErrorMessage = "Passwords must be at least 8 digits and the following 4: Upper case (A-Z), Lower case (a-z), number (0-9) And special character (E.x.! @ # $% ^ & *)")]
         [Required(ErrorMessage = "Please enter a password")]
         public string Password { get; set; }
