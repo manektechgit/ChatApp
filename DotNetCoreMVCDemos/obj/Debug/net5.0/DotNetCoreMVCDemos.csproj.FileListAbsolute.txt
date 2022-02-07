@@ -339,7 +339,6 @@ D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\bin\Debug\net5.0\runtimes\wi
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\bin\Debug\net5.0\runtimes\win-x86\native\sni.dll
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\bin\Debug\net5.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\bin\Debug\net5.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
-D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\DotNetCoreMVCDemos.csproj.AssemblyReference.cache
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\DotNetCoreMVCDemos.GeneratedMSBuildEditorConfig.editorconfig
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\DotNetCoreMVCDemos.AssemblyInfoInputs.cache
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\DotNetCoreMVCDemos.AssemblyInfo.cs
@@ -353,6 +352,7 @@ D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\staticwebas
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\DotNetCoreMVCDemos.TagHelpers.input.cache
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\DotNetCoreMVCDemos.TagHelpers.output.cache
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\DotNetCoreMVCDemos.RazorCoreGenerate.cache
+D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Authentication\ForgotPassword.cshtml.g.cs
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Authentication\Login.cshtml.g.cs
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Authentication\Register.cshtml.g.cs
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Chat\ChatDemo.cshtml.g.cs
@@ -365,11 +365,13 @@ D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Chat\_ContactDetails.cshtml.g.cs
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Chat\_Contactinfo.cshtml.g.cs
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Chat\_ConversationPanel.cshtml.g.cs
+D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Chat\_ForwardMessage.cshtml.g.cs
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Chat\_GroupChat.cshtml.g.cs
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Chat\_GroupConversationPanel.cshtml.g.cs
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Chat\_Groupinfo.cshtml.g.cs
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Chat\_GrpMessagePanel.cshtml.g.cs
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Chat\_Logout.cshtml.g.cs
+D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Chat\_Message.cshtml.g.cs
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Chat\_MessagePanel.cshtml.g.cs
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Chat\_PersonalChat.cshtml.g.cs
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Chat\_ProfileModal.cshtml.g.cs
@@ -389,7 +391,3 @@ D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\DotNetCoreM
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\ref\DotNetCoreMVCDemos.dll
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\DotNetCoreMVCDemos.pdb
 D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\DotNetCoreMVCDemos.genruntimeconfig.cache
-D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Chat\livetest.cshtml.g.cs
-D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Chat\mytest.cshtml.g.cs
-D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Chat\_ForwardMessage.cshtml.g.cs
-D:\Gitlab Projects\dotnetdemomvc\DotNetCoreMVCDemos\obj\Debug\net5.0\Razor\Views\Chat\_Message.cshtml.g.cs

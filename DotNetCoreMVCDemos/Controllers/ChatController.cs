@@ -326,9 +326,9 @@ namespace DotNetCoreMVCDemos.Controllers
                 profileInfo.Email = session.GetString("Email");
                 profileInfo.UserName = session.GetString("UserName");
                 profileInfo.MobileNumber = session.GetString("Mobile");
-                
+
                 var BirthDate = Convert.ToDateTime(session.GetString("BirthDate")).ToShortDateString();
-                profileInfo.BirthDate =Convert.ToDateTime(BirthDate);
+                profileInfo.BirthDate = Convert.ToDateTime(BirthDate);
                 profileInfo.Gender = session.GetString("Gender");
                 //ViewBag.Gender = getGenderList();
                 profileInfo.ProfileImage = session.GetString("ProfileImage");
@@ -344,11 +344,13 @@ namespace DotNetCoreMVCDemos.Controllers
         [HttpPost]
         public IActionResult EditProfile(ProfileInfo profileInfo)
         {
-                int code = -1;
-                if (ModelState.IsValid)
-                {
-                    code = ChatRepo.EditProfile(profileInfo);
-                if(code==0)
+            int code = -1;
+            if (ModelState.IsValid)
+            {
+                session.SetString("Gender", profileInfo.Gender);
+                session.SetString("BirthDate", Convert.ToDateTime(profileInfo.BirthDate).ToString());
+                code = ChatRepo.EditProfile(profileInfo);
+                if (code == 0)
                 {
                     return RedirectToAction(nameof(ProfileView), new { isSuccess = true, name = profileInfo.UserName });
                 }
@@ -607,7 +609,7 @@ namespace DotNetCoreMVCDemos.Controllers
             {
                 List<AllUsersModel> users = new List<AllUsersModel>();
                 users = ChatRepo.GetAllUsers(UserId);
-                
+
                 if (!string.IsNullOrEmpty(UserListName))
                     ViewBag.UserListName = UserListName;
                 else
@@ -719,7 +721,7 @@ namespace DotNetCoreMVCDemos.Controllers
             }
             return PartialView("_Message", Message);
         }
-        public PartialViewResult SendForwardGroupMessage(string UserId,string GroupID, string GroupMsgID, string ConversationID)
+        public PartialViewResult SendForwardGroupMessage(string UserId, string GroupID, string GroupMsgID, string ConversationID)
         {
             MessageModel Message = new MessageModel();
             Message = ChatRepo.SendForwardGroupMessage(UserId, GroupID, GroupMsgID, ConversationID);

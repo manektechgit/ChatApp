@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="~/lib/bootstrap.min.css">
     <link rel="stylesheet" href="~/lib/css/app.css">
     <link rel="stylesheet" href="~/lib/css/theme/default.css">*@
+<link rel="stylesheet" href="~/lib/fonts/MaterialDesign/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="~/lib/vendors/perfect-scrollbar/perfect-scrollbar.css">
+<link rel="stylesheet" href="~/lib/vendors/OwlCarousel2/owl.carousel.css">
+<link rel="stylesheet" href="~/lib/bootstrap.min.css">
+<link rel="stylesheet" href="~/lib/css/app.css">
+<link rel="stylesheet" href="~/lib/css/theme/default.css">
 
 <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -37,37 +43,46 @@
             <div class="modal-body p-0">
                 <div class="ca-profile-thumb" style="background-image: url(Content/images/media/07.jpg); height:210px;">
                     <div class="ca-profile-info">
-                        <div class="ca-profile-pic">
-
-                            @*<img class="img-fluid image" src="~/lib/images/user/500/05.jpg" alt="">*@
-                            <img class="img-fluid image" src="~/lib/images/user/500/@Html.DisplayFor(modelitem=>modelitem.ProfileImage)" alt="">
-                            @*<div class="middle"> Edit</div>*@
-
-                        </div>
+                        <form id="profilephotoform" method="post" enctype="multipart/form-data" asp-controller="Chat" asp-action="UpdateProfilePicture">
+                            <div class="ca-profile-pic" id="imgUserProfile">
+                                @Html.HiddenFor(m => m.UserId)
+                                @*<img class="img-fluid image" src="~/lib/images/user/500/05.jpg" alt="">*@
+                                <img class="img-fluid image" id="imgUserProfile" src="~/lib/images/user/500/@Html.DisplayFor(modelitem=>modelitem.ProfileImage)" alt=""
+                                     style="width: inherit; height: inherit;">
+                                <input type="file" name="Files" id="uplodfile" style="display: none;" />
+                                @*<div class="middle"> Edit</div>*@
+                                <input type="submit" value="Upload" id="sbmtUserProfile" style="display:none;" />
+                            </div>
+                        </form>
                         <div class="ca-profile-title">
                             <h2 class="ca-profile-name">@Html.DisplayFor(modelitem => modelitem.UserName)</h2>
                         </div>
                     </div>
                     <div class="ca-profile-actions" style="padding-right: 10px; padding-top: 3px;">
                         <div class="iconbox-group">
-                            <div class="iconbox btn-hovered-light">
-                                <img id="imgUserProfileEdit" class="img-fluid image" src="~/lib/images/icon/icons8-camera-20.png" alt="">
-                                @*<i class="iconbox__icon mdi mdi-pencil-outline" id="UserProfileEdit"></i>*@
-                                @*<input type="file" name="Files" id="FUserProfile" />*@
-                            </div>
-                            <form method="post" enctype="multipart/form-data" asp-controller="Chat" asp-action="UpdateProfilePicture">
-                                @Html.HiddenFor(m => m.UserId)
-                                <div class="form-group">
-                                    <div class="col-md-10">
-                                        <input type="file" name="files" multiple id="FUserProfile" />
+                            <!--<div class="iconbox btn-hovered-light">
+                                <form method="post" enctype="multipart/form-data" asp-controller="Chat" asp-action="UpdateProfilePicture">
+                                    @Html.HiddenFor(m => m.UserId)
+                                    <img id="imgUserProfile" class="img-fluid image" src="~/lib/images/icon/icons8-camera-20.png" alt="">
+                                    <input type="file" name="Files" id="uplodfile" style="display: none;" />-->
+                            @*<img id="imgUserProfileEdit" class="img-fluid image" src="~/lib/images/icon/icons8-camera-20.png" alt="">*@
+                            @*<i class="iconbox__icon mdi mdi-pencil-outline" id="UserProfileEdit"></i>*@
+                            @*<input type="file" name="Files" id="FUserProfile" />*@
+                            <!--</form>
+                            </div>-->
+                            @*<form method="post" enctype="multipart/form-data" asp-controller="Chat" asp-action="UpdateProfilePicture">
+                                    @Html.HiddenFor(m => m.UserId)
+                                    <div class="form-group">
+                                        <div class="col-md-10">
+                                            <input type="file" name="files" multiple id="FUserProfile" />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-10">
-                                        <input class="btn-Save-Cancel" type="submit" value="Upload" id="sbmtUserProfile" />
+                                    <div class="form-group">
+                                        <div class="col-md-10">
+                                            <input class="btn-Save-Cancel" type="submit" value="Upload" id="sbmtUserProfile" />
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
+                                </form>*@
                             <i class="mdi mdi-close" id="icnCancelimgUpld"></i>
 
                         </div>
@@ -103,15 +118,15 @@
                                         }
                                         else
                                         {
-                                    <label class="radio-inline">
-                                        @Html.RadioButtonFor(model => model.Gender, "Male", new { @name = "gender", @checked = "true" })
-                                        Male
-                                    </label>
+                                            <label class="radio-inline">
+                                                @Html.RadioButtonFor(model => model.Gender, "Male", new { @name = "gender", @checked = "true" })
+                                                Male
+                                            </label>
 
-                                    <label class="radio-inline">
-                                        @Html.RadioButtonFor(model => model.Gender, "Female", new { @name = "gender", @checked = "false" })
-                                        Female
-                                    </label>
+                                            <label class="radio-inline">
+                                                @Html.RadioButtonFor(model => model.Gender, "Female", new { @name = "gender", @checked = "false" })
+                                                Female
+                                            </label>
                                         }
                                     </div>
                                 </div>
@@ -123,8 +138,10 @@
                                         <div class="ps-list__left--icon"><i class="mdi mdi-cake"></i></div>
                                         <div class="ps-list__left--name">Birth date</div>
                                     </div>
-                                    @{ var BirthDate = Convert.ToDateTime(Model.BirthDate).ToString("mm/dd/yyyy"); }
-                                    <div class="ps-list__right">@Html.TextBoxFor(modelitem => modelitem.BirthDate, new { @class = "datepicker form-control" })</div>
+                                    @{ var BirthDate = Convert.ToDateTime(Model.BirthDate).ToString("MM/dd/yyyy"); }
+                                    @{ var NewBirthDate = Convert.ToDateTime(Model.BirthDate).ToString("yyyy-MM-dd"); }
+                                    <input type="hidden" id="birthDateHdn" value="@NewBirthDate">
+                                    <div class="ps-list__right">@Html.TextBoxFor(modelitem => modelitem.BirthDate, "{0:dd/MM/yyyy}", new { @id = "hdnBirthDate", @type = "date", @class = "form-control" })</div>
                                 </div>
                             </li>
                             <li>
@@ -226,13 +243,24 @@
     function editFail(data) {
         alert("Hey " + data + ", OOPS! Something Went wrong");
     }
+
+    $("#imgUserProfile").click(function () {
+        $("#uplodfile").click();
+    });
+
+    $("#uplodfile").change(function () {
+        var file = $(this).val();
+        document.getElementById("profilephotoform").submit();
+        //$("#fname").text(file);
+    });
 </script>
 
 <script>
     $(document).ready(function () {
-        $('.datepicker').datepicker();
+        $('#hdnBirthDate').val($('#birthDateHdn').val());
+        //$('.datepicker').datepicker();
 
-        $("#BirthDate").datepicker();
+        //$("#BirthDate").datepicker();
         $("#btnSave").hide();
         $("#btnCancel").hide();
 
@@ -310,6 +338,65 @@
         border-right-style: hidden;
         border-left-style: hidden;
         border-bottom-style: hidden;
+    }
+
+    .well {
+        margin-top: 20px;
+    }
+
+    h1 {
+        margin-top: 0;
+        font-size: 22px;
+    }
+
+    .date-range {
+        margin: auto;
+        text-align: center;
+    }
+
+        .date-range > div {
+            display: inline-block;
+            margin: 10px;
+        }
+
+    p {
+        text-align: right;
+        margin-bottom: 0;
+    }
+
+    .is-selected {
+        background-color: #286090;
+        color: white;
+    }
+
+        .is-selected:hover {
+            background-color: #204d74 !important;
+        }
+
+    .is-between {
+        border-radius: 0 !important;
+        background-color: #5599d4;
+        color: white;
+    }
+
+        .is-between:hover {
+            background-color: #204d74 !important;
+        }
+
+    .checkin-picker .active,
+    .checkout-picker .is-selected {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .checkout-picker .active,
+    .checkin-picker .is-selected {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+
+    .disabled {
+        color: #d8d8d8 !important;
     }
 </style>
 
